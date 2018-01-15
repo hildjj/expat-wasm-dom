@@ -7,7 +7,10 @@
     "test": "ava test",
     "coverage": "nyc npm test",
     "postcoverage": "nyc report -r html",
-    "lint": "standard lib test"
+    "lint": "standard",
+    "doc": "jsdoc -c .jsdoc.conf",
+    "release": "npm version patch && git push --follow-tags && npm publish",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
@@ -17,6 +20,7 @@
   },
   "devDependencies": {
     "ava": "^0.24.0",
+    "jsdoc": "^3.5.5",
     "nyc": "^11.4.1",
     "standard": "^10.0.3"
   },
