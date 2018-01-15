@@ -14,3 +14,6 @@ To use:
     f()
 
 Docs coming soon.
+
+[![Build Status](https://travis-ci.org/hildjj/expat-wasm-dom.svg?branch=master)](https://travis-ci.org/hildjj/expat-wasm-dom)
+[![Coverage Status](https://coveralls.io/repos/github/hildjj/expat-wasm-dom/badge.svg?branch=master)](https://coveralls.io/github/hildjj/expat-wasm-dom?branch=master)
