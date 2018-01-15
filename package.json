@@ -1,0 +1,28 @@
+{
+  "name": "expat-wasm-dom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "ava test",
+    "coverage": "nyc npm test",
+    "postcoverage": "nyc report -r html",
+    "lint": "standard lib test"
+  },
+  "keywords": [],
+  "author": "Joe Hildebrand <joe-github@cursive.net>",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "expat-wasm": "^1.0.1"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "nyc": "^11.4.1",
+    "standard": "^10.0.3"
+  },
+  "nyc": {
+    "exclude": [
+      "test/"
+    ]
+  }
+}
