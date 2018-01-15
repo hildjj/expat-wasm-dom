@@ -9,3 +9,5 @@ docs/
 .vscode/
 test/
 *.tgz.travis.yml
+.travis.yml
+*.tgz
