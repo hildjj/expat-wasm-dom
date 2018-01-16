@@ -4,9 +4,11 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "pretest": "npm run grammar",
     "test": "ava test",
     "coverage": "nyc npm test",
     "postcoverage": "nyc report -r html",
+    "grammar": "pegjs lib/*.pegjs",
     "lint": "standard",
     "doc": "jsdoc -c .jsdoc.conf",
     "release": "npm version patch && git push --follow-tags && npm publish",
@@ -22,11 +24,13 @@
     "ava": "^0.24.0",
     "jsdoc": "^3.5.5",
     "nyc": "^11.4.1",
+    "pegjs": "^0.10.0",
     "standard": "^10.0.3"
   },
   "nyc": {
     "exclude": [
-      "test/"
+      "test/",
+      "lib/xpathPattern.js"
     ]
   }
 }

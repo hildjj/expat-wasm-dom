@@ -35,7 +35,7 @@ test('characterData', async t => {
   t.is(doc.root.children.length, 1)
   const txt = doc.root.children[0]
   t.truthy(txt instanceof dom.Text)
-  t.is(txt.text, 'goo')
+  t.is(txt.text(), 'goo')
 })
 
 test('comment', async t => {
@@ -44,7 +44,7 @@ test('comment', async t => {
   t.is(doc.root.children.length, 1)
   const c = doc.root.children[0]
   t.truthy(c instanceof dom.Comment)
-  t.is(c.text, 'goo&')
+  t.is(c.txt, 'goo&')
 })
 
 test('cdata', async t => {
@@ -53,7 +53,7 @@ test('cdata', async t => {
   t.is(doc.root.children.length, 1)
   const c = doc.root.children[0]
   t.truthy(c instanceof dom.CdataSection)
-  t.is(c.children[0].text, 'goo&')
+  t.is(c.children[0].text(), 'goo&')
 })
 
 test('xmlDecl', async t => {
@@ -128,4 +128,12 @@ test('namespaces', async t => {
   const barNS = doc.root.element('bar', 'urn:bar')
   t.truthy(barNS)
   t.falsy(doc.root.element('barb', 'urn:bar'))
+
+  // elements
+  let elems = doc.root.elements()
+  t.is([...elems].length, 2)
+  elems = doc.root.elements('bar', 'urn:foo')
+  t.is([...elems].length, 1)
+  elems = doc.root.elements('bar', 'urn:bar')
+  t.is([...elems].length, 1)
 })
