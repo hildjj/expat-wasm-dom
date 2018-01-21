@@ -19,14 +19,15 @@ test('parseFull', async t => {
 test('attributes', async t => {
   const doc = await DomParser.parseFull('<f a="b" g:h="i" xmlns:g="urn:g"/>')
   t.truthy(doc)
-  t.deepEqual(doc.root.attribute('a'), 'b')
-  t.deepEqual(doc.root.attribute('h', 'urn:g'), 'i')
+  t.deepEqual(doc.root.attribute('a').value, 'b')
+  t.deepEqual(doc.root.attribute('h', 'urn:g').value, 'i')
 })
 
 test('startNamespaceDecl', async t => {
   const doc = await DomParser.parseFull('<f xmlns="urn:f" xmlns:g="urn:g"/>')
   t.truthy(doc)
-  t.deepEqual(doc.root.ns, [['', 'urn:f'], ['g', 'urn:g']])
+  t.deepEqual(doc.root.ns.map(n => n.toString()),
+              [' xmlns="urn:f"', ' xmlns:g="urn:g"'])
 })
 
 test('characterData', async t => {
@@ -136,4 +137,11 @@ test('namespaces', async t => {
   t.is([...elems].length, 1)
   elems = doc.root.elements('bar', 'urn:bar')
   t.is([...elems].length, 1)
+})
+
+test('tagged literal', async t => {
+  let d = await DomParser.fromString`<foo/>`
+  t.is(d.toString(), '<foo/>')
+  d = await DomParser.fromString`<foo>${12}</foo${'>'}`
+  t.is(d.toString(), '<foo>12</foo>')
 })

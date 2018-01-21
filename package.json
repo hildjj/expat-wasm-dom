@@ -27,6 +27,11 @@
     "pegjs": "^0.10.0",
     "standard": "^10.0.3"
   },
+  "standard": {
+    "ignore": [
+      "lib/xpathPattern.js"
+    ]
+  },
   "nyc": {
     "exclude": [
       "test/",
