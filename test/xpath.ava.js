@@ -44,6 +44,7 @@ test('get', async t => {
   t.is(doc.first('//bar/@*/load/text()'), 'heavy')
   t.is(doc.root.get('./dar').length, 3)
   t.is(doc.root.get('deep//no').length, 1)
+  t.is(doc.root.get('deep//*').length, 2)
 })
 
 test('error', t => {
