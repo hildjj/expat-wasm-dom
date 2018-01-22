@@ -8,7 +8,7 @@
     "test": "ava test",
     "coverage": "nyc npm test",
     "postcoverage": "nyc report -r html",
-    "grammar": "pegjs lib/*.pegjs",
+    "grammar": "pegjs lib/xpathPattern3.pegjs",
     "lint": "standard",
     "doc": "jsdoc -c .jsdoc.conf",
     "release": "npm version patch && git push --follow-tags && npm publish",
