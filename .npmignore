@@ -12,3 +12,4 @@ test/
 .travis.yml
 *.tgz
 lib/xpathPattern.pegjs
+tmp/
