@@ -15,3 +15,4 @@ lib/xpathPattern.pegjs
 tmp/
 .eslintrc.cjs
 .c8rc
+tsconfig.json

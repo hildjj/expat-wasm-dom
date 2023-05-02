@@ -8,6 +8,7 @@
     "ewlint": "bin/ewlint.js",
     "ewq": "bin/ewq.js"
   },
+  "types": "types/index.d.ts",
   "scripts": {
     "pretest": "bash -c '[ lib/xpathPattern3.pegjs -nt lib/xpathPattern3.js ] && npm run grammar || true'",
     "test": "ava test",
@@ -24,11 +25,14 @@
   },
   "devDependencies": {
     "@cto.af/eslint-config": "1.0.5",
+    "@types/node": "18.16.3",
     "ava": "^5.2.0",
     "c8": "7.13.0",
     "docdash": "2.0.1",
     "eslint": "8.39.0",
     "jsdoc": "^4.0.2",
+    "jsdoc-ts-utils": "4.0.0",
+    "jsdoc-tsimport-plugin": "1.0.5",
     "peggy": "3.0.2"
   }
 }
