@@ -11,12 +11,10 @@
   "scripts": {
     "pretest": "bash -c '[ lib/xpathPattern3.pegjs -nt lib/xpathPattern3.js ] && npm run grammar || true'",
     "test": "ava test",
-    "coverage": "nyc -r html npm test",
+    "coverage": "c8 npm test",
     "grammar": "peggy --format es lib/xpathPattern3.pegjs",
     "lint": "eslint . --ext js",
-    "doc": "jsdoc -c .jsdoc.conf",
-    "release": "npm version patch && git push --follow-tags && npm publish",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "doc": "jsdoc -c .jsdoc.conf"
   },
   "keywords": [],
   "author": "Joe Hildebrand <joe-github@cursive.net>",

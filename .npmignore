@@ -14,3 +14,4 @@ test/
 lib/xpathPattern.pegjs
 tmp/
 .eslintrc.cjs
+.c8rc
