@@ -13,3 +13,4 @@ test/
 *.tgz
 lib/xpathPattern.pegjs
 tmp/
+.eslintrc.cjs

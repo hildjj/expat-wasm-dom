@@ -1,83 +1,81 @@
-'use strict'
+import {DomParser, dom} from '../lib/index.js'
+import test from 'ava'
 
-const test = require('ava')
-const DomParser = require('../lib/domParser')
-const dom = require('../lib/dom')
-
-test('create', async t => {
-  t.throws(() => new DomParser())
-  t.truthy(await DomParser.create())
+test('create', t => {
+  t.truthy(new DomParser())
 })
 
-test('parseFull', async t => {
-  const doc = await DomParser.parseFull('<foo/>')
+test('parseFull', t => {
+  const doc = DomParser.parseFull('<foo/>')
   t.truthy(doc)
   t.truthy(doc.root instanceof dom.Element)
-  await t.throws(DomParser.parseFull('<fo'))
+  t.throws(() => DomParser.parseFull('<fo'))
 })
 
-test('attributes', async t => {
-  const doc = await DomParser.parseFull('<f a="b" g:h="i" xmlns:g="urn:g"/>')
+test('attributes', t => {
+  const doc = DomParser.parseFull('<f a="b" g:h="i" xmlns:g="urn:g"/>')
   t.truthy(doc)
   t.deepEqual(doc.root.attribute('a').value, 'b')
   t.deepEqual(doc.root.attribute('h', 'urn:g').value, 'i')
 })
 
-test('startNamespaceDecl', async t => {
-  const doc = await DomParser.parseFull('<f xmlns="urn:f" xmlns:g="urn:g"/>')
+test('startNamespaceDecl', t => {
+  const doc = DomParser.parseFull('<f xmlns="urn:f" xmlns:g="urn:g"/>')
   t.truthy(doc)
   t.deepEqual(doc.root.ns.map(n => n.toString()),
-              [' xmlns="urn:f"', ' xmlns:g="urn:g"'])
+    [' xmlns="urn:f"', ' xmlns:g="urn:g"'])
 })
 
-test('characterData', async t => {
-  const doc = await DomParser.parseFull('<f>goo</f>')
+test('characterData', t => {
+  const doc = DomParser.parseFull('<f>goo</f>')
   t.truthy(doc)
   t.is(doc.root.children.length, 1)
-  const txt = doc.root.children[0]
+  const [txt] = doc.root.children
   t.truthy(txt instanceof dom.Text)
   t.is(txt.text(), 'goo')
 })
 
-test('comment', async t => {
-  const doc = await DomParser.parseFull('<f><!--goo&--></f>')
+test('comment', t => {
+  const doc = DomParser.parseFull('<f><!--goo&--></f>')
   t.truthy(doc)
   t.is(doc.root.children.length, 1)
-  const c = doc.root.children[0]
+  const [c] = doc.root.children
   t.truthy(c instanceof dom.Comment)
   t.is(c.txt, 'goo&')
 })
 
-test('cdata', async t => {
-  const doc = await DomParser.parseFull('<f><![CDATA[goo&]]></f>')
+test('cdata', t => {
+  const doc = DomParser.parseFull('<f><![CDATA[goo&]]></f>')
   t.truthy(doc)
   t.is(doc.root.children.length, 1)
-  const c = doc.root.children[0]
+  const [c] = doc.root.children
   t.truthy(c instanceof dom.CdataSection)
   t.is(c.children[0].text(), 'goo&')
 })
 
-test('xmlDecl', async t => {
-  const doc = await DomParser.parseFull('<?xml version="1.0" standalone="no" ?><f/>')
+test('xmlDecl', t => {
+  const doc = DomParser.parseFull('<?xml version="1.0" standalone="no" ?><f/>')
   t.truthy(doc)
-  t.truthy(doc.children.length, 2)
-  const decl = doc.children[0]
+  t.is(doc.children.length, 2)
+  const [decl] = doc.children
   t.truthy(decl instanceof dom.XmlDeclaration)
   t.is(decl.version, '1.0')
   t.is(decl.encoding, '')
 })
 
-test('processingInstruction', async t => {
-  const doc = await DomParser.parseFull('<?xml-stylesheet href="mystyle.css" type="text/css"?><f/>')
+test('processingInstruction', t => {
+  const doc = DomParser.parseFull(
+    '<?xml-stylesheet href="mystyle.css" type="text/css"?><f/>'
+  )
   t.truthy(doc)
-  t.truthy(doc.children.length, 2)
-  const pi = doc.children[0]
+  t.is(doc.children.length, 2)
+  const [pi] = doc.children
   t.truthy(pi instanceof dom.ProcessingInstruction)
   t.is(pi.target, 'xml-stylesheet')
   t.is(pi.data, 'href="mystyle.css" type="text/css"')
 })
 
-test('dtd', async t => {
+test('dtd', t => {
   let txt = `<?xml version="1.0"?>
 <!DOCTYPE foo [
   <!ENTITY js "EcmaScript">
@@ -102,17 +100,17 @@ test('dtd', async t => {
   <!ATTLIST apple lang NOTATION (vrml) #REQUIRED>
 ]>
 <foo/>`
-  const doc = await DomParser.parseFull(txt)
+  const doc = DomParser.parseFull(txt)
   txt = txt.replace('<foo/>', '<foo reseller="MyStore" inPrint="yes"/>')
   t.is(doc.toString(), txt)
 })
 
-test('partial', async t => {
-  const p = await DomParser.create()
+test('partial', t => {
+  const p = new DomParser()
   t.falsy(p.parse('<foo', 0))
 })
 
-test('namespaces', async t => {
+test('namespaces', t => {
   const txt = `<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <?xml-stylesheet href="mystyle.css" type="text/css"?>
 <foo xmlns="urn:foo" xmlns:b="urn:bar" b:boo="bo">
@@ -120,7 +118,7 @@ test('namespaces', async t => {
   <b:bar><![CDATA[&<>'"]]></b:bar>
   <!--&<>'"-->
 </foo>`
-  const doc = await DomParser.parseFull(txt)
+  const doc = DomParser.parseFull(txt)
   t.is(doc.toString(), txt)
   const bar = doc.root.element('bar')
   t.truthy(bar)
@@ -130,7 +128,7 @@ test('namespaces', async t => {
   t.truthy(barNS)
   t.falsy(doc.root.element('barb', 'urn:bar'))
 
-  // elements
+  // Elements
   let elems = doc.root.elements()
   t.is([...elems].length, 2)
   elems = doc.root.elements('bar', 'urn:foo')
@@ -139,9 +137,9 @@ test('namespaces', async t => {
   t.is([...elems].length, 1)
 })
 
-test('tagged literal', async t => {
-  let d = await DomParser.fromString`<foo/>`
+test('tagged literal', t => {
+  let d = DomParser.fromString`<foo/>`
   t.is(d.toString(), '<foo/>')
-  d = await DomParser.fromString`<foo>${12}</foo${'>'}`
+  d = DomParser.fromString`<foo>${12}</foo${'>'}`
   t.is(d.toString(), '<foo>12</foo>')
 })
