@@ -9,7 +9,7 @@ test('element', t => {
   const attr = e.setAttribute('a', 'b')
   t.is(attr.toString(), ' a="b"')
   t.is(e.toString(), '<foo a="b"/>')
-  t.is(e.attribute('a').value, 'b')
+  t.is(e.attr('a'), 'b')
   e.setAttribute('a', 'c')
   t.is(e.toString(), '<foo a="c"/>')
   e.setAttribute({local: 'b', prefix: 'c', ns: 'urn:c'}, 'd')

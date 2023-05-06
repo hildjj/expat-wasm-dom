@@ -15,8 +15,8 @@ test('parseFull', t => {
 test('attributes', t => {
   const doc = DomParser.parseFull('<f a="b" g:h="i" xmlns:g="urn:g"/>')
   t.truthy(doc)
-  t.deepEqual(doc.root.attribute('a').value, 'b')
-  t.deepEqual(doc.root.attribute('h', 'urn:g').value, 'i')
+  t.deepEqual(doc.root.attr('a'), 'b')
+  t.deepEqual(doc.root.attr('h', 'urn:g'), 'i')
 })
 
 test('startNamespaceDecl', t => {
@@ -88,7 +88,7 @@ test('dtd', t => {
   <!ELEMENT empty EMPTY>
   <!ELEMENT any ANY>
   <!ELEMENT parent (empty)>
-  <!ELEMENT fruit (apple+|orange?)>
+  <!ELEMENT fruit (apple+ | orange?)>
   <!ELEMENT fruits (apple,orange)>
   <!ATTLIST fruit fruitID ID #REQUIRED>
   <!ATTLIST foo
@@ -123,7 +123,7 @@ test('namespaces', t => {
   const bar = doc.root.element('bar')
   t.truthy(bar)
   t.deepEqual(bar.name, {ns: 'urn:foo', local: 'bar'})
-  t.falsy(bar.attribute('moo'))
+  t.falsy(bar.attr('moo'))
   const barNS = doc.root.element('bar', 'urn:bar')
   t.truthy(barNS)
   t.falsy(doc.root.element('barb', 'urn:bar'))

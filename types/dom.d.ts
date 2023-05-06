@@ -4,7 +4,6 @@
  * @property {string} [pieces.ns] - the namespace URI
  * @property {string} pieces.local - the local name
  * @property {string} [pieces.prefix] - the prefix used for the current name
- * @private
  */
 /**
  * @jsdoc-remove-next-tag
@@ -39,11 +38,11 @@ export class Node {
     /**
      * Convert to string.  Overridden by all subclasses.
      *
-     * @param {util.InspectOptions} [options] How to convert to string
+     * @param {MaybeStylizedSeparated} [options] How to convert to string
      * @returns {string} The node, converted to a string
      * @abstract
      */
-    toString(options?: util.InspectOptions | undefined): string;
+    toString(options?: MaybeStylizedSeparated | undefined): string;
     /**
      * Get all of the nodes that match the given XPath pattern, with the given
      * context for XPath execution.
@@ -130,14 +129,6 @@ export class ParentNode extends Node {
      */
     elements(local?: string | undefined, ns?: string | undefined): Generator<Element>;
     /**
-     * Convert the node to a string containing representations of all of the
-     * children of this node.  Override this and call super as needed.
-     *
-     * @param {MaybeStylizedSeparated} [options] How to convert to string
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: MaybeStylizedSeparated | undefined): string;
-    /**
      * Allow easy iteration over all of the children of this node
      *
      * @returns {Iterator<Node>} The iterator
@@ -157,19 +148,6 @@ export class Document extends ParentNode {
      * @readonly
      */
     readonly get root(): Element | null;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * XML Element, like <code>&lt;foo/&gt;</code>.
@@ -198,7 +176,17 @@ export class Element extends ParentNode {
      *   attributes in any namespace.
      * @returns {Attribute|undefined} Attribute, if one that matches is found
      */
-    attribute(local: string, ns?: string | undefined): Attribute | undefined;
+    _attribute(local: string, ns?: string | undefined): Attribute | undefined;
+    /**
+     * Find the value of an attribute that matches the given local name and
+     * namespace.
+     *
+     * @param {string} local the local name to search for
+     * @param {string} [ns] the namespace to search for.  If not given, match
+     *   attributes in any namespace.
+     * @returns {string|undefined} Attribute, if one that matches is found
+     */
+    attr(local: string, ns?: string | undefined): string | undefined;
     /**
      * Set an attribute value for an attribute that might or might not exist yet.
      *
@@ -224,19 +212,6 @@ export class Element extends ParentNode {
      * @returns {Element|undefined} The first matching element, if one is found.
      */
     element(local: string, ns?: string | undefined): Element | undefined;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * A prefix/URI combination for a namespace declaration.
@@ -254,19 +229,6 @@ export class Namespace extends Node {
     constructor(prefix: string, uri: string);
     prefix: string;
     uri: string;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * An attribute of an Element
@@ -283,19 +245,6 @@ export class Attribute extends Node {
     constructor(name: string | Pieces, value: string);
     name: Pieces;
     value: string;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * Plain text in an element.
@@ -310,19 +259,12 @@ export class Text extends Node {
      */
     constructor(txt: string);
     txt: string;
-    /**
-     * Convert to string.  If not in a CDataSection, escape text.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
+}
+export class EntityRef extends Text {
     toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
+        depth: number;
+        colors: boolean;
+    }): string;
 }
 /**
  * An XML comment that contains text
@@ -337,19 +279,6 @@ export class Comment extends Node {
      */
     constructor(txt: string);
     txt: string;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * A CDATA section, like <code>&lt;![CDATA[&lt;foo/&gt;]]&gt;</code>.
@@ -357,19 +286,6 @@ export class Comment extends Node {
  * @extends {ParentNode}
  */
 export class CdataSection extends ParentNode {
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * XML Declaration, like <code>&lt;?xml version="1.0"?&gt;</code>
@@ -389,19 +305,6 @@ export class XmlDeclaration extends Node {
     version: string;
     encoding: string | undefined;
     standalone: boolean;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * Processing Instruction, like <code>&lt;?xml-stylesheet href="mystyle.css"
@@ -420,19 +323,6 @@ export class ProcessingInstruction extends Node {
     constructor(target: string, data?: string | undefined);
     target: string;
     data: string | undefined;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * XML DocType, like <code><!DOCTYPE foo []></code>
@@ -454,19 +344,6 @@ export class DoctypeDecl extends ParentNode {
     sysid: string | undefined;
     pubid: string | undefined;
     hasInternalSubset: boolean | undefined;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * Entity declaration.
@@ -494,19 +371,6 @@ export class EntityDecl extends Node {
     systemId: string;
     publicId: string;
     notationName: string;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * Notation declaration
@@ -528,19 +392,6 @@ export class NotationDecl extends Node {
     base: string | undefined;
     systemId: string | undefined;
     publicId: string | undefined;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * Element Declaration
@@ -566,19 +417,6 @@ export class ElementDecl extends Node {
      * @private
      */
     private _modelString;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * Attribute list declaration.
@@ -593,19 +431,6 @@ export class AttlistDecl extends ParentNode {
      */
     constructor(elname: string);
     elname: string;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 /**
  * Attribute definition
@@ -626,19 +451,6 @@ export class AttributeDecl extends Node {
     attType: string;
     dflt: string;
     isrequired: boolean;
-    /**
-     * Convert to string.
-     *
-     * @param {object} [options] How to convert to string
-     * @param {number} [options.depth=Infinity] Number of layers of children to
-     *   output, use <code>Infinity</code> or null for all.
-     * @param {boolean} [options.colors=false] Use colors for output
-     * @returns {string} The node, converted to a string
-     */
-    toString(options?: {
-        depth?: number | undefined;
-        colors?: boolean | undefined;
-    } | undefined): string;
 }
 export type Stylize = (text: string, Style: util.Style) => string;
 export type MaybeStylized = Partial<util.InspectOptionsStylized>;
@@ -676,5 +488,5 @@ export type Model = {
     quant: number;
     children: Array<Model>;
 };
-import util from 'util';
 import { XPath } from './xpath.js';
+import util from 'util';

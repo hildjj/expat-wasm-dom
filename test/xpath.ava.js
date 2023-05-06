@@ -38,6 +38,7 @@ test('get', t => {
   t.is(doc.first('/boo'), null)
   t.is(doc.first('/foo/bar[@loo="skip"]/text()'), 'baz')
   t.is(doc.first('/foo/bar[text()="No Never"]').toString(), '<bar loo="nod">No Never</bar>')
+
   t.deepEqual(doc.get('/foo/dar[doo="Done"]/dod/text()'), ['Dope'])
   t.deepEqual(doc.get('/foo/dar[doo]/doo/text()'), ['Done', 'Nope'])
   t.deepEqual(doc.get('*/doo/text()'), ['', 'Done', 'Nope'])
