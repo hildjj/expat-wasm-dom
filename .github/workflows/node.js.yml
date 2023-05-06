@@ -35,7 +35,7 @@ jobs:
         with:
           command: x
           cwd: ./test
-          files: xmlts20130923.tar.gz
+          files: ./test/xmlts20130923.tar.gz
           outPath: .
       - name: Test
         run: npm run coverage
