@@ -14,5 +14,7 @@ const doc = DomParser.parse('<foo/>')
 console.log(doc.root.toString())
 ```
 
-Docs coming soon.
+Full [documentation](https://hildjj.github.io/expat-wasm-dom/) is available.
 
+--
+[![Tests](https://github.com/hildjj/expat-wasm-dom/actions/workflows/node.js.yml/badge.svg)](https://github.com/hildjj/expat-wasm-dom/actions/workflows/node.js.yml)
