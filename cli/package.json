@@ -16,6 +16,9 @@
   "engines": {
     "node": ">=16"
   },
+  "workspaces": [
+    ".."
+  ],
   "dependencies": {
     "commander": "10.0.1",
     "expat-wasm-dom": "*"
