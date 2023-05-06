@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {DomParser, NS} from '../lib/index.js'
 import {fileURLToPath, pathToFileURL} from 'url'
 import fs from 'fs'
