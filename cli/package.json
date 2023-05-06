@@ -1,0 +1,26 @@
+{
+  "name": "expat-wasm-dom-cli",
+  "version": "0.0.0",
+  "description": "Command line utilities for expat-wasm-dom",
+  "type": "module",
+  "bin": {
+    "ewlint": "bin/ewlint.js",
+    "ewq": "bin/ewq.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Joe Hildebrand <joe-github@cursive.net>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "workspaces": [
+    ".."
+  ],
+  "dependencies": {
+    "commander": "10.0.1",
+    "expat-wasm-dom": "*"
+  }
+}

@@ -3,39 +3,35 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
+  "type": "module",
+  "types": "types/index.d.ts",
   "scripts": {
-    "pretest": "npm run grammar",
+    "pretest": "bash -c '[ lib/xpathPattern3.pegjs -nt lib/xpathPattern3.js ] && npm run grammar || true'",
     "test": "ava test",
-    "coverage": "nyc npm test",
-    "postcoverage": "nyc report -r html",
-    "grammar": "pegjs lib/xpathPattern3.pegjs",
-    "lint": "standard",
-    "doc": "jsdoc -c .jsdoc.conf",
-    "release": "npm version patch && git push --follow-tags && npm publish",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "c8 npm test",
+    "grammar": "peggy --format es lib/xpathPattern3.pegjs",
+    "lint": "eslint . --ext js",
+    "doc": "jsdoc -c .jsdoc.conf"
   },
   "keywords": [],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
-  "license": "MPL-2.0",
+  "license": "MIT",
   "dependencies": {
-    "expat-wasm": "^1.0.3"
+    "expat-wasm": "3.1.0"
   },
   "devDependencies": {
-    "ava": "^0.24.0",
-    "jsdoc": "^3.5.5",
-    "nyc": "^11.4.1",
-    "pegjs": "^0.10.0",
-    "standard": "^10.0.3"
+    "@cto.af/eslint-config": "1.0.5",
+    "@types/node": "20.1.0",
+    "ava": "^5.2.0",
+    "c8": "7.13.0",
+    "docdash": "2.0.1",
+    "eslint": "8.40.0",
+    "jsdoc": "^4.0.2",
+    "jsdoc-ts-utils": "4.0.0",
+    "jsdoc-tsimport-plugin": "1.0.5",
+    "peggy": "3.0.2"
   },
-  "standard": {
-    "ignore": [
-      "lib/xpathPattern.js"
-    ]
-  },
-  "nyc": {
-    "exclude": [
-      "test/",
-      "lib/xpathPattern.js"
-    ]
+  "engines": {
+    "node": ">=16"
   }
 }
