@@ -2,7 +2,7 @@ import {dom} from '../lib/index.js'
 import test from 'ava'
 import util from 'util'
 
-test('element', t => {
+test('Element', t => {
   const e = new dom.Element('foo')
   t.truthy(e)
   t.is(e.toString(), '<foo/>')
@@ -39,11 +39,11 @@ test('element', t => {
 
 test('escape', t => {
   const e = new dom.Element({local: 'foo', ns: 'urn:foo', prefix: 'f'}, [
-    [{local: 'a'}, '"'],
+    [{local: 'a'}, '"\''],
     [{ns: 'urn:foo', local: 'b', prefix: 'f'}, 'no'],
   ], [['f', 'urn:foo']])
   e.add(new dom.Text('&<>'))
-  const txt = '<f:foo xmlns:f="urn:foo" a="&quot;" f:b="no">&amp;&lt;></f:foo>'
+  const txt = '<f:foo xmlns:f="urn:foo" a="&quot;&apos;" f:b="no">&amp;&lt;></f:foo>'
   t.is(e.toString(), txt)
   t.is(util.inspect(e), `{Element ${txt}}`)
   t.is(e.text(), '&<>')
@@ -61,4 +61,28 @@ test('escape', t => {
   t.is(cdata.toString(), '<![CDATA[nod]]>')
   t.is([...e.descendants()].length, 7)
   t.is(e.text(), '&<>nopenod')
+})
+
+test('Node', t => {
+  const d = new dom.Node()
+  t.throws(() => d.toString())
+})
+
+test('ParentNode', t => {
+  const p = new dom.ParentNode()
+  t.throws(() => p.text('foo'))
+  t.is(p.toString({depth: null}), '')
+
+  // Coalescing text nodes
+  const e = new dom.Element('baz')
+  e.add(new dom.Text('foo'))
+  e.add(new dom.Text('bar'))
+  t.is(e.text(), 'foobar')
+  t.is(e.children.length, 1)
+})
+
+test('Document', t => {
+  const doc = new dom.Document()
+  t.deepEqual(doc.get('/'), [doc])
+  t.deepEqual(doc.first('/'), doc)
 })

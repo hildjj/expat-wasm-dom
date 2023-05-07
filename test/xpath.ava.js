@@ -1,4 +1,4 @@
-import {DomParser, XPath, xml} from '../lib/index.js'
+import {DomParser, XPath, dom, xml} from '../lib/index.js'
 import test from 'ava'
 import util from 'util'
 
@@ -29,7 +29,7 @@ test('get', t => {
   )
   t.is(doc.first('/foo/bar').toString(), '<bar loo="nod">No Never</bar>')
   t.is(doc.first('/foo/bort'), null)
-  t.is(doc.first('too/@toad/text()'), 'sprocket')
+  t.is(doc.first('too/@toad/text()'), 'sprocket', 'too/@toad/text()')
   t.is(doc.first('doo', doc.root.first('dar')).toString(), '<doo>Done</doo>')
   t.is(doc.first('/'), doc)
   t.deepEqual(doc.get('/foo/bar/@loo/text()'), ['nod', 'bod', 'skip'])
@@ -37,6 +37,7 @@ test('get', t => {
   t.throws(() => doc.first('/foo/bar/@loo/@lo'))
   t.is(doc.first('/boo'), null)
   t.is(doc.first('/foo/bar[@loo="skip"]/text()'), 'baz')
+  t.is(doc.first('/foo/bar[@loo != "nod"]/text()'), '')
   t.is(doc.first('/foo/bar[text()="No Never"]').toString(), '<bar loo="nod">No Never</bar>')
 
   t.deepEqual(doc.get('/foo/dar[doo="Done"]/dod/text()'), ['Dope'])
@@ -83,4 +84,32 @@ test('error', t => {
     const doc = xml`<foo/>`
     doc.get([12])
   })
+
+  t.throws(() => {
+    const doc = new dom.Document()
+    doc.get('*')
+  })
+
+  t.throws(() => {
+    const doc = xml`<foo/>`
+    doc.get('../..')
+  })
+
+  t.throws(() => {
+    const doc = xml`<foo/>`
+    doc.get('/foo/unimplemented()')
+  })
+})
+
+test('xpath edges', t => {
+  const doc = xml`<bar a="b"><!-- foo -->baz</bar>`
+  t.deepEqual(doc.get('/bar/comment()/*'), [])
+  t.throws(() => doc.get('/bar/comment()//*'))
+  t.is(doc.first('/bar/text()'), 'baz')
+  t.is(doc.first('/bar/text()/text()'), 'baz')
+})
+
+test('unimplemented', t => {
+  const doc = xml`<bar a="b">baz</bar>`
+  t.throws(() => doc.get('/bar[@a ge "c"]'))
 })

@@ -2,7 +2,14 @@ import {DomParser, dom} from '../lib/index.js'
 import test from 'ava'
 
 test('create', t => {
-  t.truthy(new DomParser())
+  const p = new DomParser()
+  t.truthy(p)
+  p.destroy()
+  t.throws(() => p.parse('<foo/>'))
+
+  t.throws(() => new DomParser({
+    xmlBase: true,
+  }))
 })
 
 test('parseFull', t => {
@@ -76,7 +83,7 @@ test('processingInstruction', t => {
 })
 
 test('dtd', t => {
-  let txt = `<?xml version="1.0"?>
+  const txt = `<?xml version="1.0"?>
 <!DOCTYPE foo [
   <!ENTITY js "EcmaScript">
   <!ENTITY short "">
@@ -99,10 +106,14 @@ test('dtd', t => {
   <!NOTATION vrml PUBLIC "VRML 1.0">
   <!ATTLIST apple lang NOTATION (vrml) #REQUIRED>
 ]>
-<foo/>`
-  const doc = DomParser.parseFull(txt)
-  txt = txt.replace('<foo/>', '<foo reseller="MyStore" inPrint="yes"/>')
-  t.is(doc.toString(), txt)
+<foo>&js;</foo>`
+  let doc = DomParser.parseFull(txt)
+  t.snapshot(doc.toString())
+
+  doc = DomParser.parseFull(txt, {
+    expandInternalEntities: false,
+  })
+  t.snapshot(doc.toString())
 })
 
 test('partial', t => {
@@ -114,7 +125,7 @@ test('namespaces', t => {
   const txt = `<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <?xml-stylesheet href="mystyle.css" type="text/css"?>
 <foo xmlns="urn:foo" xmlns:b="urn:bar" b:boo="bo">
-  <bar a="&quot;'">&amp;&lt;>'</bar>
+  <bar a="&quot;&apos;">&amp;&lt;>'</bar>
   <b:bar><![CDATA[&<>'"]]></b:bar>
   <!--&<>'"-->
 </foo>`
@@ -142,4 +153,20 @@ test('tagged literal', t => {
   t.is(d.toString(), '<foo/>')
   d = DomParser.fromString`<foo>${12}</foo${'>'}`
   t.is(d.toString(), '<foo>12</foo>')
+})
+
+test('systemEntity', t => {
+  const doc = DomParser.parseFull(`\
+<!DOCTYPE js SYSTEM 'js.dtd'>
+<foo>&js;</foo>
+`, {
+    expandInternalEntities: false,
+    systemEntity() {
+      return {
+        base: 'js',
+        data: '<!ENTITY js "EcmaScript">\n',
+      }
+    },
+  })
+  t.snapshot(doc.toString())
 })
