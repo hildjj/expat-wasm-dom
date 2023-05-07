@@ -6,7 +6,7 @@
   "type": "module",
   "types": "types/index.d.ts",
   "scripts": {
-    "pretest": "bash -c '[ lib/xpathPattern3.pegjs -nt lib/xpathPattern3.js ] && npm run grammar || true'",
+    "pretest": "npm run grammar",
     "test": "ava test",
     "coverage": "c8 npm test",
     "grammar": "peggy --format es lib/xpathPattern3.pegjs",
