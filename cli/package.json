@@ -7,20 +7,29 @@
     "ewlint": "bin/ewlint.js",
     "ewq": "bin/ewq.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hildjj/expat-wasm-dom.git",
+    "directory": "cli"
   },
-  "keywords": [],
+  "keywords": [
+    "xml",
+    "parse",
+    "dom",
+    "xpath",
+    "wasm",
+    "cli"
+  ],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
-  "engines": {
-    "node": ">=16"
-  },
   "workspaces": [
     ".."
   ],
   "dependencies": {
     "commander": "10.0.1",
     "expat-wasm-dom": "*"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }

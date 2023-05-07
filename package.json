@@ -6,14 +6,24 @@
   "type": "module",
   "types": "types/index.d.ts",
   "scripts": {
-    "pretest": "bash -c '[ lib/xpathPattern3.pegjs -nt lib/xpathPattern3.js ] && npm run grammar || true'",
+    "pretest": "npm run grammar",
     "test": "ava test",
     "coverage": "c8 npm test",
     "grammar": "peggy --format es lib/xpathPattern3.pegjs",
     "lint": "eslint . --ext js",
     "doc": "jsdoc -c .jsdoc.conf"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hildjj/expat-wasm-dom.git"
+  },
+  "keywords": [
+    "xml",
+    "parse",
+    "dom",
+    "xpath",
+    "wasm"
+  ],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
   "dependencies": {
