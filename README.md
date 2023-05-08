@@ -24,6 +24,6 @@ Full [documentation](https://hildjj.github.io/expat-wasm-dom/) is available.
 
 A Command Line Interface is available in [expat-wasm-dom-cli](https://github.com/hildjj/expat-wasm-dom/tree/main/cli).
 
---
+---
 [![Tests](https://github.com/hildjj/expat-wasm-dom/actions/workflows/node.js.yml/badge.svg)](https://github.com/hildjj/expat-wasm-dom/actions/workflows/node.js.yml)
 [![codecov](https://codecov.io/gh/hildjj/expat-wasm-dom/branch/main/graph/badge.svg?token=MPGGvwbrqR)](https://codecov.io/gh/hildjj/expat-wasm-dom)
