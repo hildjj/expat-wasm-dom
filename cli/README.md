@@ -2,6 +2,12 @@
 
 Command line utilities for [expat-wasm-dom](https://github.com/hildjj/expat-wasm-dom).
 
+## Installation
+
+```sh
+npm install -g expat-wasm-dom-cli
+```
+
 ## ewlint
 
 ```txt
