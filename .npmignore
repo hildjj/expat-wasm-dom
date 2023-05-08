@@ -17,3 +17,5 @@ wasm/
 .github/
 .gitattributes
 cli/
+*.peggy
+*.pegjs
