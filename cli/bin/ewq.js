@@ -2,6 +2,7 @@
 
 /* eslint-disable no-console */
 import {Command} from 'commander'
+import {dom} from 'expat-wasm-dom'
 import {parse} from '../lib/entity.js'
 import {sharedOptions} from '../lib/shared.js'
 
@@ -21,7 +22,11 @@ async function main() {
     const doc = await parse(arg, opts)
     const res = doc.get(xpath)
     for (const r of res) {
-      console.log(r.toString({colors: process.stdout.isTTY, depth: Infinity}))
+      if (r instanceof dom.Node) {
+        console.log(r.toString({colors: process.stdout.isTTY, depth: Infinity}))
+      } else {
+        console.log(r)
+      }
     }
   }
 }

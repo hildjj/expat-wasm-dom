@@ -17,7 +17,7 @@ console.log(doc.root.toString())
 console.log(doc.get('//bar'))
 ```
 
-Note that there is an implementation of XPath3 included.  It is not
+Note that there is an implementation of XPath3 included.  It is not in any way
 feature-complete yet, but it has a bunch of useful features already.
 
 Full [documentation](https://hildjj.github.io/expat-wasm-dom/) is available.

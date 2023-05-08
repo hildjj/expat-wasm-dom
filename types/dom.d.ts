@@ -59,9 +59,9 @@ export class Node {
      * @param {string|XPath} pattern The pattern to match
      * @param {Node} [context=this] The context node.  Uses this node as context
      *   if none is provided.
-     * @returns {string|Node|null} The first match if one exists
+     * @returns {string|Node|number|null} The first match if one exists
      */
-    first(pattern: string | XPath, context?: Node | undefined): string | Node | null;
+    first(pattern: string | XPath, context?: Node | undefined): string | Node | number | null;
     /**
      * Find the Document that this node is in, if it is in a Document.
      *

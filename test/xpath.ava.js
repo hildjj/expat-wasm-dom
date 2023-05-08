@@ -99,11 +99,25 @@ test('error', t => {
     const doc = xml`<foo/>`
     doc.get('/foo/unimplemented()')
   })
+
+  t.throws(() => {
+    xml`<foo/>`.get('Q{foo}*')
+  })
+
+  t.throws(() => {
+    // Will break when child axis implemented
+    xml`<foo/>`.get('child::*')
+  })
+  t.throws(() => {
+    xml`<foo/>`.get('count(/)/text()')
+  })
 })
 
 test('xpath edges', t => {
   const doc = xml`<bar a="b"><!-- foo -->baz</bar>`
   t.deepEqual(doc.get('/bar/comment()/*'), [])
+  t.deepEqual(doc.get('/bar/@a/comment()'), [])
+  t.deepEqual(doc.get('/bar/@a/comment()/text()'), [])
   t.throws(() => doc.get('/bar/comment()//*'))
   t.is(doc.first('/bar/text()'), 'baz')
   t.is(doc.first('/bar/text()/text()'), 'baz')
@@ -112,4 +126,11 @@ test('xpath edges', t => {
 test('unimplemented', t => {
   const doc = xml`<bar a="b">baz</bar>`
   t.throws(() => doc.get('/bar[@a ge "c"]'))
+})
+
+test('functions', t => {
+  const doc = xml`<bar><baz/><baz/></bar>`
+  t.throws(() => doc.get('unimpl(/)'))
+  t.deepEqual(doc.get('count(baz)'), [2])
+  t.deepEqual(doc.get('count(count(baz))'), [1])
 })
