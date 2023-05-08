@@ -24,9 +24,6 @@ export class XPathSyntaxError extends Error {
     [util.inspect.custom](depth: number, options: util.InspectOptionsStylized): string;
 }
 /**
- * @typedef {Array<string|dom.Node>} XPathResult
- */
-/**
  * An XPath expression for querying an XML document
  */
 export class XPath {
@@ -185,7 +182,7 @@ export class XPath {
      *
      * @param {dom.Node} context
      * @param {Functor} expr
-     * @returns {string|dom.Node|undefined}
+     * @returns {string|number|dom.Node|undefined}
      * @private
      */
     private _expr;
@@ -230,6 +227,17 @@ export class XPath {
      */
     private _comma;
     /**
+     * Execute functions.
+     *
+     * @param {number} num
+     * @param {dom.Node} context
+     * @param {string} fn
+     * @param {Functor[]} params
+     * @returns {XPathResult}
+     * @private
+     */
+    private _fn;
+    /**
      * Some operation that hasn't been implemented yet.
      *
      * @param {number} num
@@ -240,6 +248,7 @@ export class XPath {
      */
     private _unimplemented;
 }
-export type XPathResult = Array<string | dom.Node>;
+export type XPathResult = Array<string | number | dom.Node>;
+export type XPathFun = (...params: XPathResult[]) => XPathResult;
 import util from 'util';
 import * as dom from './dom.js';
