@@ -1,5 +1,6 @@
 import {DomParser, NS} from '../lib/index.js'
 import {fileURLToPath, pathToFileURL} from 'url'
+import {XmlParser} from 'expat-wasm'
 import fs from 'fs'
 import path from 'path'
 import test from 'ava'
@@ -9,10 +10,11 @@ const __dirname = path.dirname(__filename)
 
 const root = pathToFileURL(__dirname).toString()
 
-function parseFile(name) {
+function parseFile(name, noNS) {
   return fs.promises.readFile(name).then(buf => DomParser.parseFull(buf, {
     base: name.toString(),
     xmlBase: true,
+    separator: noNS ? XmlParser.NO_NAMESPACES : '|',
     systemEntity(base, sysId, pubId) {
       const newBase = new URL(sysId, base)
       const bs = newBase.toString()
@@ -34,8 +36,7 @@ const confnameURL = new URL(
 const conf = await parseFile(confnameURL)
 
 const skip = {
-  'valid-sa-012': 'expat issue 1, always uses 1.1 rules for attribute name containing only colon',
-  'rmt-e2e-50': 'potential expat issue 4, does not allow U+0085 as whitespace',
+  'rmt-e2e-50': 'this can only be tested effectively in XML 1.1, since CR is in the S production; in 1.1 we can use NEL which isn\'t.',
 }
 
 /**
@@ -57,19 +58,20 @@ async function execTests(el, base, t) {
       'XML1.0-errata2e',
       'XML1.0-errata3e',
       // 'NS1.1',
-      // 'XML1.0-errata4e', See: https://github.com/libexpat/libexpat/issues/171
-      // 'XML1.1',          See: https://github.com/libexpat/libexpat/issues/378
-      //
+      // 'XML1.0-errata4e', // See: https://github.com/libexpat/libexpat/issues/171
+      // 'XML1.1', // See: https://github.com/libexpat/libexpat/issues/378
     ].indexOf(rec) !== -1) {
       const id = el.attr('ID')
       const reason = skip[id]
+      const noNS = el.attr('NAMESPACE').toUpperCase() === 'NO'
+
       if (reason) {
         const uri = new URL(el.attr('URI'), base)
-        t.throwsAsync(() => parseFile(uri), undefined, id)
+        t.throwsAsync(() => parseFile(uri, noNS), undefined, id)
       } else {
         const uri = new URL(el.attr('URI'), base)
         if (el.attr('TYPE') === 'valid') {
-          const doc = await parseFile(uri)
+          const doc = await parseFile(uri, noNS)
           t.truthy(doc, id)
         }
       }

@@ -175,8 +175,9 @@ export class Element extends ParentNode {
      * @param {string} [ns] the namespace to search for.  If not given, match
      *   attributes in any namespace.
      * @returns {Attribute|undefined} Attribute, if one that matches is found
+     * @private
      */
-    _attribute(local: string, ns?: string | undefined): Attribute | undefined;
+    private _attribute;
     /**
      * Find the value of an attribute that matches the given local name and
      * namespace.
@@ -243,7 +244,9 @@ export class Attribute extends Node {
      * @param {string} value The value
      */
     constructor(name: string | Pieces, value: string);
+    /** @type {Pieces} */
     name: Pieces;
+    /** @type {string} */
     value: string;
 }
 /**
