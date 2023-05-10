@@ -156,10 +156,11 @@ test('tagged literal', t => {
 })
 
 test('systemEntity', t => {
-  const doc = DomParser.parseFull(`\
+  const src = `\
 <!DOCTYPE js SYSTEM 'js.dtd'>
 <foo>&js;</foo>
-`, {
+`
+  const doc = DomParser.parseFull(src, {
     expandInternalEntities: false,
     systemEntity() {
       return {
@@ -169,4 +170,19 @@ test('systemEntity', t => {
     },
   })
   t.snapshot(doc.toString())
+
+  t.throws(() => {
+    DomParser.parseFull(`\
+    <!DOCTYPE js SYSTEM 'js.dtd'>
+    <foo>&js;</foo>
+    `, {
+      expandInternalEntities: false,
+      systemEntity() {
+        return {
+          base: 'js',
+          data: '>',
+        }
+      },
+    })
+  })
 })

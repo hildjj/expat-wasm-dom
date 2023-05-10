@@ -11,7 +11,9 @@
     "coverage": "c8 npm test",
     "grammar": "peggy --format es lib/xpathPattern3.pegjs",
     "lint": "eslint . --ext js",
-    "doc": "jsdoc -c .jsdoc.conf"
+    "doc": "jsdoc -c .jsdoc.conf",
+    "types": "tsc",
+    "build": "npm run grammar && npm run types && npm run doc && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -39,7 +41,8 @@
     "jsdoc": "^4.0.2",
     "jsdoc-ts-utils": "4.0.0",
     "jsdoc-tsimport-plugin": "1.0.5",
-    "peggy": "3.0.2"
+    "peggy": "3.0.2",
+    "typescript": "5.0.4"
   },
   "engines": {
     "node": ">=16"
