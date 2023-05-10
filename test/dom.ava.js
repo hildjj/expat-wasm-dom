@@ -86,3 +86,76 @@ test('Document', t => {
   t.deepEqual(doc.get('/'), [doc])
   t.deepEqual(doc.first('/'), doc)
 })
+
+test('Attribute', t => {
+  const a = new dom.Attribute('foo', 'bar')
+  t.is(a.text(), 'bar')
+  t.is(a.text('boo'), a)
+  t.is(a.text(), 'boo')
+})
+
+test('Text', t => {
+  const txt = new dom.Text('some text')
+  t.is(txt.text(), 'some text')
+  t.is(txt.text('bar'), txt)
+  t.is(txt.text(), 'bar')
+})
+
+test('DoctypeDecl', t => {
+  let d = new dom.DoctypeDecl('foo', 's', 'p')
+  t.is(d.toString(), '<!DOCTYPE foo PUBLIC "p" "s">')
+  d = new dom.DoctypeDecl('foo', 's')
+  t.is(d.toString(), '<!DOCTYPE foo SYSTEM "s">')
+})
+
+test('EntityDecl', t => {
+  let e = new dom.EntityDecl('foo', false, 'bar')
+  t.is(e.toString(), '<!ENTITY foo "bar">')
+  e = new dom.EntityDecl('chap1', false, null, null, 'chap1.xml')
+  t.is(e.toString(), '<!ENTITY chap1 SYSTEM "chap1.xml">')
+  e = new dom.EntityDecl('foo', null, null, null, null, 'pub')
+  t.is(e.toString(), '<!ENTITY foo PUBLIC "pub">')
+})
+
+test('NotationDecl', t => {
+  const n = new dom.NotationDecl('foo', null, 'sys')
+  t.is(n.toString(), '<!NOTATION foo SYSTEM "sys">')
+})
+
+test('ElementDecl', t => {
+  const e = new dom.ElementDecl('foo', {
+    name: 'bar',
+    type: dom.XML_CTYPE_MIXED,
+    quant: dom.XML_CQUANT_REP,
+    children: [
+      {type: dom.XML_CTYPE_ANY, quant: dom.XML_CQUANT_NONE},
+    ],
+  })
+  t.is(e.toString(), '<!ELEMENT foo (#PCDATA | ANY)*>')
+  t.throws(() => {
+    new dom.ElementDecl('foo', {
+      name: 'bar',
+      type: -1,
+      quant: dom.XML_CQUANT_REP,
+    }).toString()
+  })
+  t.throws(() => {
+    new dom.ElementDecl('foo', {
+      name: 'bar',
+      type: dom.XML_CTYPE_EMPTY,
+      quant: -1,
+    }).toString()
+  })
+})
+
+test('html', t => {
+  const doc = dom.Document.html()
+  const img = doc.root.add(new dom.Element('img', {
+    autoplay: '',
+  }))
+  t.truthy(img.setAttribute('autoplay', 'foo'))
+  t.is(doc.toString(), '<!DOCTYPE html><html><img autoplay></html>')
+  img.add(new dom.Element('br'))
+  t.throws(() => doc.toString())
+})
+

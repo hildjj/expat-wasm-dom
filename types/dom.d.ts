@@ -32,6 +32,12 @@ export class Node {
      */
     static escape(str: string, attrib?: boolean | undefined): string;
     /**
+     * @param {Node} node
+     * @param {boolean} html
+     * @returns {boolean} true if changed
+     */
+    static [SET_HTML](node: Node, html: boolean): boolean;
+    /**
      * @type {Node?}
      */
     parent: Node | null;
@@ -85,6 +91,10 @@ export class Node {
      * @returns {string} The formatted string
      */
     [util.inspect.custom](depth?: number | undefined, options?: util.InspectOptionsStylized | undefined): string;
+    /**
+     * @type {boolean}
+     */
+    [HTML]: boolean;
 }
 /**
  * Many Node subclasses are potentially parents of other Nodes.  Those
@@ -93,6 +103,12 @@ export class Node {
  * @abstract
  */
 export class ParentNode extends Node {
+    /**
+     * @param {ParentNode} node
+     * @param {boolean} html
+     * @returns {boolean} true if changed
+     */
+    static [SET_HTML](node: ParentNode, html: boolean): boolean;
     /**
      * @type {Node[]}
      */
@@ -142,6 +158,12 @@ export class ParentNode extends Node {
  */
 export class Document extends ParentNode {
     /**
+     * Create an empty HTML 5 document with doctype and root element.
+     *
+     * @returns {Document}
+     */
+    static html(): Document;
+    /**
      * The root element of the document.
      *
      * @returns {Element|null} The root element if it exists
@@ -156,17 +178,26 @@ export class Document extends ParentNode {
  */
 export class Element extends ParentNode {
     /**
+     * @param {Element} node
+     * @param {boolean} html
+     * @returns {boolean} true if changed
+     */
+    static [SET_HTML](node: Element, html: boolean): boolean;
+    /**
      * Creates an instance of Element.
      *
      * @param {string|Pieces} name If a string, the local name.
-     * @param {AttributePair[]} [attribs=[]] List of
+     * @param {AttributePair[]|Record<string,string>} [attribs=[]] List of
      *   name/value pairs for attributes.
      * @param {string[][]} [ns=[]] List of prefix/URI pairs
      *   for namespaces that are declared in this element.
      */
-    constructor(name: string | Pieces, attribs?: AttributePair[] | undefined, ns?: string[][] | undefined);
+    constructor(name: string | Pieces, attribs?: Record<string, string> | AttributePair[] | undefined, ns?: string[][] | undefined);
+    /** @type {Pieces} */
     name: Pieces;
+    /** @type {Attribute[]} */
     att: Attribute[];
+    /** @type {Namespace[]} */
     ns: Namespace[];
     /**
      * Find an attribute that matches the given local name and namespace.
@@ -263,11 +294,13 @@ export class Text extends Node {
     constructor(txt: string);
     txt: string;
 }
+/**
+ * Like a Text node, but no escaping is done.  Intended for text like "&foo;"
+ * when it's really an entity reference and we're not expanding the reference.
+ *
+ * @extends {Text}
+ */
 export class EntityRef extends Text {
-    toString(options?: {
-        depth: number;
-        colors: boolean;
-    }): string;
 }
 /**
  * An XML comment that contains text
@@ -359,21 +392,28 @@ export class EntityDecl extends Node {
      * Creates an instance of EntityDecl.
      *
      * @param {string} entityName
-     * @param {boolean} isParameterEntity
-     * @param {string} value
-     * @param {string} base
-     * @param {string} systemId
-     * @param {string} publicId
-     * @param {string} notationName
+     * @param {boolean} [isParameterEntity=false]
+     * @param {string} [value]
+     * @param {string} [base]
+     * @param {string} [systemId]
+     * @param {string} [publicId]
+     * @param {string} [notationName]
      */
-    constructor(entityName: string, isParameterEntity: boolean, value: string, base: string, systemId: string, publicId: string, notationName: string);
+    constructor(entityName: string, isParameterEntity?: boolean | undefined, value?: string | undefined, base?: string | undefined, systemId?: string | undefined, publicId?: string | undefined, notationName?: string | undefined);
+    /** @type {string} */
     entityName: string;
+    /** @type {boolean} */
     isParameterEntity: boolean;
-    value: string;
-    base: string;
-    systemId: string;
-    publicId: string;
-    notationName: string;
+    /** @type {string=} */
+    value: string | undefined;
+    /** @type {string=} */
+    base: string | undefined;
+    /** @type {string=} */
+    systemId: string | undefined;
+    /** @type {string=} */
+    publicId: string | undefined;
+    /** @type {string=} */
+    notationName: string | undefined;
 }
 /**
  * Notation declaration
@@ -391,11 +431,25 @@ export class NotationDecl extends Node {
      * @param {string} [publicId]
      */
     constructor(notationName: string, base?: string | undefined, systemId?: string | undefined, publicId?: string | undefined);
+    /** @type {string} */
     notationName: string;
+    /** @type {string=} */
     base: string | undefined;
+    /** @type {string=} */
     systemId: string | undefined;
+    /** @type {string=} */
     publicId: string | undefined;
 }
+export const XML_CTYPE_EMPTY: number;
+export const XML_CTYPE_ANY: number;
+export const XML_CTYPE_MIXED: number;
+export const XML_CTYPE_NAME: number;
+export const XML_CTYPE_CHOICE: number;
+export const XML_CTYPE_SEQ: number;
+export const XML_CQUANT_NONE: number;
+export const XML_CQUANT_OPT: number;
+export const XML_CQUANT_REP: number;
+export const XML_CQUANT_PLUS: number;
 /**
  * Element Declaration
  *
@@ -493,3 +547,6 @@ export type Model = {
 };
 import { XPath } from './xpath.js';
 import util from 'util';
+declare const HTML: unique symbol;
+declare const SET_HTML: unique symbol;
+export {};
