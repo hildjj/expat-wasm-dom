@@ -27,11 +27,11 @@
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
   "dependencies": {
-    "expat-wasm": "3.1.0"
+    "expat-wasm": "3.1.2"
   },
   "devDependencies": {
-    "@cto.af/eslint-config": "1.0.5",
-    "@types/node": "20.1.0",
+    "@cto.af/eslint-config": "1.1.0",
+    "@types/node": "20.1.2",
     "ava": "^5.2.0",
     "c8": "7.13.0",
     "docdash": "2.0.1",
