@@ -1,4 +1,3 @@
-/// <reference types="node" resolution-mode="require"/>
 /**
  * @typedef {object} Pieces
  * @property {string} [pieces.ns] - the namespace URI
@@ -11,10 +10,10 @@
  */
 /**
  * @typedef {object} Model
- * @property {string} name - Name of the model
- * @property {number} type - Empty=1, Any, Mixed, Name, Choice, Seq
- * @property {number} quant - None=0, Optional, Star, Plus
- * @property {Array<Model>} children
+ * @property {string} [name] - Name of the model
+ * @property {number} [type] - Empty=1, Any, Mixed, Name, Choice, Seq
+ * @property {number} [quant] - None=0, Optional, Star, Plus
+ * @property {Array<Model>} [children]
  */
 /**
  * The base class for all node types.
@@ -30,7 +29,7 @@ export class Node {
      *   (if so, double-quotes are escaped)
      * @returns {string} The escaped string
      */
-    static escape(str: string, attrib?: boolean | undefined): string;
+    static escape(str: string, attrib?: boolean): string;
     /**
      * @param {Node} node
      * @param {boolean} html
@@ -48,7 +47,7 @@ export class Node {
      * @returns {string} The node, converted to a string
      * @abstract
      */
-    toString(options?: MaybeStylizedSeparated | undefined): string;
+    toString(options?: MaybeStylizedSeparated): string;
     /**
      * Get all of the nodes that match the given XPath pattern, with the given
      * context for XPath execution.
@@ -58,7 +57,7 @@ export class Node {
      *   if none is provided.
      * @returns {import('./xpath.js').XPathResult} The matching nodes
      */
-    get(pattern: string | XPath, context?: Node | undefined): import('./xpath.js').XPathResult;
+    get(pattern: string | XPath, context?: Node): import("./xpath.js").XPathResult;
     /**
      * Get the first matching node for a given pattern, or null if none exist.
      *
@@ -67,7 +66,7 @@ export class Node {
      *   if none is provided.
      * @returns {string|Node|number|null} The first match if one exists
      */
-    first(pattern: string | XPath, context?: Node | undefined): string | Node | number | null;
+    first(pattern: string | XPath, context?: Node): string | Node | number | null;
     /**
      * Find the Document that this node is in, if it is in a Document.
      *
@@ -82,15 +81,7 @@ export class Node {
      * @returns {string|Node} The concatenated text
      * @abstract
      */
-    text(newText?: string | undefined): string | Node;
-    /**
-     * Custom inspection.
-     *
-     * @param {number} [depth=2] Depth of children to inspect
-     * @param {util.InspectOptionsStylized} [options] Other inspection options
-     * @returns {string} The formatted string
-     */
-    [util.inspect.custom](depth?: number | undefined, options?: util.InspectOptionsStylized | undefined): string;
+    text(newText?: string): string | Node;
     /**
      * @type {boolean}
      */
@@ -120,6 +111,8 @@ export class ParentNode extends Node {
      * @returns {Node} The added node
      */
     add(node: Node): Node;
+    hasSignificantText(): boolean;
+    hasElement(): boolean;
     /**
      * Iterate over all of the descendants of this node, to infinite depth, in
      * prefix order.  That is, parents are yielded before their children.
@@ -143,7 +136,7 @@ export class ParentNode extends Node {
      *   elements with any namespace.
      * @returns {Generator<Element>}
      */
-    elements(local?: string | undefined, ns?: string | undefined): Generator<Element>;
+    elements(local?: string, ns?: string): Generator<Element>;
     /**
      * Allow easy iteration over all of the children of this node
      *
@@ -192,7 +185,7 @@ export class Element extends ParentNode {
      * @param {string[][]} [ns=[]] List of prefix/URI pairs
      *   for namespaces that are declared in this element.
      */
-    constructor(name: string | Pieces, attribs?: Record<string, string> | AttributePair[] | undefined, ns?: string[][] | undefined);
+    constructor(name: string | Pieces, attribs?: AttributePair[] | Record<string, string>, ns?: string[][]);
     /** @type {Pieces} */
     name: Pieces;
     /** @type {Attribute[]} */
@@ -218,7 +211,7 @@ export class Element extends ParentNode {
      *   attributes in any namespace.
      * @returns {string|undefined} Attribute, if one that matches is found
      */
-    attr(local: string, ns?: string | undefined): string | undefined;
+    attr(local: string, ns?: string): string | undefined;
     /**
      * Set an attribute value for an attribute that might or might not exist yet.
      *
@@ -243,7 +236,7 @@ export class Element extends ParentNode {
      *   in any namespace.
      * @returns {Element|undefined} The first matching element, if one is found.
      */
-    element(local: string, ns?: string | undefined): Element | undefined;
+    element(local: string, ns?: string): Element | undefined;
 }
 /**
  * A prefix/URI combination for a namespace declaration.
@@ -252,6 +245,14 @@ export class Element extends ParentNode {
  * @extends {Node}
  */
 export class Namespace extends Node {
+    /**
+     * Compare two namespaces for ordering
+     * @param {Namespace} a
+     * @param {Namespace} b
+     * @param {Intl.Collator} collator
+     * @returns {number}
+     */
+    static compare(a: Namespace, b: Namespace, collator: Intl.Collator): number;
     /**
      * Creates an instance of Namespace.
      *
@@ -268,6 +269,15 @@ export class Namespace extends Node {
  * @extends {Node}
  */
 export class Attribute extends Node {
+    /**
+     * Compare two attributes for ordering.
+     *
+     * @param {Attribute} a
+     * @param {Attribute} b
+     * @param {Intl.Collator} collator
+     * @returns {number}
+     */
+    static compare(a: Attribute, b: Attribute, collator: Intl.Collator): number;
     /**
      * Creates an instance of Attribute.
      *
@@ -293,6 +303,7 @@ export class Text extends Node {
      */
     constructor(txt: string);
     txt: string;
+    isEmpty(): boolean;
 }
 /**
  * Like a Text node, but no escaping is done.  Intended for text like "&foo;"
@@ -337,7 +348,7 @@ export class XmlDeclaration extends Node {
      * @param {string} [encoding]
      * @param {boolean} [standalone]
      */
-    constructor(version?: string | undefined, encoding?: string | undefined, standalone?: boolean | undefined);
+    constructor(version?: string, encoding?: string, standalone?: boolean);
     version: string;
     encoding: string | undefined;
     standalone: boolean;
@@ -356,7 +367,7 @@ export class ProcessingInstruction extends Node {
      * @param {string} target The target.
      * @param {string} [data] any remaining data
      */
-    constructor(target: string, data?: string | undefined);
+    constructor(target: string, data?: string);
     target: string;
     data: string | undefined;
 }
@@ -375,7 +386,7 @@ export class DoctypeDecl extends ParentNode {
      * @param {string} [pubid]
      * @param {boolean} [hasInternalSubset]
      */
-    constructor(doctypeName: string, sysid?: string | undefined, pubid?: string | undefined, hasInternalSubset?: boolean | undefined);
+    constructor(doctypeName: string, sysid?: string, pubid?: string, hasInternalSubset?: boolean);
     doctypeName: string;
     sysid: string | undefined;
     pubid: string | undefined;
@@ -399,7 +410,7 @@ export class EntityDecl extends Node {
      * @param {string} [publicId]
      * @param {string} [notationName]
      */
-    constructor(entityName: string, isParameterEntity?: boolean | undefined, value?: string | undefined, base?: string | undefined, systemId?: string | undefined, publicId?: string | undefined, notationName?: string | undefined);
+    constructor(entityName: string, isParameterEntity?: boolean, value?: string, base?: string, systemId?: string, publicId?: string, notationName?: string);
     /** @type {string} */
     entityName: string;
     /** @type {boolean} */
@@ -430,7 +441,7 @@ export class NotationDecl extends Node {
      * @param {string} [systemId]
      * @param {string} [publicId]
      */
-    constructor(notationName: string, base?: string | undefined, systemId?: string | undefined, publicId?: string | undefined);
+    constructor(notationName: string, base?: string, systemId?: string, publicId?: string);
     /** @type {string} */
     notationName: string;
     /** @type {string=} */
@@ -461,11 +472,11 @@ export class ElementDecl extends Node {
      * Creates an instance of ElementDecl.
      *
      * @param {string} name Element name
-     * @param {Model} model All of the child declarations
+     * @param {Model} [model] All of the child declarations
      */
-    constructor(name: string, model: Model);
+    constructor(name: string, model?: Model);
     name: string;
-    model: Model;
+    model: Model | undefined;
     /**
      *
      * @param {Model} model
@@ -509,11 +520,20 @@ export class AttributeDecl extends Node {
     dflt: string;
     isrequired: boolean;
 }
-export type Stylize = (text: string, Style: util.Style) => string;
-export type MaybeStylized = Partial<util.InspectOptionsStylized>;
 export type Separated = {
+    collator?: Intl.Collator | undefined;
+    compressed?: boolean | undefined;
+    indent?: number | undefined;
+    indentText?: string | undefined;
+    newline?: string | undefined;
+    pretty?: boolean | undefined;
+    quote?: string | undefined;
+    removeComments?: boolean | undefined;
     separator?: string | undefined;
+    width?: number | undefined;
+    wrap?: LineWrap | undefined;
 };
+export type MaybeStylized = Partial<util.InspectOptionsStylized>;
 export type MaybeStylizedSeparated = MaybeStylized & Separated;
 export type Pieces = {
     /**
@@ -534,19 +554,20 @@ export type Model = {
     /**
      * - Name of the model
      */
-    name: string;
+    name?: string | undefined;
     /**
      * - Empty=1, Any, Mixed, Name, Choice, Seq
      */
-    type: number;
+    type?: number | undefined;
     /**
      * - None=0, Optional, Star, Plus
      */
-    quant: number;
-    children: Array<Model>;
+    quant?: number | undefined;
+    children?: Model[] | undefined;
 };
 import { XPath } from './xpath.js';
-import util from 'util';
 declare const HTML: unique symbol;
 declare const SET_HTML: unique symbol;
+import { LineWrap } from '@cto.af/linewrap';
+import util from 'util';
 export {};

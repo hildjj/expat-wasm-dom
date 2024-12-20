@@ -60,7 +60,7 @@ export class DomParser {
      * @param {ParserOptions} [options]
      *   Encoding to expect from Buffers/etc that are passed to parse()
      */
-    constructor(options?: ParserOptions | undefined);
+    constructor(options?: ParserOptions);
     /**
      * Pop the stack.
      * @private
@@ -76,7 +76,7 @@ export class DomParser {
      * @returns {dom.Document=} The parsed document, if successful and this was
      *   the final chunk.  Otherwise 0.
      */
-    parse(str: string | Buffer | Uint8Array | Uint8ClampedArray, final?: number | undefined): dom.Document | undefined;
+    parse(str: string | Buffer | Uint8Array | Uint8ClampedArray, final?: number): dom.Document | undefined;
     /**
      * Destroy this instance, cleaning up parser resources.
      */

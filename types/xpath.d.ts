@@ -1,4 +1,3 @@
-/// <reference types="node" resolution-mode="require"/>
 /**
  * Error parsing an XPath expression, with prettier output.
  *

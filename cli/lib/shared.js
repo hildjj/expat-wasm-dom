@@ -1,5 +1,5 @@
-import {Option} from 'commander'
-import {Resolver} from './entity.js'
+import {Option} from 'commander';
+import {Resolver} from './entity.js';
 
 /**
  * Add a few common options onto an existing commnd, and parse input
@@ -23,20 +23,20 @@ export function sharedOptions(program, args) {
         .default(null, 'Sniff encoding heuristically')
     )
     .option('-r,--refs', 'Keep entity references, rather than expanding them')
-    .parse(args)
+    .parse(args);
 
   // .argument() adds to _args
   if (program.args.length < program._args.length) {
-    program.args.push('-')
+    program.args.push('-');
   }
 
-  const opts = program.opts()
+  const opts = program.opts();
   if (opts.E) {
-    opts.expand = process.cwd()
+    opts.expand = process.cwd();
   }
   opts.systemEntity = opts.expand ?
     new Resolver(opts.expand).systemEntity :
-    undefined
+    undefined;
 
-  return program
+  return program;
 }
