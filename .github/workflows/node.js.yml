@@ -30,7 +30,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install -r
       - name: Check coding standards
-        if: matrix.node-version == '20.x' && matrix.os == 'ubuntu-latest'
         run: npm run lint
       - name: Unpack conformance tests
         uses: a7ul/tar-action@v1.1.0
@@ -40,7 +39,7 @@ jobs:
           files: ./test/xmlts20130923.tar.gz
           outPath: .
       - name: Test
-        run: npm run coverage
+        run: npm run test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
