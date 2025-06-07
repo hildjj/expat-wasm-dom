@@ -153,7 +153,11 @@ test('html', t => {
   const img = doc.root.add(new dom.Element('img', {
     autoplay: '',
   }));
-  t.truthy(img.setAttribute('autoplay', 'foo'));
+  t.truthy(img.document);
+  t.true(img.html);
+  const a = img.setAttribute('autoplay', 'foo');
+  t.truthy(a);
+  t.true(a.html);
   t.is(doc.toString(), '<!DOCTYPE html><html><img autoplay></html>');
   img.add(new dom.Element('br'));
   t.throws(() => doc.toString());

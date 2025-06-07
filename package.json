@@ -7,13 +7,12 @@
   "types": "types/index.d.ts",
   "scripts": {
     "pretest": "npm run grammar",
-    "test": "ava test",
-    "coverage": "c8 npm test",
+    "test": "c8 ava test",
     "grammar": "peggy --format es lib/xpathPattern3.pegjs",
     "lint": "eslint",
-    "doc": "jsdoc -c .jsdoc.conf",
+    "docs": "typedoc",
     "types": "tsc",
-    "build": "npm run grammar && npm run types && npm run doc && npm run lint"
+    "build": "npm run grammar && npm run types && npm test && npm run docs && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -29,25 +28,23 @@
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
   "dependencies": {
-    "@cto.af/linewrap": "2.1.3",
-    "expat-wasm": "3.1.5"
+    "@cto.af/linewrap": "3.0.0",
+    "expat-wasm": "4.0.0"
   },
   "devDependencies": {
-    "@cto.af/eslint-config": "5.1.2",
-    "@types/node": "22.10.2",
-    "ava": "^6.2.0",
+    "@cto.af/eslint-config": "6.0.5",
+    "@types/node": "22.15.30",
+    "ava": "^6.4.0",
     "c8": "10.1.3",
-    "docdash": "2.0.2",
-    "eslint": "9.17.0",
-    "eslint-plugin-n": "17.15.0",
-    "jsdoc": "^4.0.4",
-    "jsdoc-ts-utils": "5.0.0",
-    "jsdoc-tsimport-plugin": "1.0.5",
-    "peggy": "4.2.0",
-    "typescript": "5.7.2"
+    "eslint": "9.28.0",
+    "eslint-plugin-jsdoc": "50.7.1",
+    "eslint-plugin-n": "17.19.0",
+    "peggy": "5.0.3",
+    "typedoc": "0.28.5",
+    "typescript": "5.8.3"
   },
   "engines": {
     "node": ">=18.20"
   },
-  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
+  "packageManager": "pnpm@10.11.1"
 }

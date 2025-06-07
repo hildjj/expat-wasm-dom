@@ -39,11 +39,6 @@ const skip = {
   'rmt-e2e-50': 'this can only be tested effectively in XML 1.1, since CR is in the S production; in 1.1 we can use NEL which isn\'t.',
 };
 
-/**
- * @param {import('../lib/index.js').dom.Element} el
- * @param {URL} base
- * @param {import('ava').ExecutionContext} t
- */
 async function execTests(el, base, t) {
   const b = el.attr('base', NS.XML);
   if (b) {

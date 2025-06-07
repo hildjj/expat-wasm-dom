@@ -33,8 +33,8 @@ export class Resolver {
   /**
    * Turn a path into a file: URL string, after resolving ., .., etc.
    *
-   * @param {string} name
-   * @returns {string}
+   * @param {string} name File name.
+   * @returns {string} Resolved file name.
    */
   static resolveFile(name) {
     return pathToFileURL(path.resolve(name)).toString();
@@ -53,6 +53,13 @@ export class Resolver {
   }
 }
 
+/**
+ * Parse a file by name.
+ *
+ * @param {string} fileName File name.
+ * @param {object} opts Options.
+ * @returns {import('../lib/dom.js').Document} Parsed document.
+ */
 export function parse(fileName, opts) {
   let inStream = process.stdin;
   if (fileName === '-') {
