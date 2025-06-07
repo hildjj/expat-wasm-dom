@@ -1,0 +1,40 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      commander:
+        specifier: 14.0.0
+        version: 14.0.0
+      expat-wasm-dom:
+        specifier: '*'
+        version: 2.0.0
+
+packages:
+
+  commander@14.0.0:
+    resolution: {integrity: sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA==}
+    engines: {node: '>=20'}
+
+  expat-wasm-dom@2.0.0:
+    resolution: {integrity: sha512-pbT/ylVjpOur1sH+heDYqp7VBCw8ZsyFHTAOsrettheIBk9xcUxEgOUTl05hW5P3CyVnxR8Si5OHLYxYVUaqTQ==}
+    engines: {node: '>=16'}
+
+  expat-wasm@3.1.0:
+    resolution: {integrity: sha512-gh5vaCStkkft+Ivvgrm2uzelFgsMA/vv/u4rN6A6x2odGQGqD32ts3O/eGAXXZh6WNdE0P+XGLqRm+U5ggK8ig==}
+    engines: {node: '>=16'}
+
+snapshots:
+
+  commander@14.0.0: {}
+
+  expat-wasm-dom@2.0.0:
+    dependencies:
+      expat-wasm: 3.1.0
+
+  expat-wasm@3.1.0: {}

@@ -13,25 +13,23 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [20, 22, 24]
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm
+          cache: pnpm
       - name: Install dependencies
-        run: npm install
-      - name: Install CLI dependencies
-        working-directory: ./cli
-        run: npm install
+        run: pnpm install -r
       - name: Check coding standards
-        if: matrix.node-version == '20.x' && matrix.os == 'ubuntu-latest'
         run: npm run lint
       - name: Unpack conformance tests
         uses: a7ul/tar-action@v1.1.0
@@ -41,6 +39,8 @@ jobs:
           files: ./test/xmlts20130923.tar.gz
           outPath: .
       - name: Test
-        run: npm run coverage
+        run: npm run test
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

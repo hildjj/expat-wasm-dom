@@ -1,11 +1,17 @@
 .c8rc
 .editorconfig
 .eslintrc.cjs
+.gitattributes
+.github/
 .jsdoc.conf
 .vscode/
+*.peggy
+*.pegjs
 *.tgz
+cli/
 coverage/
 docs/
+eslint.config.js
 lib/libexpat/
 lib/xpathPattern.pegjs
 node_modules/
@@ -14,8 +20,3 @@ test/
 tmp/
 tsconfig.json
 wasm/
-.github/
-.gitattributes
-cli/
-*.peggy
-*.pegjs

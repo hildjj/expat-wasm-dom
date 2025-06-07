@@ -6,8 +6,8 @@
  */
 /**
  * @typedef {object} EntityInfo
- * @prop {string} base
- * @prop {string|Buffer|Uint8Array|Uint8ClampedArray} data
+ * @property {string} base Base URL.
+ * @property {string|Buffer|Uint8Array|Uint8ClampedArray} data Resolved Data.
  */
 /**
  * @callback ReadEntity
@@ -18,17 +18,16 @@
  */
 /**
  * @typedef {object} ParserOptions
- * @prop {XML_Encoding} [encoding] null will do content
- *   sniffing.
- * @prop {string|XmlParser.NO_NAMESPACES} [separator='|'] the separator
+ * @property {XML_Encoding} [encoding] If null will do content sniffing.
+ * @property {string|XmlParser.NO_NAMESPACES} [separator='|'] The separator
  *   for namespace URI and element/attribute name.  Use
  *   XmlParser.NO_NAMESPACES to get Expat's old, broken namespace
  *   non-implementation via XmlParserCreate instead of XmlParserCreateNS.
- * @prop {boolean} [expandInternalEntities] expand internal entities
- * @prop {ReadEntity|null} [systemEntity] expand external entities using this
- *   callback
- * @prop {string|null} [base] Base URI for inclusions
- * @prop {boolean} xmlBase Add xml:base attributes when parsing external
+ * @property {boolean} [expandInternalEntities] Expand internal entities.
+ * @property {ReadEntity|null} [systemEntity] Expand external entities using
+ *   this callback.
+ * @property {string|null} [base] Base URI for inclusions.
+ * @property {boolean} xmlBase Add xml:base attributes when parsing external
  *   entitites.
  */
 /**
@@ -42,25 +41,28 @@ export class DomParser {
      * Parse a full document.
      *
      * @param {string|Buffer|Uint8Array|Uint8ClampedArray} txt The text to parse.
-     * @param {ParserOptions} opts
+     * @param {ParserOptions} opts Options.
      * @returns {dom.Document} The created document.
      */
     static parseFull(txt: string | Buffer | Uint8Array | Uint8ClampedArray, opts: ParserOptions): dom.Document;
     /**
-     * Process a tagged template literal containing XML.
-     * Streams data into the parser per-chunk.
+     * Process a tagged template literal containing XML. Streams data into the
+     * parser per-chunk.
      *
-     * @param {string[]} template Template pieces
-     * @param {...string} sub Substitutions
+     * @param {string[]} template Template pieces.
+     * @param {...string} sub Substitutions.
+     * @returns {Document|undefined} Parsed document, or undefined if not
+     *   complete.
+     * @throws {Error} XML parse error.
      */
-    static fromString(template: string[], ...sub: string[]): dom.Document | undefined;
+    static fromString(template: string[], ...sub: string[]): Document | undefined;
     /**
      * Create a DOM Parser.
      *
      * @param {ParserOptions} [options]
-     *   Encoding to expect from Buffers/etc that are passed to parse()
+     *   Encoding to expect from Buffers/etc that are passed to parse().
      */
-    constructor(options?: ParserOptions | undefined);
+    constructor(options?: ParserOptions);
     /**
      * Pop the stack.
      * @private
@@ -70,13 +72,14 @@ export class DomParser {
      * Parse a chunk of an XML document.  You can call this multiple times with
      * final=0, then with final=1 when you're done.
      *
-     * @param {string|Buffer|Uint8Array|Uint8ClampedArray} str
+     * @param {string|Buffer|Uint8Array|Uint8ClampedArray} str String to parse.
      * @param {number} [final=1] If the last chunk of a document, 1.  Otherwise
      *   use 0.
-     * @returns {dom.Document=} The parsed document, if successful and this was
-     *   the final chunk.  Otherwise 0.
+     * @returns {dom.Document|undefined} The parsed document, if successful and
+     *   this was the final chunk.  Otherwise undefined.
+     * @throws {Error} On XML parse error.
      */
-    parse(str: string | Buffer | Uint8Array | Uint8ClampedArray, final?: number | undefined): dom.Document | undefined;
+    parse(str: string | Buffer | Uint8Array | Uint8ClampedArray, final?: number): dom.Document | undefined;
     /**
      * Destroy this instance, cleaning up parser resources.
      */
@@ -88,34 +91,39 @@ export class DomParser {
  */
 export type XML_Encoding = undefined | null | "US-ASCII" | "UTF-8" | "UTF-16" | "ISO-8859-1";
 export type EntityInfo = {
+    /**
+     * Base URL.
+     */
     base: string;
+    /**
+     * Resolved Data.
+     */
     data: string | Buffer | Uint8Array | Uint8ClampedArray;
 };
 export type ReadEntity = (base: string, systemId: string, publicId?: string | undefined) => EntityInfo;
 export type ParserOptions = {
     /**
-     * null will do content
-     * sniffing.
+     * If null will do content sniffing.
      */
     encoding?: XML_Encoding;
     /**
-     * the separator
+     * The separator
      * for namespace URI and element/attribute name.  Use
      * XmlParser.NO_NAMESPACES to get Expat's old, broken namespace
      * non-implementation via XmlParserCreate instead of XmlParserCreateNS.
      */
     separator?: string | symbol | undefined;
     /**
-     * expand internal entities
+     * Expand internal entities.
      */
     expandInternalEntities?: boolean | undefined;
     /**
-     * expand external entities using this
-     * callback
+     * Expand external entities using
+     * this callback.
      */
     systemEntity?: ReadEntity | null | undefined;
     /**
-     * Base URI for inclusions
+     * Base URI for inclusions.
      */
     base?: string | null | undefined;
     /**

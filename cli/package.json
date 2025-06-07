@@ -26,10 +26,10 @@
     ".."
   ],
   "dependencies": {
-    "commander": "10.0.1",
+    "commander": "14.0.0",
     "expat-wasm-dom": "*"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   }
 }
