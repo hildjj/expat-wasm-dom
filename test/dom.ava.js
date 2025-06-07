@@ -26,15 +26,21 @@ test('Element', t => {
   t.is(e.toString(), '<foo/>');
   e.removeAttribute({local: 'unknown', ns: 'urn:c'});
   t.is(e.toString(), '<foo/>');
+  t.false(e.hasSignificantText());
 
   const f = new dom.Element('foo', [['a', 'b']]);
   t.is(f.toString(), '<foo a="b"/>');
   const txt = f.add(new dom.Text('hi!'));
   t.is(txt.toString(), 'hi!');
+  t.true(f.hasSignificantText());
+  t.false(f.hasElement());
   t.is(f.toString({depth: 0}), '<foo a="b">...</foo>');
   t.not(f.toString({depth: 0, colors: true}), '<foo a="b">...</foo>');
   t.is(util.inspect(f, {depth: 0}), '{Element <foo a="b">...</foo>}');
   t.not(util.inspect(f, {depth: 0, colors: true}), '{Element <foo a="b">...</foo>}');
+
+  f.add(new dom.Element('bar'));
+  t.true(f.hasElement());
 });
 
 test('escape', t => {
@@ -57,6 +63,7 @@ test('escape', t => {
   t.truthy(baz.text('nope') instanceof dom.Text);
   const cmt = e.add(new dom.Comment('haha'));
   t.is(cmt.toString(), '<!--haha-->');
+  t.is(cmt.toString({removeComments: true}), '');
   const cdata = e.add(new dom.CdataSection().add(new dom.Text('nod')).parent);
   t.is(cdata.toString(), '<![CDATA[nod]]>');
   t.is([...e.descendants()].length, 7);
@@ -163,3 +170,41 @@ test('html', t => {
   t.throws(() => doc.toString());
 });
 
+test('compare attributes', t => {
+  const col = new Intl.Collator();
+  const foo = new dom.Attribute('foo', 'bar');
+  const bar = new dom.Attribute('boo', 'bar');
+  const foo_a = new dom.Attribute({ns: 'urn:a', local: 'foo', prefix: 'a'}, 'bar');
+  const foo_b = new dom.Attribute({ns: 'urn:b', local: 'foo', prefix: 'b'}, 'bar');
+
+  t.is(dom.Attribute.compare(foo, bar, col), 1);
+  t.is(dom.Attribute.compare(bar, foo, col), -1);
+  t.is(dom.Attribute.compare(foo, foo, col), 0);
+  t.is(dom.Attribute.compare(foo, foo_a, col), 1);
+  t.is(dom.Attribute.compare(foo_a, foo, col), -1);
+  t.is(dom.Attribute.compare(foo_a, foo_a, col), 0);
+  t.is(dom.Attribute.compare(foo_a, foo_b, col), -1);
+});
+
+test('compare ns', t => {
+  const col = new Intl.Collator();
+  const foo = new dom.Namespace('foo', 'urn:b');
+  const bar = new dom.Namespace('boo', 'urn:a');
+  const baz = new dom.Namespace('', 'urn:c');
+
+  t.is(dom.Namespace.compare(foo, bar, col), 1);
+  t.is(dom.Namespace.compare(bar, foo, col), -1);
+  t.is(dom.Namespace.compare(foo, foo, col), 0);
+  t.is(dom.Namespace.compare(foo, baz, col), 1);
+  t.is(dom.Namespace.compare(baz, foo, col), -1);
+});
+
+test.skip('pretty', t => {
+  const d = new dom.Document();
+  d.add(new dom.Element('foo', {
+    a0123456789001234567890012345678900123456789001234567890: '1',
+    b0123456789001234567890012345678900123456789001234567890: '2',
+  }));
+  const s = d.toString({pretty: true});
+  t.is(s, '');
+});
