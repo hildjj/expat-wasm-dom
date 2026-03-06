@@ -56,10 +56,10 @@ export class Node {
      * @param {string|XPath} pattern The pattern to match.
      * @param {Node} [context=this] The context node.  Uses this node as context
      *   if none is provided.
-     * @returns {import('./xpath.js').XPathResult} The matching nodes.
+     * @returns {XPathResult} The matching nodes.
      * @throws {TypeError} If not a string or pattern.
      */
-    get(pattern: string | XPath, context?: Node): import("./xpath.js").XPathResult;
+    get(pattern: string | XPath, context?: Node): XPathResult;
     /**
      * Get the first matching node for a given pattern, or null if none exist.
      *
@@ -113,7 +113,7 @@ export class ParentNode extends Node {
      * their children.
      *
      * @returns {Generator<Element>} All element descendants.
-     * @yields {Element}
+     * @yields {Element} Once for each descendant.
      */
     descendantElements(): Generator<Element>;
     /**
@@ -125,7 +125,7 @@ export class ParentNode extends Node {
      * @param {string} [ns] The namespace URI to match.  If not given, match
      *   elements with any namespace.
      * @returns {Generator<Element>} Direct element children.
-     * @yields {Element}
+     * @yields {Element} Direct child elements.
      */
     elements(local?: string, ns?: string): Generator<Element>;
     /**
@@ -504,54 +504,6 @@ export class AttributeDecl extends Node {
     dflt: string;
     isrequired: boolean;
 }
-export type Separated = {
-    /**
-     * How to sort?
-     */
-    collator?: Intl.Collator | undefined;
-    /**
-     * Reduce whitespace if true.
-     */
-    compressed?: boolean | undefined;
-    /**
-     * Indent by how many spaces?
-     */
-    indent?: number | undefined;
-    /**
-     * Indent by text.  Ignores indent.
-     */
-    indentText?: string | undefined;
-    /**
-     * Text for newlines.
-     */
-    newline?: string | undefined;
-    /**
-     * Pretty print.  Sets other options.
-     */
-    pretty?: boolean | undefined;
-    /**
-     * Character to use for quoting attributes.
-     */
-    quote?: string | undefined;
-    /**
-     * Remove comments?
-     */
-    removeComments?: boolean | undefined;
-    /**
-     * TBD.
-     */
-    separator?: string | undefined;
-    /**
-     * Where to break lines.
-     */
-    width?: number | undefined;
-    /**
-     * How to wrap lines.
-     */
-    wrap?: LineWrap | undefined;
-};
-export type MaybeStylized = Partial<util.InspectOptionsStylized>;
-export type MaybeStylizedSeparated = MaybeStylized & Separated;
 export type Pieces = {
     /**
      * The namespace URI.
@@ -585,6 +537,6 @@ export type Model = {
      */
     children?: Model[] | undefined;
 };
+import type { MaybeStylizedSeparated } from './colors.js';
 import { XPath } from './xpath.js';
-import { LineWrap } from '@cto.af/linewrap';
-import util from 'node:util';
+import type { XPathResult } from './xpath.js';

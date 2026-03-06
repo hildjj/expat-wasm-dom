@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-console */
 import {Command} from 'commander';
 import {dom} from 'expat-wasm-dom';
 import {parse} from '../lib/entity.js';

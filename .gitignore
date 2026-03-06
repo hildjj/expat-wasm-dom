@@ -1,8 +1,10 @@
+.nyc_output/
+.pnpm-store/
+.vscode/
+coverage/
+docs/
 node_modules/
 npm-debug.log
-coverage/
-.nyc_output/
-tmp/
+t.js
 test/xmlconf/
-.vscode/
-docs/
+tmp/
