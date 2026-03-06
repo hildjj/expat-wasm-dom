@@ -5,6 +5,10 @@
   "main": "lib/index.js",
   "type": "module",
   "types": "types/index.d.ts",
+  "files": [
+    "lib/",
+    "types"
+  ],
   "scripts": {
     "pretest": "npm run grammar",
     "test": "c8 ava test",
@@ -14,6 +18,9 @@
     "types": "tsc",
     "build": "npm run grammar && npm run types && npm test && npm run docs && npm run lint"
   },
+  "workspaces": [
+    "cli"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/hildjj/expat-wasm-dom.git"

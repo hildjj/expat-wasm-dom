@@ -77,8 +77,14 @@ test('error', t => {
     t.truthy(e.constructor.name, 'XPathSyntaxError');
     t.is(util.inspect(e),
       'Error: Syntax error in "/$": Expected end of input but "$" found.');
-    t.is(util.inspect(e, {colors: true}),
-      'Error: /\u001b[31m$\u001b[39m');
+    if (util.inspect?.styles?.regexp === 'red') {
+      t.is(util.inspect(e, {colors: true}),
+        'Error: /\u001b[31m$\u001b[39m');
+    } else {
+      // Node 25 stylizes regexps internally
+      t.is(util.inspect(e, {colors: true}),
+        'Error: /\x1B[32m/\x1B[39m\x1B[32m/\x1B[39m');
+    }
   }
   t.throws(() => {
     const doc = xml`<foo/>`;
