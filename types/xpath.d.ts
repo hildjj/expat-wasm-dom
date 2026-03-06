@@ -230,7 +230,7 @@ export class XPath {
      * @param {number} _num Ignored.
      * @param {dom.Node} _context Ignored.
      * @param {string} op Operator.
-     * @param {...any} _args Ignored.
+     * @param {...unknown} _args Ignored.
      * @throws {Error} Always throws.
      * @private
      */

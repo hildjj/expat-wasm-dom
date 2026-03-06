@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-console */
 import {Command} from 'commander';
 import {parse} from '../lib/entity.js';
 import {sharedOptions} from '../lib/shared.js';

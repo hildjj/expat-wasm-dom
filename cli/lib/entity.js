@@ -3,6 +3,8 @@ import {DomParser} from 'expat-wasm-dom';
 import fs from 'node:fs';
 import path from 'node:path';
 
+/** @import {Document} from '../lib/dom.js' */
+
 /**
  * Load an external reference from the file system synchronously.
  * Ensure all references within a root directory, in an attempt to mitigate
@@ -58,7 +60,7 @@ export class Resolver {
  *
  * @param {string} fileName File name.
  * @param {object} opts Options.
- * @returns {import('../lib/dom.js').Document} Parsed document.
+ * @returns {Document} Parsed document.
  */
 export function parse(fileName, opts) {
   let inStream = process.stdin;

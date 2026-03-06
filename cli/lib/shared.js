@@ -1,11 +1,12 @@
-/* eslint-disable jsdoc/imports-as-dependencies */
 import {Option} from 'commander';
 import {Resolver} from './entity.js';
+
+/** @import {Command} from 'commander' */
 
 /**
  * Add a few common options onto an existing commnd, and parse input.
  *
- * @template {import('commander').Command} T
+ * @template {Command} T Program type.
  * @param {T} program Program to augment.
  * @param {string[]} [args] Command line arguments.
  * @returns {T} Augmented command.
