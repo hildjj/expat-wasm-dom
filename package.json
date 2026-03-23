@@ -16,7 +16,9 @@
     "lint": "eslint",
     "docs": "typedoc",
     "types": "tsc",
-    "build": "npm run grammar && npm run types && npm test && npm run docs && npm run lint"
+    "conformance": "cd test && tar zxf xmlts20130923.tar.gz",
+    "version": "monopub version && pnpm i -r && git add pnpm-lock.yaml",
+    "build": "npm run conformance && npm run grammar && npm run types && npm test && npm run docs && npm run lint"
   },
   "workspaces": [
     "cli"
@@ -39,7 +41,8 @@
     "expat-wasm": "4.0.5"
   },
   "devDependencies": {
-    "@cto.af/eslint-config": "^6.2.5",
+    "@cto.af/eslint-config": "6.2.5",
+    "@cto.af/monopub": "1.2.4",
     "@types/node": "^25.5.0",
     "ava": "^7.0.0",
     "eslint": "^10.1.0",
