@@ -1,7 +1,7 @@
 {
   "name": "expat-wasm-dom",
   "version": "2.0.1",
-  "description": "",
+  "description": "Document Object Model for expat-wasm",
   "main": "lib/index.js",
   "type": "module",
   "types": "types/index.d.ts",
@@ -36,22 +36,21 @@
   "license": "MIT",
   "dependencies": {
     "@cto.af/linewrap": "4.0.1",
-    "expat-wasm": "4.0.4"
+    "expat-wasm": "4.0.5"
   },
   "devDependencies": {
-    "@cto.af/eslint-config": "6.2.5",
-    "@types/node": "25.3.5",
+    "@cto.af/eslint-config": "^6.2.5",
+    "@types/node": "^25.5.0",
     "ava": "^7.0.0",
-    "eslint": "10.0.2",
-    "eslint-plugin-jsdoc": "62.7.1",
-    "eslint-plugin-n": "17.24.0",
-    "peggy": "5.1.0",
-    "superc8": "^12.2.4",
-    "typedoc": "0.28.17",
-    "typescript": "5.9.3"
+    "eslint": "^10.1.0",
+    "eslint-plugin-jsdoc": "^62.8.0",
+    "peggy": "^5.1.0",
+    "superc8": "^12.3.1",
+    "typedoc": "^0.28.18",
+    "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=18.20"
+    "node": ">=20"
   },
-  "packageManager": "pnpm@10.30.3"
+  "packageManager": "pnpm@10.32.1"
 }
