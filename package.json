@@ -16,8 +16,9 @@
     "lint": "eslint",
     "docs": "typedoc",
     "types": "tsc",
+    "conformance": "cd test && tar zxf xmlts20130923.tar.gz",
     "version": "monopub version && pnpm i -r && git add pnpm-lock.yaml",
-    "build": "npm run grammar && npm run types && npm test && npm run docs && npm run lint"
+    "build": "npm run conformance && npm run grammar && npm run types && npm test && npm run docs && npm run lint"
   },
   "workspaces": [
     "cli"

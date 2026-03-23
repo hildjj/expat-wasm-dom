@@ -1,40 +1,11 @@
 name: Tests
-
 on:
   push:
-    branches: ['main']
+    branches: [main]
   pull_request:
-    branches: ['main']
+    branches: [main]
 jobs:
   build:
-    strategy:
-      matrix:
-        node-version: [20, 22, 24, 25]
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v6
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          cache: true
-          run_install: true
-      - name: Check coding standards
-        run: npm run lint
-      - name: Unpack conformance tests
-        uses: a7ul/tar-action@v1.1.0
-        with:
-          command: x
-          cwd: ./test
-          files: ./test/xmlts20130923.tar.gz
-          outPath: .
-      - name: Test
-        run: npm run test
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+    uses: cto-af/workflows/.github/workflows/node-ci.yml@main
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
