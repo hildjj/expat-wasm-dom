@@ -10,3 +10,4 @@ jobs:
       id-token: write
     with:
       docs: true
+      workspaces: true
