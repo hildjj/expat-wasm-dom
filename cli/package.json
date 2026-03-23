@@ -1,6 +1,6 @@
 {
   "name": "expat-wasm-dom-cli",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Command line utilities for expat-wasm-dom",
   "type": "module",
   "bin": {
@@ -28,7 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^14.0.3",
-    "expat-wasm-dom": "*"
+    "expat-wasm-dom": "2.0.2"
   },
   "engines": {
     "node": ">=20"
