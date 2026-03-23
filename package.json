@@ -21,6 +21,7 @@
     "build": "npm run conformance && npm run grammar && npm run types && npm test && npm run docs && npm run lint"
   },
   "workspaces": [
+    ".",
     "cli"
   ],
   "repository": {
