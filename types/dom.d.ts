@@ -1,3 +1,39 @@
+import { XPath } from './xpath.js';
+import type { XPathResult } from './xpath.js';
+import type { MaybeStylizedSeparated } from './colors.js';
+export type Pieces = {
+    /**
+     * The namespace URI.
+     */
+    ns?: string;
+    /**
+     * The local name.
+     */
+    local: string;
+    /**
+     * The prefix used for the current name.
+     */
+    prefix?: string;
+};
+export type AttributePair = [Pieces, string];
+export type Model = {
+    /**
+     * Name of the model.
+     */
+    name?: string;
+    /**
+     * Empty=1, Any, Mixed, Name, Choice, Seq.
+     */
+    type?: number;
+    /**
+     * None=0, Optional, Star, Plus.
+     */
+    quant?: number;
+    /**
+     * Children.
+     */
+    children?: Array<Model>;
+};
 /**
  * @typedef {object} Pieces
  * @property {string} [ns] The namespace URI.
@@ -18,28 +54,20 @@
  * The base class for all node types.
  * @abstract
  */
-export class Node {
+export declare class Node {
+    #private;
     /**
-     * XML escape a string.
-     *
-     * @param {string} str The string to escape.
-     * @param {boolean} [attrib=false] Is the string an attribute value?
-     *   (if so, double-quotes are escaped).
-     * @returns {string} The escaped string.
+     * @type {Node|null}
      */
-    static escape(str: string, attrib?: boolean): string;
+    parent: Node | null;
     /**
      * Create a node instance.
      * @param {Document|null} [doc] Document this node is in.  May be empty for
      *   fragments.
      */
     constructor(doc?: Document | null);
-    /**
-     * @type {Node|null}
-     */
-    parent: Node | null;
-    set document(val: Document | null);
     get document(): Document | null;
+    set document(val: Document | null);
     get html(): boolean;
     /**
      * Convert to string.  Overridden by all subclasses.
@@ -70,6 +98,15 @@ export class Node {
      */
     first(pattern: string | XPath, context?: Node): string | Node | number | null;
     /**
+     * XML escape a string.
+     *
+     * @param {string} str The string to escape.
+     * @param {boolean} [attrib=false] Is the string an attribute value?
+     *   (if so, double-quotes are escaped).
+     * @returns {string} The escaped string.
+     */
+    static escape(str: string, attrib?: boolean): string;
+    /**
      * Default implementation of text returns empty string.
      *
      * @abstract
@@ -77,7 +114,6 @@ export class Node {
      * @returns {string|Node} The concatenated text.
      */
     text(_newText?: string): string | Node;
-    #private;
 }
 /**
  * Many Node subclasses are potentially parents of other Nodes.  Those
@@ -85,11 +121,18 @@ export class Node {
  * the ability to hold children.
  * @abstract
  */
-export class ParentNode extends Node {
+export declare class ParentNode extends Node {
     /**
      * @type {Node[]}
      */
     children: Node[];
+    /**
+     * Creates an instance of ParentNode.
+     * @param {Document|null} [doc] The document this node belongs to.
+     */
+    constructor(doc?: Document | null);
+    get document(): Document | null;
+    set document(val: Document | null);
     /**
      * Add a child node.  Side effect: sets the parent of the added node.
      *
@@ -97,8 +140,25 @@ export class ParentNode extends Node {
      * @returns {Node} The added node.
      */
     add(node: Node): Node;
+    /**
+     * Gets the text associated with all of the child nodes, concatenated
+     * together. This sometimes has surprising results, because of included
+     * whitespace.
+     *
+     * @param {string} [newText] New text to insert.  Invalid on ParentNode
+     *   but used for subclasses.
+     * @returns {string|Node} The concatenated text.
+     * @throws {Error} If newText is specified.  This is half-abstract.
+     */
+    text(newText?: string): string | Node;
     hasSignificantText(): boolean;
     hasElement(): boolean;
+    /**
+     * Allow easy iteration over all of the children of this node.
+     *
+     * @returns {Iterator<Node>} The iterator.
+     */
+    [Symbol.iterator](): Iterator<Node>;
     /**
      * Iterate over all of the descendants of this node, to infinite depth, in
      * prefix order.  That is, parents are yielded before their children.
@@ -129,46 +189,79 @@ export class ParentNode extends Node {
      */
     elements(local?: string, ns?: string): Generator<Element>;
     /**
-     * Allow easy iteration over all of the children of this node.
+     * Convert the node to a string containing representations of all of the
+     * children of this node.  Override this and call super as needed.
      *
-     * @returns {Iterator<Node>} The iterator.
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
      */
-    [Symbol.iterator](): Iterator<Node>;
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * An entire XML document.
  *
  * @extends {ParentNode}
  */
-export class Document extends ParentNode {
+export declare class Document extends ParentNode {
+    #private;
+    /**
+     * Creates an instance of Document.
+     */
+    constructor();
+    get html(): boolean;
+    set html(val: boolean);
+    /**
+     * The root element of the document.
+     *
+     * @returns {Element|null} The root element if it exists.
+     */
+    get root(): Element | null;
+    /**
+     * Get all of the nodes that match the given XPath pattern, with the given
+     * context for XPath execution.
+     *
+     * @param {string|XPath} pattern The pattern to match.
+     * @param {Node} [context=this.root] The context node.  Uses the root element
+     *   as context if none is provided.
+     * @returns {XPathResult} The matching nodes.
+     */
+    get(pattern: string | XPath, context?: Node): XPathResult;
+    /**
+     * Get the first matching node for a given pattern, or null if none exist.
+     *
+     * @param {string|XPath} pattern The pattern to match.
+     * @param {Node} [context=this.root] The context node.  Uses the root element
+     *   as context if none is provided.
+     * @returns {string|number|Node|null} The first match if one exists.
+     */
+    first(pattern: string | XPath, context?: Node): string | number | Node | null;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
     /**
      * Create an empty HTML 5 document with doctype and root element.
      *
      * @returns {Document} Empty document.
      */
     static html(): Document;
-    /**
-     * Creates an instance of Document.
-     */
-    constructor();
-    document: this;
-    set html(val: boolean);
-    get html(): boolean;
-    /**
-     * The root element of the document.
-     *
-     * @readonly
-     * @returns {Element|null} The root element if it exists.
-     */
-    readonly get root(): Element | null;
-    #private;
 }
 /**
  * XML Element, like <code>&lt;foo/&gt;</code>.
  *
  * @extends {ParentNode}
  */
-export class Element extends ParentNode {
+export declare class Element extends ParentNode {
+    #private;
+    /** @type {Pieces} */
+    name: Pieces;
+    /** @type {Attribute[]} */
+    att: Attribute[];
+    /** @type {Namespace[]} */
+    ns: Namespace[];
     /**
      * Creates an instance of Element.
      *
@@ -180,12 +273,8 @@ export class Element extends ParentNode {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(name: string | Pieces, attribs?: AttributePair[] | Record<string, string>, ns?: string[][], doc?: Document | null);
-    /** @type {Pieces} */
-    name: Pieces;
-    /** @type {Attribute[]} */
-    att: Attribute[];
-    /** @type {Namespace[]} */
-    ns: Namespace[];
+    get document(): Document | null;
+    set document(val: Document | null);
     /**
      * Find the value of an attribute that matches the given local name and
      * namespace.
@@ -221,7 +310,23 @@ export class Element extends ParentNode {
      * @returns {Element|undefined} The first matching element, if one is found.
      */
     element(local: string, ns?: string): Element | undefined;
-    #private;
+    /**
+     * Get or set the text contained in this element.  If setting, replaces
+     * all other existing children.
+     *
+     * @param {string} [newText] If given, set the text of the element.
+     *   Otherwise, gets all descendant text, concatenated together.
+     * @returns {string|Node} Text on set, string on get.
+     */
+    text(newText?: string): string | Node;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     * @throws {Error} On HTML void elements with children.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * A prefix/URI combination for a namespace declaration.
@@ -229,7 +334,17 @@ export class Element extends ParentNode {
  * @class Namespace
  * @extends {Node}
  */
-export class Namespace extends Node {
+export declare class Namespace extends Node {
+    prefix: string;
+    uri: string;
+    /**
+     * Creates an instance of Namespace.
+     *
+     * @param {string} prefix The prefix.
+     * @param {string} uri The URI.
+     * @param {Document|null} [doc] The document this node belongs to.
+     */
+    constructor(prefix: string, uri: string, doc?: Document | null);
     /**
      * Compare two namespaces for ordering, by prefix.
      *
@@ -240,22 +355,31 @@ export class Namespace extends Node {
      */
     static compare(a: Namespace, b: Namespace, collator: Intl.Collator): number;
     /**
-     * Creates an instance of Namespace.
+     * Convert to string.
      *
-     * @param {string} prefix The prefix.
-     * @param {string} uri The URI.
-     * @param {Document|null} [doc] The document this node belongs to.
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
      */
-    constructor(prefix: string, uri: string, doc?: Document | null);
-    prefix: string;
-    uri: string;
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * An attribute of an Element.
  *
  * @extends {Node}
  */
-export class Attribute extends Node {
+export declare class Attribute extends Node {
+    /** @type {Pieces} */
+    name: Pieces;
+    /** @type {string} */
+    value: string;
+    /**
+     * Creates an instance of Attribute.
+     *
+     * @param {string|Pieces} name If a string, the local name.
+     * @param {string} value The value.
+     * @param {Document|null} [doc] The document this node belongs to.
+     */
+    constructor(name: string | Pieces, value: string, doc?: Document | null);
     /**
      * Compare two attributes for ordering.
      *
@@ -266,24 +390,28 @@ export class Attribute extends Node {
      */
     static compare(a: Attribute, b: Attribute, collator: Intl.Collator): number;
     /**
-     * Creates an instance of Attribute.
+     * Get or set the attribute value.
      *
-     * @param {string|Pieces} name If a string, the local name.
-     * @param {string} value The value.
-     * @param {Document|null} [doc] The document this node belongs to.
+     * @param {string} [newText] If specified, replace.
+     * @returns {string|Node} This if newText is provided, otherwise the
+     *   existing text.
      */
-    constructor(name: string | Pieces, value: string, doc?: Document | null);
-    /** @type {Pieces} */
-    name: Pieces;
-    /** @type {string} */
-    value: string;
+    text(newText?: string): string | Node;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * Plain text in an element.
  *
  * @extends {Node}
  */
-export class Text extends Node {
+export declare class Text extends Node {
+    txt: string;
     /**
      * Creates an instance of Text.
      *
@@ -291,8 +419,22 @@ export class Text extends Node {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(txt: string, doc?: Document | null);
-    txt: string;
+    /**
+     * Get or set the text contained in this node.
+     *
+     * @param {string} [newText] If given, set the text of the node.
+     *   Otherwise, gets the contained text.
+     * @returns {string|Node} Returns this on set, string on get.
+     */
+    text(newText?: string): string | Node;
     isEmpty(): boolean;
+    /**
+     * Convert to string.  If not in a CDataSection, escape text.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * Like a Text node, but no escaping is done.  Intended for text like "&foo;"
@@ -300,14 +442,22 @@ export class Text extends Node {
  *
  * @extends {Text}
  */
-export class EntityRef extends Text {
+export declare class EntityRef extends Text {
+    /**
+     * Convert to string.  No escaping is performed.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * An XML comment that contains text.
  *
  * @extends {Node}
  */
-export class Comment extends Node {
+export declare class Comment extends Node {
+    txt: string;
     /**
      * Creates an instance of Comment.
      *
@@ -315,21 +465,43 @@ export class Comment extends Node {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(txt: string, doc?: Document | null);
-    txt: string;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * A CDATA section, like <code>&lt;![CDATA[&lt;foo/&gt;]]&gt;</code>.
  *
  * @extends {ParentNode}
  */
-export class CdataSection extends ParentNode {
+export declare class CdataSection extends ParentNode {
+    /**
+     * Create a CDATA.
+     *
+     * @param {Document|null} [doc] The document this node belongs to.
+     */
+    constructor(doc?: Document | null);
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * XML Declaration, like <code>&lt;?xml version="1.0"?&gt;</code>.
  *
  * @see https://www.w3.org/TR/xml/#NT-XMLDecl
  */
-export class XmlDeclaration extends Node {
+export declare class XmlDeclaration extends Node {
+    version: string;
+    encoding: string | undefined;
+    standalone: boolean;
     /**
      * Creates an instance of XmlDeclaration.
      *
@@ -339,9 +511,13 @@ export class XmlDeclaration extends Node {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(version?: string, encoding?: string, standalone?: boolean, doc?: Document | null);
-    version: string;
-    encoding: string | undefined;
-    standalone: boolean;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * Processing Instruction, like <code>&lt;?xml-stylesheet href="mystyle.css"
@@ -349,7 +525,9 @@ export class XmlDeclaration extends Node {
  *
  * @see https://www.w3.org/TR/xml/#sec-pi
  */
-export class ProcessingInstruction extends Node {
+export declare class ProcessingInstruction extends Node {
+    target: string;
+    data: string | undefined;
     /**
      * Creates an instance of ProcessingInstruction.
      *
@@ -358,15 +536,24 @@ export class ProcessingInstruction extends Node {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(target: string, data?: string, doc?: Document | null);
-    target: string;
-    data: string | undefined;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * XML DocType, like <code><!DOCTYPE foo []></code>.
  *
  * @see https://www.w3.org/TR/xml/#NT-doctypedecl
  */
-export class DoctypeDecl extends ParentNode {
+export declare class DoctypeDecl extends ParentNode {
+    doctypeName: string;
+    sysid: string | undefined;
+    pubid: string | undefined;
+    hasInternalSubset: boolean | undefined;
     /**
      * Creates an instance of DoctypeDecl.
      *
@@ -377,30 +564,20 @@ export class DoctypeDecl extends ParentNode {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(doctypeName: string, sysid?: string, pubid?: string, hasInternalSubset?: boolean, doc?: Document | null);
-    doctypeName: string;
-    sysid: string | undefined;
-    pubid: string | undefined;
-    hasInternalSubset: boolean | undefined;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * Entity declaration.
  *
  * @see https://www.w3.org/TR/xml/#sec-entity-decl
  */
-export class EntityDecl extends Node {
-    /**
-     * Creates an instance of EntityDecl.
-     *
-     * @param {string} entityName Name.
-     * @param {boolean} [isParameterEntity=false] Parameter?
-     * @param {string} [value] Value.
-     * @param {string} [base] Base URL.
-     * @param {string} [systemId] System ID?
-     * @param {string} [publicId] Public ID?
-     * @param {string} [notationName] Notation.
-     * @param {Document|null} [doc] The document this node belongs to.
-     */
-    constructor(entityName: string, isParameterEntity?: boolean, value?: string, base?: string, systemId?: string, publicId?: string, notationName?: string, doc?: Document | null);
+export declare class EntityDecl extends Node {
     /** @type {string} */
     entityName: string;
     /** @type {boolean} */
@@ -415,13 +592,41 @@ export class EntityDecl extends Node {
     publicId: string | undefined;
     /** @type {string|undefined} */
     notationName: string | undefined;
+    /**
+     * Creates an instance of EntityDecl.
+     *
+     * @param {string} entityName Name.
+     * @param {boolean} [isParameterEntity=false] Parameter?
+     * @param {string} [value] Value.
+     * @param {string} [base] Base URL.
+     * @param {string} [systemId] System ID?
+     * @param {string} [publicId] Public ID?
+     * @param {string} [notationName] Notation.
+     * @param {Document|null} [doc] The document this node belongs to.
+     */
+    constructor(entityName: string, isParameterEntity?: boolean, value?: string, base?: string, systemId?: string, publicId?: string, notationName?: string, doc?: Document | null);
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * Notation declaration.
  *
  * @see https://www.w3.org/TR/xml/#Notations
  */
-export class NotationDecl extends Node {
+export declare class NotationDecl extends Node {
+    /** @type {string} */
+    notationName: string;
+    /** @type {string|undefined} */
+    base: string | undefined;
+    /** @type {string|undefined} */
+    systemId: string | undefined;
+    /** @type {string|undefined} */
+    publicId: string | undefined;
     /**
      * Creates an instance of NotationDecl.
      *
@@ -432,31 +637,33 @@ export class NotationDecl extends Node {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(notationName: string, base?: string, systemId?: string, publicId?: string, doc?: Document | null);
-    /** @type {string} */
-    notationName: string;
-    /** @type {string|undefined} */
-    base: string | undefined;
-    /** @type {string|undefined} */
-    systemId: string | undefined;
-    /** @type {string|undefined} */
-    publicId: string | undefined;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
-export const XML_CTYPE_EMPTY: number;
-export const XML_CTYPE_ANY: number;
-export const XML_CTYPE_MIXED: number;
-export const XML_CTYPE_NAME: number;
-export const XML_CTYPE_CHOICE: number;
-export const XML_CTYPE_SEQ: number;
-export const XML_CQUANT_NONE: number;
-export const XML_CQUANT_OPT: number;
-export const XML_CQUANT_REP: number;
-export const XML_CQUANT_PLUS: number;
+export declare const XML_CTYPE_EMPTY: number;
+export declare const XML_CTYPE_ANY: number;
+export declare const XML_CTYPE_MIXED: number;
+export declare const XML_CTYPE_NAME: number;
+export declare const XML_CTYPE_CHOICE: number;
+export declare const XML_CTYPE_SEQ: number;
+export declare const XML_CQUANT_NONE: number;
+export declare const XML_CQUANT_OPT: number;
+export declare const XML_CQUANT_REP: number;
+export declare const XML_CQUANT_PLUS: number;
 /**
  * Element Declaration.
  *
  * @see https://www.w3.org/TR/xml/#NT-elementdecl
  */
-export class ElementDecl extends Node {
+export declare class ElementDecl extends Node {
+    #private;
+    name: string;
+    model: Model | undefined;
     /**
      * Creates an instance of ElementDecl.
      *
@@ -465,16 +672,21 @@ export class ElementDecl extends Node {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(name: string, model?: Model, doc?: Document | null);
-    name: string;
-    model: Model | undefined;
-    #private;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * Attribute list declaration.
  *
  * @see https://www.w3.org/TR/xml/#attdecls
  */
-export class AttlistDecl extends ParentNode {
+export declare class AttlistDecl extends ParentNode {
+    elname: string;
     /**
      * Create an attribute list declaration.
      *
@@ -482,14 +694,34 @@ export class AttlistDecl extends ParentNode {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(elname: string, doc?: Document | null);
-    elname: string;
+    /**
+     * Because the events for AttributeDecl come in strangely, it's hard to
+     * tell when the AttlistDecl is done.  Any non-AttributeDecl added is
+     * really meant for the enclusing DTD.  This includes Comments and default
+     * (usually whitespace) Text items.
+     *
+     * @param {Node} node The node to add.
+     * @returns {Node} The added node.
+     */
+    add(node: Node): Node;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
 /**
  * Attribute definition.
  *
  * @see https://www.w3.org/TR/xml/#NT-AttDef
  */
-export class AttributeDecl extends Node {
+export declare class AttributeDecl extends Node {
+    attname: string;
+    attType: string;
+    dflt: string;
+    isrequired: boolean;
     /**
      * Creates an instance of AttributeDecl.
      * @param {string} attname Attribute name.
@@ -499,44 +731,11 @@ export class AttributeDecl extends Node {
      * @param {Document|null} [doc] The document this node belongs to.
      */
     constructor(attname: string, attType: string, dflt: string, isrequired: boolean, doc?: Document | null);
-    attname: string;
-    attType: string;
-    dflt: string;
-    isrequired: boolean;
+    /**
+     * Convert to string.
+     *
+     * @param {MaybeStylizedSeparated} [options] How to convert to string.
+     * @returns {string} The node, converted to a string.
+     */
+    toString(options?: MaybeStylizedSeparated): string;
 }
-export type Pieces = {
-    /**
-     * The namespace URI.
-     */
-    ns?: string | undefined;
-    /**
-     * The local name.
-     */
-    local: string;
-    /**
-     * The prefix used for the current name.
-     */
-    prefix?: string | undefined;
-};
-export type AttributePair = [Pieces, string];
-export type Model = {
-    /**
-     * Name of the model.
-     */
-    name?: string | undefined;
-    /**
-     * Empty=1, Any, Mixed, Name, Choice, Seq.
-     */
-    type?: number | undefined;
-    /**
-     * None=0, Optional, Star, Plus.
-     */
-    quant?: number | undefined;
-    /**
-     * Children.
-     */
-    children?: Model[] | undefined;
-};
-import type { MaybeStylizedSeparated } from './colors.js';
-import { XPath } from './xpath.js';
-import type { XPathResult } from './xpath.js';

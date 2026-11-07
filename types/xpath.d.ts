@@ -1,9 +1,13 @@
+import * as dom from './dom.js';
+import util from 'node:util';
 /**
  * Error parsing an XPath expression, with prettier output.
  *
  * @extends {Error}
  */
-export class XPathSyntaxError extends Error {
+export declare class XPathSyntaxError extends Error {
+    pattern: string;
+    location: any;
     /**
      * Creates an instance of XPathSyntaxError.
      *
@@ -11,21 +15,26 @@ export class XPathSyntaxError extends Error {
      * @param {string} pattern The pattern that was being parsed.
      */
     constructor(e: Error, pattern: string);
-    pattern: string;
-    location: any;
     /**
      * Format the error for the console.
      *
      * @param {number} _depth How deep can we go?  0 to stop.
-     * @param {util.InspectOptionsStylized} options Inspection options.
+     * @param {util.InspectContext} options Inspection options.
      * @returns {string} Colorized string.
      */
-    [util.inspect.custom](_depth: number, options: util.InspectOptionsStylized): string;
+    [util.inspect.custom](_depth: number, options: util.InspectContext): string;
 }
+export type XPathResult = Array<string | number | dom.Node>;
+export type XPathFun = (...params: XPathResult[]) => XPathResult;
+export type OpFunction = (i: number, context: dom.Node, ...args: unknown[]) => XPathResult;
+export type Functor = [OpFunction, ...unknown[]];
 /**
  * An XPath expression for querying an XML document.
  */
-export class XPath {
+export declare class XPath {
+    #private;
+    pattern: string;
+    start: any;
     /**
      * Creates an instance of XPath.
      *
@@ -34,8 +43,6 @@ export class XPath {
      * @throws {XPathSyntaxError} Invalid syntax in the pattern.
      */
     constructor(pattern: string);
-    pattern: string;
-    start: any;
     /**
      * Staring with the given context Node, execute the expression.
      *
@@ -235,9 +242,4 @@ export class XPath {
      * @private
      */
     private _unimplemented;
-    #private;
 }
-export type XPathResult = Array<string | number | dom.Node>;
-export type XPathFun = (...params: XPathResult[]) => XPathResult;
-import util from 'node:util';
-import * as dom from './dom.js';

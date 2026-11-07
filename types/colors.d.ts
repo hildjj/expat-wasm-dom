@@ -1,3 +1,8 @@
+export declare const ATTRIBUTE: unique symbol;
+export declare const NAME: unique symbol;
+export declare const PUNCTUATION: unique symbol;
+export declare const TEXT: unique symbol;
+export declare const CLASS: unique symbol;
 /**
  * XML escape a string.
  *
@@ -6,7 +11,63 @@
  *   (if so, double-quotes are escaped).
  * @returns {string} The escaped string.
  */
-export function xmlEscape(str: string, attrib?: boolean): string;
+export declare function xmlEscape(str: string, attrib?: boolean): string;
+export type MaybeStylized = Partial<import('node:util').InspectContext>;
+export type Separated = {
+    /**
+     * How to sort?
+     */
+    collator?: Intl.Collator;
+    /**
+     * Reduce whitespace if true.
+     */
+    compressed?: boolean;
+    /**
+     * Indent by how many spaces?
+     */
+    indent?: number;
+    /**
+     * Indent by text.  Ignores indent.
+     */
+    indentText?: string;
+    /**
+     * Text for newlines.
+     */
+    newline?: string;
+    /**
+     * Pretty print.  Sets other options.
+     */
+    pretty?: boolean;
+    /**
+     * Character to use for quoting attributes.
+     */
+    quote?: string;
+    /**
+     * Remove comments?
+     */
+    removeComments?: boolean;
+    /**
+     * TBD.
+     */
+    separator?: string;
+    /**
+     * Where to break lines.
+     */
+    width?: number;
+    /**
+     * How to wrap lines.
+     */
+    wrap?: import('@cto.af/linewrap').LineWrap;
+    /**
+     * Output HTML instead of ANSI colors.
+     */
+    html?: boolean;
+};
+export type MaybeStylizedSeparated = MaybeStylized & Separated;
+/**
+ * @type {MaybeStylizedSeparated}
+ */
+export declare const TOSTRING_OPTS: MaybeStylizedSeparated;
 /**
  * Colorize a string, if options.colors is true.
  *
@@ -16,65 +77,4 @@ export function xmlEscape(str: string, attrib?: boolean): string;
  * @returns {string} Colorized string.
  * @private
  */
-export function color(str: string, type: symbol | string, options?: MaybeStylizedSeparated): string;
-export const ATTRIBUTE: unique symbol;
-export const NAME: unique symbol;
-export const PUNCTUATION: unique symbol;
-export const TEXT: unique symbol;
-export const CLASS: unique symbol;
-/**
- * @type {MaybeStylizedSeparated}
- */
-export const TOSTRING_OPTS: MaybeStylizedSeparated;
-export type MaybeStylized = Partial<import("node:util").InspectOptionsStylized>;
-export type Separated = {
-    /**
-     * How to sort?
-     */
-    collator?: Intl.Collator | undefined;
-    /**
-     * Reduce whitespace if true.
-     */
-    compressed?: boolean | undefined;
-    /**
-     * Indent by how many spaces?
-     */
-    indent?: number | undefined;
-    /**
-     * Indent by text.  Ignores indent.
-     */
-    indentText?: string | undefined;
-    /**
-     * Text for newlines.
-     */
-    newline?: string | undefined;
-    /**
-     * Pretty print.  Sets other options.
-     */
-    pretty?: boolean | undefined;
-    /**
-     * Character to use for quoting attributes.
-     */
-    quote?: string | undefined;
-    /**
-     * Remove comments?
-     */
-    removeComments?: boolean | undefined;
-    /**
-     * TBD.
-     */
-    separator?: string | undefined;
-    /**
-     * Where to break lines.
-     */
-    width?: number | undefined;
-    /**
-     * How to wrap lines.
-     */
-    wrap?: import("@cto.af/linewrap").LineWrap | undefined;
-    /**
-     * Output HTML instead of ANSI colors.
-     */
-    html?: boolean | undefined;
-};
-export type MaybeStylizedSeparated = MaybeStylized & Separated;
+export declare function color(str: string, type: symbol | string, options?: MaybeStylizedSeparated): string;

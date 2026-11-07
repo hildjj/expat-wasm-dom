@@ -1,3 +1,48 @@
+import * as dom from './dom.js';
+import { XmlParser } from 'expat-wasm';
+export type XML_Encoding = undefined | null | "US-ASCII" | "UTF-8" | "UTF-16" | "ISO-8859-1";
+export type EntityInfo = {
+    /**
+     * Base URL.
+     */
+    base: string;
+    /**
+     * Resolved Data.
+     */
+    data: string | Buffer | Uint8Array | Uint8ClampedArray;
+};
+export type ReadEntity = (base: string, systemId: string, publicId?: string) => EntityInfo;
+export type ParserOptions = {
+    /**
+     * If null will do content sniffing.
+     */
+    encoding?: XML_Encoding;
+    /**
+     * The separator
+     * for namespace URI and element/attribute name.  Use
+     * XmlParser.NO_NAMESPACES to get Expat's old, broken namespace
+     * non-implementation via XmlParserCreate instead of XmlParserCreateNS.
+     */
+    separator?: string | typeof XmlParser.NO_NAMESPACES;
+    /**
+     * Expand internal entities.
+     */
+    expandInternalEntities?: boolean;
+    /**
+     * Expand external entities using
+     * this callback.
+     */
+    systemEntity?: ReadEntity | null;
+    /**
+     * Base URI for inclusions.
+     */
+    base?: string | null;
+    /**
+     * Add xml:base attributes when parsing external
+     * entitites.
+     */
+    xmlBase: boolean;
+};
 /**
  * Encodings that expat supports.
  *
@@ -19,7 +64,7 @@
 /**
  * @typedef {object} ParserOptions
  * @property {XML_Encoding} [encoding] If null will do content sniffing.
- * @property {string|XmlParser.NO_NAMESPACES} [separator='|'] The separator
+ * @property {string|typeof XmlParser.NO_NAMESPACES} [separator='|'] The separator
  *   for namespace URI and element/attribute name.  Use
  *   XmlParser.NO_NAMESPACES to get Expat's old, broken namespace
  *   non-implementation via XmlParserCreate instead of XmlParserCreateNS.
@@ -36,7 +81,15 @@
  * You should call .destroy() when done, or you will leak memory from
  * the parser WASM instance.
  */
-export class DomParser {
+export declare class DomParser {
+    #private;
+    /**
+     * Create a DOM Parser.
+     *
+     * @param {ParserOptions} [options]
+     *   Encoding to expect from Buffers/etc that are passed to parse().
+     */
+    constructor(options?: ParserOptions);
     /**
      * Parse a full document.
      *
@@ -56,13 +109,6 @@ export class DomParser {
      * @throws {Error} XML parse error.
      */
     static fromString(template: string[], ...sub: string[]): Document | undefined;
-    /**
-     * Create a DOM Parser.
-     *
-     * @param {ParserOptions} [options]
-     *   Encoding to expect from Buffers/etc that are passed to parse().
-     */
-    constructor(options?: ParserOptions);
     /**
      * Pop the stack.
      * @private
@@ -84,52 +130,4 @@ export class DomParser {
      * Destroy this instance, cleaning up parser resources.
      */
     destroy(): void;
-    #private;
 }
-/**
- * Encodings that expat supports.
- */
-export type XML_Encoding = undefined | null | "US-ASCII" | "UTF-8" | "UTF-16" | "ISO-8859-1";
-export type EntityInfo = {
-    /**
-     * Base URL.
-     */
-    base: string;
-    /**
-     * Resolved Data.
-     */
-    data: string | Buffer | Uint8Array | Uint8ClampedArray;
-};
-export type ReadEntity = (base: string, systemId: string, publicId?: string | undefined) => EntityInfo;
-export type ParserOptions = {
-    /**
-     * If null will do content sniffing.
-     */
-    encoding?: XML_Encoding;
-    /**
-     * The separator
-     * for namespace URI and element/attribute name.  Use
-     * XmlParser.NO_NAMESPACES to get Expat's old, broken namespace
-     * non-implementation via XmlParserCreate instead of XmlParserCreateNS.
-     */
-    separator?: string | symbol | undefined;
-    /**
-     * Expand internal entities.
-     */
-    expandInternalEntities?: boolean | undefined;
-    /**
-     * Expand external entities using
-     * this callback.
-     */
-    systemEntity?: ReadEntity | null | undefined;
-    /**
-     * Base URI for inclusions.
-     */
-    base?: string | null | undefined;
-    /**
-     * Add xml:base attributes when parsing external
-     * entitites.
-     */
-    xmlBase: boolean;
-};
-import * as dom from './dom.js';
