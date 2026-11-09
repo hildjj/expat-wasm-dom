@@ -6,6 +6,7 @@ test('create', t => {
   t.truthy(p);
   p.destroy();
   t.throws(() => p.parse('<foo/>'));
+  p[Symbol.dispose](); // Mostly no-op.
 
   t.throws(() => new DomParser({
     xmlBase: true,

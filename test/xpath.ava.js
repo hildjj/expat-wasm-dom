@@ -3,7 +3,8 @@ import test from 'ava';
 import util from 'node:util';
 
 test('get', t => {
-  const doc = DomParser.parseFull(`<foo>
+  const doc = DomParser.parseFull(`\
+<foo>
   <bar loo='nod'>No Never</bar>
   <bar loo='bod' load='heavy'><doo first='yes'/></bar>
   <too toad='sprocket' xmlns:c='urn:c' c:too='oot'/>

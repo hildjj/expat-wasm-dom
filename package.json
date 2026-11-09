@@ -4,21 +4,21 @@
   "description": "Document Object Model for expat-wasm",
   "main": "lib/index.js",
   "type": "module",
-  "types": "types/index.d.ts",
   "files": [
-    "lib/",
-    "types"
+    "lib/"
   ],
   "scripts": {
-    "pretest": "npm run grammar",
+    "pretest": "npm run ts -- --inlineSourceMap",
     "test": "c8 ava test",
-    "grammar": "peggy --format es lib/xpathPattern3.pegjs",
+    "posttest": "npm run ts",
+    "grammar": "peggy -c .peggy.config.js",
     "lint": "eslint",
     "docs": "typedoc",
-    "types": "tsc",
+    "prets": "npm run grammar",
+    "ts": "tsc",
     "conformance": "cd test && tar zxf xmlts20130923.tar.gz",
     "version": "monopub version && pnpm i -r && git add pnpm-lock.yaml",
-    "build": "npm run conformance && npm run grammar && npm run types && npm test && npm run docs && npm run lint"
+    "build": "npm run conformance && npm run grammar && npm run ts && npm test && npm run docs && npm run lint"
   },
   "workspaces": [
     ".",
@@ -52,7 +52,8 @@
     "peggy": "^5.1.1",
     "superc8": "^12.7.0",
     "typedoc": "^0.28.20",
-    "typescript": "npm:@typescript/typescript6@^6.0.2"
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.72.1"
   },
   "packageManager": "pnpm@12.17.0",
   "engines": {

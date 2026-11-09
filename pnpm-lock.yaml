@@ -179,10 +179,10 @@ importers:
     devDependencies:
       '@cto.af/eslint-config':
         specifier: 7.0.4
-        version: 7.0.4(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2))
+        version: 7.0.4(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))
       '@cto.af/monopub':
         specifier: 2.0.2
-        version: 2.0.2(supports-color@10.2.2)
+        version: 2.0.2(supports-color@7.2.0)
       '@types/node':
         specifier: ^26.6.6
         version: 26.6.6
@@ -191,40 +191,39 @@ importers:
         version: typescript@7.0.2
       ava:
         specifier: ^8.2.0
-        version: 8.3.0(supports-color@10.2.2)
+        version: 8.4.0(supports-color@7.2.0)
       eslint:
         specifier: ^10.14.0
-        version: 10.14.0(supports-color@10.2.2)
+        version: 10.14.0(supports-color@7.2.0)
       eslint-plugin-jsdoc:
         specifier: ^65.4.2
-        version: 65.4.4(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2))(supports-color@10.2.2)
+        version: 65.4.5(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
       peggy:
         specifier: ^5.1.1
         version: 5.1.1
       superc8:
         specifier: ^12.7.0
-        version: 12.7.0(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+        version: 12.7.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       typedoc:
         specifier: ^0.28.20
         version: 0.28.20(@typescript/typescript6@6.0.2)
       typescript:
         specifier: npm:@typescript/typescript6@^6.0.2
         version: '@typescript/typescript6@6.0.2'
+      typescript-eslint:
+        specifier: ^8.72.1
+        version: 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
 
   cli:
     dependencies:
       commander:
         specifier: ^15.0.0
-        version: 15.0.0
+        version: 15.1.0
       expat-wasm-dom:
         specifier: 2.0.3
         version: link:..
 
 packages:
-
-  '@babel/code-frame@7.29.7':
-    resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
-    engines: {node: '>=6.9.0'}
 
   '@babel/code-frame@8.0.6':
     resolution: {integrity: sha512-uMHhvmDmwFiLuiozaoRYTZHqMFuu3fem/X9JY78lohAuLoh8LSGGC8JqUzo2cVuBsBxkjMZNk56CE7ock8Xxkw==}
@@ -241,10 +240,6 @@ packages:
   '@babel/helper-string-parser@8.0.8':
     resolution: {integrity: sha512-fVM+gSuKbdv9cpmyRNh5EvsDHUZCdxQH3FdnFKSkNYHpbsn95bbrxm+ES3MVeQjcqwi2O5ur/DjLfmTQaO60ng==}
     engines: {node: ^22.18.0 || >=24.11.0}
-
-  '@babel/helper-validator-identifier@7.29.7':
-    resolution: {integrity: sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==}
-    engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-identifier@8.0.6':
     resolution: {integrity: sha512-HYx0YmuchRxRSpnjvcNffnPS8DCauKNmnumIuHG3jnQAVewRA7kfJGwF13ayEpSZs7s4R/oBH4eppuXcAQd5JQ==}
@@ -354,18 +349,18 @@ packages:
     resolution: {integrity: sha512-UUsjKkIJWC4JwhAK7IUMZeN4TjjtCWapAkdIuvllT3/fYcNooDQ0HtwgGDV77ew+arh/15hazN9M9/oSNV+PDg==}
     engines: {node: '>=16'}
 
-  '@es-joy/escodegen@4.2.0':
-    resolution: {integrity: sha512-jWqqS3StW6vGwJeT8yu6alS4nipOBi3kD/pR63+9hG2NfGafCJ4viDME15mVf+fyupyptcUJDXfv63gFF5Gzfg==}
-    engines: {node: '>=6.0'}
+  '@es-joy/escodegen@5.0.1':
+    resolution: {integrity: sha512-0sOnDSVMt7Zg5qmXz4ab1yOXrUi0QmSPqpm5d547puNdJxT0J+Xdip2F/5j07nuE1pW131AX5jFUvOIfZPYNRg==}
+    engines: {node: ^22.16.0 || >=24.0.0}
     hasBin: true
 
   '@es-joy/estraverse@7.1.1':
     resolution: {integrity: sha512-h2d737iS0LFAqypZOmXizu54qAbHofI/RpD30Zom03O6BCXKHuFevWKPcGarZbGq82h7qSBb5G6kLdhTMO+caw==}
     engines: {node: '>=4.0'}
 
-  '@es-joy/jsdoccomment@0.62.0':
-    resolution: {integrity: sha512-yWi6sm7INEwnfS7IJvE0dU+RTrwzLPFcY7e7eGpu/l5Q9lWfQ2ROwZ0qVnc242jw2TUPsfHX3XMIISkGBv57RQ==}
-    engines: {node: '>=20.11.0'}
+  '@es-joy/esutils@3.0.0':
+    resolution: {integrity: sha512-K8M2b2ixqOiF5B+qYJIWIznFtvbD8biX2mj31pXmXAaTRUUd2x6anAFZk4GVGXz7sX9tOkx+z6TaQc/paeVCeg==}
+    engines: {node: ^22.16.0 || >=24.0.0}
 
   '@es-joy/jsdoccomment@1.1.0':
     resolution: {integrity: sha512-DpIIjjhvlQqpQrsDC8x911I/8mx6athyl/Tk9+lIq5UtQrNmh3EtLaDYKeeu58wh5HIzUfRhjy84S4szWZ9q+A==}
@@ -389,8 +384,8 @@ packages:
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
 
-  '@eslint-community/regexpp@4.12.2':
-    resolution: {integrity: sha512-EriSTlt5OC9/7SXkRSCAhfSxxoSUgBm33OH+IkwbdpgoqsSsUg7y3uh+IICI/Qg4BBWr3U2i39RpmycbxMq4ew==}
+  '@eslint-community/regexpp@4.12.3':
+    resolution: {integrity: sha512-R76UKbvsqI68DJJVTVyqFKqU98CN4+B+acxNfEA2IFarSzP0SjtKf/3+fFiXzTyv5Fj3PxLkGHe2wnVWWMxobQ==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
 
   '@eslint/config-array@0.23.5':
@@ -556,8 +551,8 @@ packages:
     resolution: {integrity: sha512-/tl1XiBog6XMb1T9kalFerYU86sYsl6EtrlvGI5RVtlHOQdEEJAIPRxmX4vnKG3uoY5aVEkJOWzbPM5tsncmFQ==}
     engines: {node: '>=18'}
 
-  '@putout/compare@19.7.0':
-    resolution: {integrity: sha512-h3ZjoFib6zRRwD14BcSO/7gpbcpSch/pUx7rJ+8rRTd7hADYTHc0cB/akmIc4HgEjpEqilM/UB/ZVOmuE7fklQ==}
+  '@putout/compare@19.8.2':
+    resolution: {integrity: sha512-/hVOOdMmTdtuGq0Yi4N//sYvuZAgNyeOnMuKnllm+RTAPF59EnjJXS/3kYlVfWqg3IxGEq74PnVR5/8avNlhCQ==}
     engines: {node: '>=22'}
 
   '@putout/engine-loader@17.4.0':
@@ -582,12 +577,12 @@ packages:
     peerDependencies:
       putout: '*'
 
-  '@putout/engine-runner@28.7.0':
-    resolution: {integrity: sha512-67sJ9AElwI9S+eQ0hJmEMXxzQlF4RhVqlJyO3iOO/X2ahgLxd14HO27fanMUbScQx7TFHLiu8d408TgtzD0nDg==}
+  '@putout/engine-runner@28.7.1':
+    resolution: {integrity: sha512-/sf20k8wc0ZN9R+wghaOJ32oNaut1IxxAbzFceGE9KD3UdqArNNcABl8ofiCFptmeIXwKA4QZOyOJkOgg3zwQQ==}
     engines: {node: '>=22'}
 
-  '@putout/eslint@6.1.0':
-    resolution: {integrity: sha512-0N7PZFN4Nffdi0K+TQsfp3yMjqgJrCTItFExMEMATrAucC1TcOVwICES/wfFrH99zBSHgYCtkyGfDiJPqvJ0bw==}
+  '@putout/eslint@6.1.1':
+    resolution: {integrity: sha512-7DqCXig5Utw1X03AjiXTpKRzTzj6L+rMe7088aaSm3iZ+jpIEMUjokxglcJNJ/QrQinSzi5STLsHijUVOLMo3Q==}
     engines: {node: '>=22'}
     peerDependencies:
       eslint: '>=10'
@@ -656,8 +651,8 @@ packages:
     resolution: {integrity: sha512-TJxXfrpZGzSf7pQ96MMBpPICtM5G9r7MAWKpH3GJi3deGII3ILLibA47P2qMeUbCmXml5wG6DTQS7OZFOrTIUQ==}
     engines: {node: '>=16'}
 
-  '@putout/operate@15.9.0':
-    resolution: {integrity: sha512-ytzMVXhnv0s3pphtUKaYM41Y0QDrPW6O31BVyUrVgUxLTb5cvoYWCg6KMFiSvkRmpOsuhkKt83QHV1+Nr9Vprg==}
+  '@putout/operate@15.10.0':
+    resolution: {integrity: sha512-Q9tbxaHz+EzjchXvKW0o2gXeUoGqy8swcfMYKOlt0ljmPMlq43NNKcg9nGR7wtHj45bHh5t1ntlbwq5UKy1/wg==}
     engines: {node: '>=22'}
 
   '@putout/operator-add-args@15.3.1':
@@ -840,8 +835,8 @@ packages:
     peerDependencies:
       putout: '>=42'
 
-  '@putout/plugin-arguments@2.1.1':
-    resolution: {integrity: sha512-uSY9DwekJNC4WyhZ90pT1sSK/Gqyl5nqYDriLN54eXrijKJ94S7AXjM7aF8aGkPu0jF0pTMrampAiigZ/Ga0Cg==}
+  '@putout/plugin-arguments@2.1.2':
+    resolution: {integrity: sha512-9QGM8/PLtHO19QpaIypDcR8TKQ3AmSPVt2TFKBPEvnbp7rWRyThtDLBVn/TG7tVLeNZfQOvkEMgwDzkeraWZ7w==}
     engines: {node: '>=22'}
     peerDependencies:
       putout: '>=42'
@@ -954,8 +949,8 @@ packages:
     peerDependencies:
       putout: '>=41'
 
-  '@putout/plugin-esm@10.12.0':
-    resolution: {integrity: sha512-xMyqh9zZhCiYvK7CNOgL1VnsC6faO3ZyCz+hfEowADRl1E+um57swmurQDf3AufADsen0MmzXrxkvQcDJ9a+kg==}
+  '@putout/plugin-esm@10.12.1':
+    resolution: {integrity: sha512-6kx5jyGaf6uHsP7UGyCmStr36U4Osc+zrD7Zkp8BGhi+7nDs8pejdcKtLrTbQA7LMOy6PWlGWA8dlj0wxn5JKQ==}
     engines: {node: '>=22'}
     peerDependencies:
       putout: '>=42'
@@ -972,8 +967,8 @@ packages:
     peerDependencies:
       putout: '>=42'
 
-  '@putout/plugin-for-of@12.6.0':
-    resolution: {integrity: sha512-J96gEjGEANmQ6lWq480xfRHvpcdeoaKpOIKHrSMBXYqaGAa2qAoI+mmwYFYW9HaGlm/I7C0IA7ChD5xvpiwSrA==}
+  '@putout/plugin-for-of@12.6.1':
+    resolution: {integrity: sha512-XomvcTKxThq0inM/qs9yZ+Kb95/NcXYuni0FBu9J/XZDYQCENNq09lQxuhEkI2Fg0an8m8JLAQvMGWu3PzMx+w==}
     engines: {node: '>=22'}
     peerDependencies:
       putout: '>=42'
@@ -1098,8 +1093,8 @@ packages:
     peerDependencies:
       putout: '>=42'
 
-  '@putout/plugin-putout@29.36.0':
-    resolution: {integrity: sha512-atnkuBlai1jLiXOjQ+18S+wPmDpSiCxeKKlydOx8I9tiQl6SpEmqnkkcEs1UZ63H07sW64h+YhGJyyIhP8BvDA==}
+  '@putout/plugin-putout@29.36.1':
+    resolution: {integrity: sha512-DtQTQLPxXXMLeVHAZ7H/kVcwH3Zto+AmMB7Vfu79D3I47lINZfii4O+2XlVC4HBv5SiWTT4z0yvPLSzTm+LBrw==}
     engines: {node: '>=22'}
     peerDependencies:
       putout: '>=42'
@@ -1302,8 +1297,8 @@ packages:
     peerDependencies:
       putout: '>=42'
 
-  '@putout/plugin-types@10.6.1':
-    resolution: {integrity: sha512-e7YR6W/CTQ5FRGODsizFK1OaRDY4hSOpNtV+AOyZmAc3KMNIN7tJMM1bQkVWo/VgTTJ8AJTYmjWQXe+aF3HADQ==}
+  '@putout/plugin-types@10.6.2':
+    resolution: {integrity: sha512-hkSQyk0v3StNVjmshPSKzrnxjpasSjeZGKjtuOgHpa/F+Co/w4am/fDDGDRfp+8fkTiAfS3NAWZOxXDFJnvf1Q==}
     engines: {node: '>=22'}
     peerDependencies:
       putout: '>=42'
@@ -1326,12 +1321,12 @@ packages:
     peerDependencies:
       putout: '>=40'
 
-  '@putout/printer@18.49.0':
-    resolution: {integrity: sha512-Q5Fx/C028dCIclQeOSuPz88IKCmdq1gCeDzGaycqXW9Ek4eBJnehAOmfoaEK9VENhzS5XsTgbtKBM8DxlpWewQ==}
+  '@putout/printer@18.49.2':
+    resolution: {integrity: sha512-mrQhRDCsIgOU8Ke+UPMRQjhHq7Gn7pSlI66TquPPNNRylxGcbT9oQA8TJHv6TP/hWInEqPAKmsXm7CHqK1R8Cg==}
     engines: {node: '>=22.13'}
 
-  '@putout/processor-css@13.3.1':
-    resolution: {integrity: sha512-PRdjFTahl6aQGIpZ4HRGuoFtxvnPME5B5bRyHJRD+oI16OJVhzmSC6Of3GI/78u5Ajqgjn2R8MuIYyZTsBnwIA==}
+  '@putout/processor-css@13.3.2':
+    resolution: {integrity: sha512-8vOC7Mzoe9/bwrKfmqkzw2tAitZOyN15G+ou9gzsot7PX/B3ANzaV4cK2fz6LtMeCvirFMEfTF69pNDgRAFL6w==}
     engines: {node: '>=22'}
     peerDependencies:
       putout: '>=42'
@@ -1432,10 +1427,10 @@ packages:
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
-  '@stylistic/stylelint-plugin@5.3.1':
-    resolution: {integrity: sha512-w6WFLYzQS6nhbcoq8pwYP+OJYYhsdGEiCxY+eINi2+ouDwRLXTucXZj6IrDzkY4di+vsGOPVvJ4/gXChSeOtlw==}
+  '@stylistic/stylelint-plugin@6.0.1':
+    resolution: {integrity: sha512-+lCF7MCl7tGZnWjx853TjTHPdIFK1QZsYJ6mJtUbbhVjERRhIvZdWlzUI3IhtAyHU9pjSpfcfMComsal6coIag==}
     peerDependencies:
-      stylelint: ^17.6.0
+      stylelint: ^18.0.0
 
   '@types/debug@4.1.13':
     resolution: {integrity: sha512-KSVgmQmzMwPlmtljOomayoR89W4FynCAi3E8PPs7vmDVPe84hT+vGPKkJfThkmXs0x0jAaa9U8uW8bbfyS2fWw==}
@@ -1473,6 +1468,21 @@ packages:
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
+  '@typescript-eslint/eslint-plugin@8.72.1':
+    resolution: {integrity: sha512-5CokTWXpmbylfFabsbvHC0CAw3XLaGnoa+nFJX5FR592h/LoZsENUE6p/rg5xvkKrFEXz6pYmgI29AgXc2N3BQ==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      '@typescript-eslint/parser': ^8.72.1
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
+      typescript: '>=4.8.4 <6.1.0'
+
+  '@typescript-eslint/parser@8.72.1':
+    resolution: {integrity: sha512-ZGwZP4OCfyA0AQTpEAMWz+rtX01DRhQWW5hB0ucKDEIX5U7jdmPSaMx94rQfaPAQzIYz2BimOgKOJtjfpRFQ9g==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
+      typescript: '>=4.8.4 <6.1.0'
+
   '@typescript-eslint/project-service@8.72.1':
     resolution: {integrity: sha512-fAuVMkwdO/huI8nyo/WKnNKf6Gag93S56Rh3Ts5mGcavwSdaN8tRg1gCeIGX8PF+nzp1BjGfO4gHhGzW1J6jTg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1487,6 +1497,13 @@ packages:
     resolution: {integrity: sha512-e4D5R5vpeAEPBxT2BAzsFQL3sbwyeeeo5+aczgNSRK1V734jE7pTqaGFU+fXapWEQwnZbpFaTn32+Z8DwS6OTg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
+      typescript: '>=4.8.4 <6.1.0'
+
+  '@typescript-eslint/type-utils@8.72.1':
+    resolution: {integrity: sha512-iY2wlmyrXJmx4yxUGP3aYCFF3cA/6ShddOKmLU2dx7LnEykbAM8WThlxZEfd1NddqceF6eJmZUayxx9oKIYNlg==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
       typescript: '>=4.8.4 <6.1.0'
 
   '@typescript-eslint/types@8.72.1':
@@ -1698,8 +1715,8 @@ packages:
     resolution: {integrity: sha512-KzTVk2tCWAHtYrvvvaP8bJKJq2pVinhLcGEQdtLIYPbmNGNyYe8QwNaTUYQp2J7/vIsUKt5QCqAfUkYyG9DkOw==}
     engines: {node: '>=12'}
 
-  ansi-regex@6.5.0:
-    resolution: {integrity: sha512-zhvbbbdt1kbw7EJ9OQoxmQcuaNR9P5kTj7e/YdmOSU10aHWbycofJxA6jKfoEy3vlLdctOF9ZHaxLtmSm998wQ==}
+  ansi-regex@6.6.0:
+    resolution: {integrity: sha512-XZ5apbzreCbXSKwPjJstu8R0zOi247w3XYwWxtwBXgpZrCyc1Ka7p9/xY0A9/diMewmHbEKz+FIraWaEWjlN5g==}
     engines: {node: '>=12'}
 
   ansi-styles@4.3.0:
@@ -1758,8 +1775,8 @@ packages:
   async-sema@3.1.1:
     resolution: {integrity: sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==}
 
-  ava@8.3.0:
-    resolution: {integrity: sha512-Tr/p0fmC+oCJo5+m1oJdpmBxC1OO57xtVKlJfbN0gkz31yofpk08jl4Hzx654RdKq1FPc0XYiHF4ZzdqR+87gg==}
+  ava@8.4.0:
+    resolution: {integrity: sha512-thHHhRJa6al6+45y9L8ei7u1QYHFKpt5S3jy2A2t/bd9EoJ9wIEJgLuyXuRg5tEnwryqWxLuu4ig+QSPx6yfUA==}
     engines: {node: ^22.20 || ^24.12 || >=26}
     hasBin: true
     peerDependencies:
@@ -1807,10 +1824,6 @@ packages:
   call-bound@1.0.4:
     resolution: {integrity: sha512-+ys997U96po4Kx/ABpBCqhA9EuxJaQWDQg7295H4hBphv3IZg0boBKuwYpt4YXp6MZ5AmZQnU/tyMTlRpaSejg==}
     engines: {node: '>= 0.4'}
-
-  callsites@3.1.0:
-    resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
-    engines: {node: '>=6'}
 
   callsites@4.2.0:
     resolution: {integrity: sha512-kfzR4zzQtAE9PC7CzZsjl3aBNbXWuXiSeOCdLcPpBfGW8YuCqQHcRPFDbr/BPVmd3EEPVpuFzLyuT/cUhPr4OQ==}
@@ -1882,9 +1895,9 @@ packages:
     resolution: {integrity: sha512-z67u4ZhzCL/Tydu1lJARtEZYWbWaN7oYLHbsuzocr6y4N6WZAagG3RQ4FW61V1/0+jImpj293XfrcYnd1qxtPg==}
     engines: {node: '>=22.12.0'}
 
-  comment-parser@1.4.1:
-    resolution: {integrity: sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==}
-    engines: {node: '>= 12.0.0'}
+  commander@15.1.0:
+    resolution: {integrity: sha512-cgnQ88TRrWcC7pVq46RzJVRMktu3W2RcbnoidnfBsl1bmDCBwJS/udcIZpKoCrbAYYaCqsz1yZCVIgbIaU3ddQ==}
+    engines: {node: '>=22.12.0'}
 
   comment-parser@1.4.9:
     resolution: {integrity: sha512-+2AvZKjJaNq9GQljm3tr0utwrig5BL+jgJGvz5rDpGKNIp+ojcRXWUwBbh/sGIi1QCprR6PsKFakub+w1v+4hQ==}
@@ -1912,31 +1925,13 @@ packages:
     resolution: {integrity: sha512-/zvGoYn0y27QTBmK+0B+oPdEPC4fKGUmJsMTQbDjqph00TrkqfVFW/M+C6ya54sYCgHC6QCwK/mI6djt8cEGHQ==}
     engines: {node: ^22.18 || >= 24}
 
-  cosmiconfig@9.0.2:
-    resolution: {integrity: sha512-gtTZxTDau1wL7Y7zifc2dd8jHSK/k6BTx/2Xp/BpdlAdnlYWFVt7qhJqgwi7637yRwRQ3qL4ZidbB4I8tA5VOg==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      typescript: '>=4.9.5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
 
-  css-functions-list@3.3.3:
-    resolution: {integrity: sha512-8HFEBPKhOpJPEPu70wJJetjKta86Gw9+CCyCnB3sui2qQfOvRyqBy4IKLKKAwdMpWb2lHXWk9Wb4Z6AmaUT1Pg==}
-    engines: {node: '>=12'}
-
   css-tree@3.2.1:
     resolution: {integrity: sha512-X7sjQzceUhu1u7Y/ylrRZFU2FS6LRiFVp6rKLPg23y3x3c3DOKAwuXGDp+PAGjh6CSnCjYeAul8pcT8bAl+lSA==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
-
-  cssesc@3.0.0:
-    resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
-    engines: {node: '>=4'}
-    hasBin: true
 
   currently-unhandled@0.4.1:
     resolution: {integrity: sha512-/fITjgjGU50vjQ4FH6eUoYu+iUoUKIXws2hL15JJpIR+BbTxaXQsMuuyjtNh2WqsSBS5nsaZHFsFecyw5CCAng==}
@@ -2035,9 +2030,6 @@ packages:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
 
-  error-ex@1.3.4:
-    resolution: {integrity: sha512-sqQamAnR14VgCr1A618A3sGrygcpK+HEbenA/HiEAkkUwcZIIB/tgWqHFxWgOyDh4nB4JCRimh79dR5Ywc9MDQ==}
-
   es-abstract-get@1.0.0:
     resolution: {integrity: sha512-6PMWXpdhshVvFp+FoWYs1EvG1Nj0tvk0dZM+XcK0xMEM1czRVcP6ohqPWHy6qPagSpC8j4+p89WXlT+xXJs/fg==}
     engines: {node: '>= 0.4'}
@@ -2094,8 +2086,8 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
-  eslint-plugin-jsdoc@65.4.4:
-    resolution: {integrity: sha512-hzqS7vcWJUaRgk3ts7oXBbaahdMO1M6MeIpwlBX1v90wC3jGwqTbyDGSoJ4tg3dJZ/ZyUhBumBPWpgYcs9mS6g==}
+  eslint-plugin-jsdoc@65.4.5:
+    resolution: {integrity: sha512-qQiYrQDTi4b5jO6oy1oeKokbBZC8nRbjZBgjhR9tHE//naMCjjRzprqhd/4jU+Pj2exPeCDdWogg22gxSJSCEg==}
     engines: {node: ^22.22.2 || >=24.15.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
@@ -2357,14 +2349,6 @@ packages:
     resolution: {integrity: sha512-mMiwNKoJZ4HAIRVJxotO6LsNRReA30gQwP9E2/p94tfLv+jygCNpKDjhhSL6OLY6LE371EZm5EAf7RpYuUqlsw==}
     engines: {node: 18 || 20 || >=22}
 
-  global-modules@2.0.0:
-    resolution: {integrity: sha512-NGbfmJBp9x8IxyJSd1P+otYK8vonoJactOogrVfFRIAEY1ukil8RSKDz2Yo7wh1oihl51l/r6W4epkeKJHqL8A==}
-    engines: {node: '>=6'}
-
-  global-prefix@3.0.0:
-    resolution: {integrity: sha512-awConJSVCHVGND6x3tmMaKcQvwXLhjdkmomy2W+Goaui8YPgYgXJZewhg3fWC+DlfqqQuWg8AwqjGTD2nAPVWg==}
-    engines: {node: '>=6'}
-
   globals@15.15.0:
     resolution: {integrity: sha512-7ACyT3wmyp3I61S4fG682L0VA2RGD9otkqGJIwNUMF1SWUombIIk+af1unuDYgMm082aHYwD+mzJvv9Iu8dsgg==}
     engines: {node: '>=18'}
@@ -2380,9 +2364,6 @@ packages:
   globby@16.2.4:
     resolution: {integrity: sha512-c8B/VNLmxRcmqqenRA9t+9IyOjf9+V6lTxPaUJLqOCONdQkWZ0ETYgX0qbtJqPsgCNusT9MZ5Jeidw8Eb9tn2g==}
     engines: {node: '>=20'}
-
-  globjoin@0.1.4:
-    resolution: {integrity: sha512-xYfnw62CKG8nLkZBfWbhWwDw02CHty86jfPcc2cr3ZfeuK9ysoVPPEUxf21bAD/rWAgk52SuBrLJlefNy8mvFg==}
 
   globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
@@ -2416,10 +2397,6 @@ packages:
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
-
-  has-flag@5.0.1:
-    resolution: {integrity: sha512-CsNUt5x9LUdx6hnk/E2SZLsDyvfqANZSUq4+D3D8RzDJ2M+HDTIkF60ibS1vHaK55vzgiZw1bEPFG9yH7l33wA==}
-    engines: {node: '>=12'}
 
   has-property-descriptors@1.0.2:
     resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
@@ -2456,10 +2433,6 @@ packages:
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
 
-  html-tags@5.1.0:
-    resolution: {integrity: sha512-n6l5uca7/y5joxZ3LUePhzmBFUJ+U2YWzhMa8XUTecSeSlQiZdF5XAd/Q3/WUl0VsXgUwWi8I7CNIwdI5WN1SQ==}
-    engines: {node: '>=20.10'}
-
   https-proxy-agent@7.0.6:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
@@ -2480,10 +2453,6 @@ packages:
     resolution: {integrity: sha512-wCBiZ77u1tuWde6G/nfOtLaCTYcFDU5yCzARzK10y+rLhzYoL7a7yEemcopcc2Mzow7gZOIjnV2ym1NYmdiJOQ==}
     engines: {node: '>= 4'}
 
-  import-fresh@3.3.1:
-    resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
-    engines: {node: '>=6'}
-
   import-meta-resolve@4.2.0:
     resolution: {integrity: sha512-Iqv2fzaTQN28s/FwZAoFq0ZSs/7hMAHJVX+w8PZl3cY19Pxk6jFFalxQoIfW2826i/fDLXv8IiEZRIT0lDuWcg==}
 
@@ -2494,9 +2463,6 @@ packages:
   indent-string@5.0.0:
     resolution: {integrity: sha512-m6FAo/spmsW2Ab2fU35JTYwtOKa2yAwXSwgjSv1TJzh4Mh7mC3lzAOVLBprb72XsTrgkEIsl7YrFNAiDiRhIGg==}
     engines: {node: '>=12'}
-
-  ini@1.3.8:
-    resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
 
   internal-slot@1.1.0:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
@@ -2509,9 +2475,6 @@ packages:
   is-array-buffer@3.0.5:
     resolution: {integrity: sha512-DDfANUiiG2wC1qawP66qlTugJeL5HyzMpfr8lLK+jMQirGzNod0B12cFB/9q838Ru27sBwfw78/rdoU7RERz6A==}
     engines: {node: '>= 0.4'}
-
-  is-arrayish@0.2.1:
-    resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
 
   is-async-function@2.1.1:
     resolution: {integrity: sha512-9dgM/cZBnNvjzaMYHVoxxfPj2QXt22Ev7SuuPrs+xav0ukGB0S6d4ydZdEiM48kLx5kDV+QBPrpVnFyefL8kkQ==}
@@ -2673,24 +2636,13 @@ packages:
   js-tokens@10.0.0:
     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
 
-  js-tokens@4.0.0:
-    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-
   js-yaml@3.15.2:
     resolution: {integrity: sha512-6EuL879VkRA+1Cz578mKMiKvjPNEuk6+r1JaFzoSWejZmtf7xWbIyw1e3KkxlkzTIt9Taw6JBhEppG7utc1P+w==}
-    hasBin: true
-
-  js-yaml@4.3.2:
-    resolution: {integrity: sha512-SFNOvSJ+Dgf/9An904Yx+CgSlIPCkIpao4qo51lpee25TIRejdH3rhR4EZMGoNx3/TP3O+wzWuiTFl4sqbltzA==}
     hasBin: true
 
   js-yaml@5.5.0:
     resolution: {integrity: sha512-paNr4LFIFPjeeSmwNYdrb8FafLLG/Cr2Af3GjbsHJ5CxIjH4r0c2emlmRdAtpPAieP1gRVzk6buBbVP5gBMGAg==}
     hasBin: true
-
-  jsdoc-type-pratt-parser@5.9.2:
-    resolution: {integrity: sha512-TYzkACp/wPvDJLRY7qpHXtrhgwoAaojIOnLaaVNi+AbPU2u1kkjfKd9hXXTq0qSAGsyYXvwUXt99h9I5iCmjjw==}
-    engines: {node: '>=12.0.0'}
 
   jsdoc-type-pratt-parser@9.5.0:
     resolution: {integrity: sha512-Qu/AuBJocEUhxq187P4Ud7xGBHB+NhtrclSrS7Utkr6uNeeh8BrZ5+Ax/AGe8VXQLGY+4oYgbUp04hY8iGsIWA==}
@@ -2700,9 +2652,6 @@ packages:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
     engines: {node: '>=6'}
     hasBin: true
-
-  json-parse-even-better-errors@2.3.1:
-    resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
 
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
@@ -2725,16 +2674,9 @@ packages:
   keyv@5.6.0:
     resolution: {integrity: sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw==}
 
-  kind-of@6.0.3:
-    resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
-    engines: {node: '>=0.10.0'}
-
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
-
-  lines-and-columns@1.2.4:
-    resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
   linkify-it@5.0.2:
     resolution: {integrity: sha512-ONTm2jCMAVZjgQa/Fy1kScXsuOoF5NPTsoFBdE1KVIZ2vAh/r9+Bqo+0jINCBYnavTPQZz38QzFTme79ENoN3Q==}
@@ -2787,9 +2729,6 @@ packages:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
 
-  mathml-tag-names@4.0.0:
-    resolution: {integrity: sha512-aa6AU2Pcx0VP/XWnh8IGL0SYSgQHDT6Ucror2j2mXeFAlN3ahaNs8EZtG1YiticMkSLj3Gt6VPFfZogt7G5iFQ==}
-
   md5-hex@3.0.1:
     resolution: {integrity: sha512-BUiRtTtV39LIJwinWBjqVsU9xhdnz7/i889V859IBFpuqGAj6LuOvHv5XLbgZ2R7ptJoJaEcxkv88/h25T7Ciw==}
     engines: {node: '>=8'}
@@ -2806,8 +2745,8 @@ packages:
   mdast-util-frontmatter@2.0.1:
     resolution: {integrity: sha512-LRqI9+wdgC25P0URIJY9vwocIzCcksduHQ9OF2joxQoyTNVduwLAFUzjoopuRJbJAReaKrNQKAZKL3uCMugWJA==}
 
-  mdast-util-gfm-autolink-literal@2.0.1:
-    resolution: {integrity: sha512-5HVP2MKaP6L+G6YaxPNjuL0BPrq9orG3TsrZ9YXbA3vDw/ACI4MEsnoDpn6ZNm7GnZgtAcONJyPhOP8tNJQavQ==}
+  mdast-util-gfm-autolink-literal@2.1.0:
+    resolution: {integrity: sha512-Jx6QSK8wDo558Bcf7q+1pe0v81g2PVs09Hlvu9xJHmCFRF3sAPW7vXFVIAwBncs3sde92WbsVqNxwdqViA2XnQ==}
 
   mdast-util-gfm-footnote@2.1.0:
     resolution: {integrity: sha512-sqpDWlsHn7Ac9GNZQMeUzPQSMzR6Wv0WKRNvQRg0KqHh02fpTz69Qc1QSseNX29bhz1ROIyNyxExfawVKTm1GQ==}
@@ -2818,8 +2757,8 @@ packages:
   mdast-util-gfm-table@2.0.1:
     resolution: {integrity: sha512-fiIjPrAy4kz68/eFbPHhsiWDGHhqUSVoU1XsfLM5DsEPXw7MxgiVVyulUggFRckVWeT1KXQXkg5vm3kv4oMSOA==}
 
-  mdast-util-gfm-task-list-item@2.0.0:
-    resolution: {integrity: sha512-IrtvNvjxC1o06taBAVJznEnkiHxLFTzgonUdy8hzFVeDun0uTjxxrRGVaNFqkU1wJR3RBPEfsxmU6jDWPofrTQ==}
+  mdast-util-gfm-task-list-item@2.0.1:
+    resolution: {integrity: sha512-jXVO1hvB2hs82g1esi7I9nIJDqiijbQLIyH2jDUb5s7jIAZMr/79h0VHSq7XHKTqpLARRm+DDNjduB7S9+6XZA==}
 
   mdast-util-gfm@3.1.0:
     resolution: {integrity: sha512-0ulfdQOM3ysHhCJ1p06l0b0VKlhU0wuQs3thxZQagjcjPrlFRqY215uZGHHJan9GEAXd9MbfPjFJz+qMkVR6zQ==}
@@ -2833,8 +2772,8 @@ packages:
   mdast-util-phrasing@4.1.0:
     resolution: {integrity: sha512-TqICwyvJJpBwvGAMZjj4J2n0X8QWp21b9l0o7eXyVJ25YNWYbJDVIyD1bZXE6WtV6RmKJVYmQAKWa0zWOABz2w==}
 
-  mdast-util-to-markdown@2.2.2:
-    resolution: {integrity: sha512-ELNT5jYDUdx0B/hlUSSAiAEtvqkY3Oriwkp1KEYseF1Ccu4MnKkmE5yK3oE3WGT/Pq8VTE+XwP0GLL5pafY8yA==}
+  mdast-util-to-markdown@2.2.3:
+    resolution: {integrity: sha512-dImdB6VZRMRac1SwAW6o1c0ESk/7pFFAMCMuKM+9v7LpTSthMM5nzXpqKw4Mjo66aXVKhNkyrP4bMB9MurPyWg==}
 
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
@@ -2848,10 +2787,6 @@ packages:
   memoize@11.0.0:
     resolution: {integrity: sha512-cjsfZaC9b1clqPeIVMbb5dLHSXgdgGWGxdAU3oTUUkHiwWTKTBNnSmcqWJncNjYtBi3S8Rp0c5GIiyGztR8TRA==}
     engines: {node: '>=22'}
-
-  meow@14.1.0:
-    resolution: {integrity: sha512-EDYo6VlmtnumlcBCbh1gLJ//9jvM/ndXHfVXIFrZVr6fGcwTUyCTFNTLCKuY3ffbK8L/+3Mzqnd58RojiZqHVw==}
-    engines: {node: '>=20'}
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -3007,10 +2942,6 @@ packages:
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
 
-  normalize-path@3.0.0:
-    resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
-    engines: {node: '>=0.10.0'}
-
   npm-run-path@6.0.0:
     resolution: {integrity: sha512-9qny7Z9DsQU8Ou39ERsPU4OZQlSTP47ShQzuKZ6PRXpYLtIFgl/DEBYEXKlvcEa+9tHVcK8CF81Y2V72qaZhWA==}
     engines: {node: '>=18'}
@@ -3069,20 +3000,12 @@ packages:
     resolution: {integrity: sha512-GYTTew2slBcYdvRHqjhwaaydVMvn/qrGC323+nKclYioNSLTDUM/lGgtGTgyHVtYcozb+XkE8CNhwcraOmZ9Mg==}
     engines: {node: '>=18'}
 
-  parent-module@1.0.1:
-    resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
-    engines: {node: '>=6'}
-
   parse-import-specifiers@1.0.3:
     resolution: {integrity: sha512-jNtWL2DinOHUGnFEzeAyCJhacxwFkLzPnR3Foy3t2mOTIEgzZ3aaOakPw0PvoLaPZUy64CWYuhVFa/QkEMLJhA==}
     engines: {node: '>=16'}
 
   parse-imports-exports@0.2.4:
     resolution: {integrity: sha512-4s6vd6dx1AotCx/RCI2m7t7GCh5bDRUtGNvRfHSP2wbBQdMi67pPe7mtzmgwcaQ8VKK/6IB7Glfyu3qdZJPybQ==}
-
-  parse-json@5.2.0:
-    resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
-    engines: {node: '>=8'}
 
   parse-ms@4.0.0:
     resolution: {integrity: sha512-TXfryirbmq34y8QBwgqCVLi+8oA3oWx2eAnSn62ITyEhEYaWRlVZ2DvMM9eZbMs/RfxPu/PK/aBLyGj4IrqMHw==}
@@ -3149,8 +3072,8 @@ packages:
     peerDependencies:
       postcss: ^8.4.31
 
-  postcss-selector-parser@7.1.7:
-    resolution: {integrity: sha512-wWBro/7hJ40ye6TPiXkUQoXKCw23xSsjriUvqd7Uls9Sso3oLiON1flc18cCdnjgCRXw4fBVqUJJeOdDTh3P3g==}
+  postcss-selector-parser@7.1.8:
+    resolution: {integrity: sha512-4CrD1SdKVx3bWOXG6Mh5YI9s/NTEgMq4T+O0T4wj2JqGhxbi8BAPc8BJYDVrVOqXBbWGX7YMO3f3ldOSscdCew==}
     engines: {node: '>=4'}
 
   postcss-value-parser@4.2.0:
@@ -3180,8 +3103,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  putout@42.24.2:
-    resolution: {integrity: sha512-gNcaYuwGxyxwBDv/2N7PXk3pextKgTVBXPRwSqR1VyrHCzzqqx5jFR6Hftu+soaSBdHyU8HhTf8tGrNztFhyiw==}
+  putout@42.25.0:
+    resolution: {integrity: sha512-vSWJt57j+toCPndPvQC3JuvaN3zqgJlWGEW80e0fwof+PfOQGiV78+XgSpm1Y/ECdQR/FomPXfv5QeX0ZEP5FA==}
     engines: {node: '>=22.12'}
     hasBin: true
 
@@ -3318,10 +3241,6 @@ packages:
     resolution: {integrity: sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==}
     engines: {node: '>=8'}
 
-  resolve-from@4.0.0:
-    resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
-    engines: {node: '>=4'}
-
   resolve-from@5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
     engines: {node: '>=8'}
@@ -3424,8 +3343,8 @@ packages:
     resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
-  source-map@0.7.6:
-    resolution: {integrity: sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ==}
+  source-map@0.8.0:
+    resolution: {integrity: sha512-d8EqvL+k/SOXCreS/SUzg2ciyHqBBLcN/yuRjFsbvVhHTE2pgei7oAhmPM7kWFbkX6OSMQfUq4KbkF3au9lhYQ==}
     engines: {node: '>= 12'}
 
   space-separated-tokens@2.0.2:
@@ -3490,21 +3409,21 @@ packages:
   style-search@0.1.0:
     resolution: {integrity: sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==}
 
-  stylelint-config-recommended@18.0.0:
-    resolution: {integrity: sha512-mxgT2XY6YZ3HWWe3Di8umG6aBmWmHTblTgu/f10rqFXnyWxjKWwNdjSWkgkwCtxIKnqjSJzvFmPT5yabVIRxZg==}
-    engines: {node: '>=20.19.0'}
+  stylelint-config-recommended@19.0.0:
+    resolution: {integrity: sha512-Y15XB19RManqBOpbRC42tF8R/Hfe314xYLzedRlnnYxYzZ0777RakDQIGcqYfrz9jWGoVyjaGTdpSl9F+roOOw==}
+    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
     peerDependencies:
-      stylelint: ^17.0.0
+      stylelint: ^18.0.0
 
-  stylelint-config-standard@40.0.0:
-    resolution: {integrity: sha512-EznGJxOUhtWck2r6dJpbgAdPATIzvpLdK9+i5qPd4Lx70es66TkBPljSg4wN3Qnc6c4h2n+WbUrUynQ3fanjHw==}
-    engines: {node: '>=20.19.0'}
+  stylelint-config-standard@41.0.0:
+    resolution: {integrity: sha512-EJIvMOMARieBOLhw2yzN7BaVFiIY2Ex8CkbXahxP6tQZK41+N8OVUo57Uvx9iTr862h+thqDoDH7vQbeth1ryg==}
+    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
     peerDependencies:
-      stylelint: ^17.0.0
+      stylelint: ^18.0.0
 
-  stylelint@17.16.0:
-    resolution: {integrity: sha512-ejlWnbJ13x1GU32+zZXa6sYQJsKKkwSdv2B4rAdO3OWdEmvhSJKcXi5pOphQYSzyaj1kXpuGJr7pcMBNfDIuPw==}
-    engines: {node: '>=20.19.0'}
+  stylelint@18.0.0:
+    resolution: {integrity: sha512-kI10GsHXQvsH/AcklVZdQgwDuxtHi+A+h1Ujzd7h9LDf3e5jQiLQkWFlPtpynX3E6oVWHG1wo9v6dL0Mr+nnSA==}
+    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
     hasBin: true
 
   superc8@12.7.0:
@@ -3516,20 +3435,9 @@ packages:
     resolution: {integrity: sha512-u1ZpIBCawJnO+0QePsEiOknOfCRq0yERxiAchT0i4li0WHNUJbf0evXXSXOcCAR4M8iMDoajXYmstm/qO81Isw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  supports-color@10.2.2:
-    resolution: {integrity: sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g==}
-    engines: {node: '>=18'}
-
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
-
-  supports-hyperlinks@4.6.0:
-    resolution: {integrity: sha512-FL/q/YePS4tFFTNiBOR+zPk2ZrKheqNtmTJ/9OUZ4e1wKHJofDbGQSmSsxS0XNnabSkqexryCaXGvEKz1vf9UQ==}
-    engines: {node: '>=20'}
-
-  svg-tags@1.0.0:
-    resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
 
   synckit@0.9.2:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
@@ -3628,6 +3536,13 @@ packages:
     peerDependencies:
       typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x || 5.8.x || 5.9.x || 6.0.x
 
+  typescript-eslint@8.72.1:
+    resolution: {integrity: sha512-3Li9FfPmQp45nxEtFD1ZCrYFI3cYK5kpyNtmm1H7lMagm8u9sy6PTjy3ytwQZs7KNukOyKFHAZ6z6GjYFeaeXw==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
+      typescript: '>=4.8.4 <6.1.0'
+
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
@@ -3694,11 +3609,11 @@ packages:
     resolution: {integrity: sha512-kiGUalWN+rgBJ/1OHZsBtU4rXZOfj/7rKQxULKlIzwzQSvMJUUNgPwJEEh7gU6xEVxC0ahoOBvN2YI8GH6FNgA==}
     engines: {node: '>=10.12.0'}
 
-  vfile-location@5.0.3:
-    resolution: {integrity: sha512-5yXvWDEgqeiYiBe1lbxYF7UMAIm/IcopxMHrMQDq3nvKcjPKIhZklUKL+AE7J7uApI4kwe2snsK+eI6UTj9EHg==}
+  vfile-location@5.0.4:
+    resolution: {integrity: sha512-vEvxatYZCIpNvzGk2UD+u4I/sZkSKoOsdRCbkOIsN73QpJbriJ1qvvBAL1PeI0y55Leoqf7pORbaSPpG/smmOg==}
 
-  vfile-message@4.0.3:
-    resolution: {integrity: sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==}
+  vfile-message@4.0.4:
+    resolution: {integrity: sha512-66ycRswIkNmHH9PHku7ADtv5RVwgIrOcuv3J8Svz6h4qgGRrKVa+9/neuKyJZUXyOpYwLTvS+whZ4R2urHHgQg==}
 
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
@@ -3735,10 +3650,6 @@ packages:
     resolution: {integrity: sha512-wk4Mf4pR5mRP7eYuuTBCIQ9d0ud2Fv2jRLQpfgnRjbOxAFHmjKFValgTpitVKzJJS8ajnYQV2Du1SZ8j6b/EUQ==}
     engines: {node: '>= 0.4'}
 
-  which@1.3.1:
-    resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
-    hasBin: true
-
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
@@ -3761,6 +3672,10 @@ packages:
   write-file-atomic@7.0.1:
     resolution: {integrity: sha512-OTIk8iR8/aCRWBqvxrzxR0hgxWpnYBblY1S5hDWBQfk/VFmJwzmJgQFN3WsoUKHISv2eAwe+PpbUzyL1CKTLXg==}
     engines: {node: ^20.17.0 || >=22.9.0}
+
+  write-file-atomic@8.0.0:
+    resolution: {integrity: sha512-dYwyZredl67GyLLIHJnRM3h2PcOmN5SkcgC7eM5DPDEOEl6dLFqVrMg3F1Ea32usj4VSVZtd2H4MtKTNOf6nPg==}
+    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
@@ -3800,12 +3715,6 @@ packages:
 
 snapshots:
 
-  '@babel/code-frame@7.29.7':
-    dependencies:
-      '@babel/helper-validator-identifier': 7.29.7
-      js-tokens: 4.0.0
-      picocolors: 1.1.1
-
   '@babel/code-frame@8.0.6':
     dependencies:
       '@babel/helper-validator-identifier': 8.0.6
@@ -3823,8 +3732,6 @@ snapshots:
   '@babel/helper-globals@8.0.6': {}
 
   '@babel/helper-string-parser@8.0.8': {}
-
-  '@babel/helper-validator-identifier@7.29.7': {}
 
   '@babel/helper-validator-identifier@8.0.6': {}
 
@@ -3887,20 +3794,20 @@ snapshots:
       '@csstools/css-parser-algorithms': 4.0.2(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-tokenizer': 4.0.2
 
-  '@csstools/selector-resolve-nested@4.0.2(postcss-selector-parser@7.1.7)':
+  '@csstools/selector-resolve-nested@4.0.2(postcss-selector-parser@7.1.8)':
     dependencies:
-      postcss-selector-parser: 7.1.7
+      postcss-selector-parser: 7.1.8
 
-  '@csstools/selector-specificity@6.0.1(postcss-selector-parser@7.1.7)':
+  '@csstools/selector-specificity@6.0.1(postcss-selector-parser@7.1.8)':
     dependencies:
-      postcss-selector-parser: 7.1.7
+      postcss-selector-parser: 7.1.8
 
-  '@cto.af/eslint-config@7.0.4(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2))':
+  '@cto.af/eslint-config@7.0.4(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))':
     dependencies:
       '@eslint/json': 2.1.1
-      '@stylistic/eslint-plugin': 5.10.0(eslint@10.14.0(supports-color@10.2.2))
-      eslint-plugin-n: 18.5.0(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2))
-      eslint-plugin-redos: 4.5.0(eslint@10.14.0(supports-color@10.2.2))
+      '@stylistic/eslint-plugin': 5.10.0(eslint@10.14.0(supports-color@7.2.0))
+      eslint-plugin-n: 18.5.0(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))
+      eslint-plugin-redos: 4.5.0(eslint@10.14.0(supports-color@7.2.0))
       globals: 17.13.0
     transitivePeerDependencies:
       - eslint
@@ -3916,11 +3823,11 @@ snapshots:
       '@cto.af/linebreak': 5.0.0
       '@cto.af/string-width': 6.0.0
 
-  '@cto.af/monopub@2.0.2(supports-color@10.2.2)':
+  '@cto.af/monopub@2.0.2(supports-color@7.2.0)':
     dependencies:
       commander: 15.0.0
       fast-glob: 3.3.3
-      simple-git: 4.0.2(supports-color@10.2.2)
+      simple-git: 4.0.2(supports-color@7.2.0)
       yaml: 2.9.1
     transitivePeerDependencies:
       - supports-color
@@ -3939,25 +3846,22 @@ snapshots:
 
   '@decimalturn/toml-patch@3.3.2': {}
 
-  '@es-joy/escodegen@4.2.0':
+  '@es-joy/escodegen@5.0.1':
     dependencies:
       '@es-joy/estraverse': 7.1.1
-      '@es-joy/jsdoccomment': 0.62.0
+      '@es-joy/esutils': 3.0.0
+      '@es-joy/jsdoccomment': 1.1.0
+      '@types/estree': 1.0.10
       esprima: 4.0.1
-      esutils: 2.0.3
       optionator: 0.9.4
     optionalDependencies:
-      source-map: 0.7.6
+      source-map: 0.8.0
 
   '@es-joy/estraverse@7.1.1': {}
 
-  '@es-joy/jsdoccomment@0.62.0':
+  '@es-joy/esutils@3.0.0':
     dependencies:
       '@types/estree': 1.0.10
-      '@typescript-eslint/types': 8.72.1
-      comment-parser: 1.4.1
-      esquery: 1.7.0
-      jsdoc-type-pratt-parser: 5.9.2
 
   '@es-joy/jsdoccomment@1.1.0':
     dependencies:
@@ -3969,9 +3873,9 @@ snapshots:
 
   '@es-joy/resolve.exports@1.2.0': {}
 
-  '@escover/converter-istanbul@1.0.3(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)':
+  '@escover/converter-istanbul@1.0.3(@putout/printer@18.49.2)(supports-color@7.2.0)':
     dependencies:
-      '@putout/plugin-convert-optional-to-logical': 4.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/plugin-convert-optional-to-logical': 4.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       chalk: 5.6.2
       find-cache-dir: 5.0.0
       find-up: 8.0.0
@@ -3981,7 +3885,7 @@ snapshots:
       montag: 2.0.3
       once: 1.4.0
       picomatch: 4.0.7
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       strip-ansi: 7.2.0
       table: 6.10.1
       try-catch: 4.1.1
@@ -3989,9 +3893,8 @@ snapshots:
     transitivePeerDependencies:
       - '@putout/printer'
       - supports-color
-      - typescript
 
-  '@escover/formatter-responsive@1.0.7(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)':
+  '@escover/formatter-responsive@1.0.7(@putout/printer@18.49.2)(supports-color@7.2.0)':
     dependencies:
       chalk: 5.6.2
       find-cache-dir: 5.0.0
@@ -3999,7 +3902,7 @@ snapshots:
       montag: 2.0.3
       once: 1.4.0
       picomatch: 4.0.7
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       strip-ansi: 7.2.0
       table: 6.10.1
       try-catch: 4.1.1
@@ -4007,19 +3910,18 @@ snapshots:
     transitivePeerDependencies:
       - '@putout/printer'
       - supports-color
-      - typescript
 
-  '@eslint-community/eslint-utils@4.10.1(eslint@10.14.0(supports-color@10.2.2))':
+  '@eslint-community/eslint-utils@4.10.1(eslint@10.14.0(supports-color@7.2.0))':
     dependencies:
-      eslint: 10.14.0(supports-color@10.2.2)
+      eslint: 10.14.0(supports-color@7.2.0)
       eslint-visitor-keys: 3.4.3
 
-  '@eslint-community/regexpp@4.12.2': {}
+  '@eslint-community/regexpp@4.12.3': {}
 
-  '@eslint/config-array@0.23.5(supports-color@10.2.2)':
+  '@eslint/config-array@0.23.5(supports-color@7.2.0)':
     dependencies:
       '@eslint/object-schema': 3.0.5
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
       minimatch: 11.0.5
     transitivePeerDependencies:
       - supports-color
@@ -4102,19 +4004,19 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@kwsites/file-exists@1.1.1(supports-color@10.2.2)':
+  '@kwsites/file-exists@1.1.1(supports-color@7.2.0)':
     dependencies:
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@mapbox/node-pre-gyp@2.0.3(supports-color@10.2.2)':
+  '@mapbox/node-pre-gyp@2.0.3(supports-color@7.2.0)':
     dependencies:
       consola: 3.4.2
       detect-libc: 2.1.2
-      https-proxy-agent: 7.0.6(supports-color@10.2.2)
+      https-proxy-agent: 7.0.6(supports-color@7.2.0)
       node-fetch: 2.7.0
       nopt: 8.1.0
       semver: 7.8.6
@@ -4160,11 +4062,11 @@ snapshots:
       try-catch: 4.1.1
       try-to-catch: 4.1.0
 
-  '@putout/cli-choose-formatter@7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/cli-choose-formatter@7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/cli-choose': 4.0.0
       find-up: 8.0.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
   '@putout/cli-choose@4.0.0':
     dependencies:
@@ -4183,13 +4085,13 @@ snapshots:
       try-catch: 4.1.1
       try-to-catch: 4.1.0
 
-  '@putout/cli-process-file@7.1.0(eslint@10.14.0(supports-color@10.2.2))(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/cli-process-file@7.1.0(eslint@10.14.0(supports-color@7.2.0))(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/eslint': 6.1.0(eslint@10.14.0(supports-color@10.2.2))
+      '@putout/eslint': 6.1.1(eslint@10.14.0(supports-color@7.2.0))
       deepmerge: 4.3.1
       once: 1.4.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
-      samadhi: 4.0.4(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
+      samadhi: 4.0.4(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       try-catch: 4.1.1
       try-to-catch: 4.1.0
     transitivePeerDependencies:
@@ -4210,18 +4112,18 @@ snapshots:
       fastest-levenshtein: 1.0.16
       just-kebab-case: 4.2.0
 
-  '@putout/compare@19.7.0':
+  '@putout/compare@19.8.2':
     dependencies:
       '@putout/babel': 5.10.1
       '@putout/engine-parser': 15.6.0
-      '@putout/operate': 15.9.0
+      '@putout/operate': 15.10.0
       jessy: 5.0.1
       nessy: 6.0.1
       obug: 3.0.0
 
-  '@putout/engine-loader@17.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/engine-loader@17.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
       try-to-catch: 4.1.0
 
@@ -4229,42 +4131,42 @@ snapshots:
     dependencies:
       '@putout/babel': 5.10.1
       '@putout/operator-watermark': 1.0.1
-      '@putout/printer': 18.49.0
+      '@putout/printer': 18.49.2
       align-spaces: 3.0.0
       estree-to-babel: 12.0.1
       nano-memoize: 3.0.16
       once: 1.4.0
       try-catch: 4.1.1
 
-  '@putout/engine-processor@16.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/engine-processor@16.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/engine-loader': 17.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/engine-loader': 17.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       once: 1.4.0
       picomatch: 4.0.7
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-to-catch: 4.1.0
 
-  '@putout/engine-reporter@8.0.8(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/engine-reporter@8.0.8(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/cli-choose-formatter': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/cli-choose-formatter': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/cli-keypress': 4.0.0
-      '@putout/engine-loader': 17.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/engine-loader': 17.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       fullstore: 4.0.3
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
       try-to-catch: 4.1.0
 
-  '@putout/engine-runner@28.7.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/engine-runner@28.7.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/compare': 19.7.0
+      '@putout/compare': 19.8.2
       '@putout/engine-parser': 15.6.0
-      '@putout/operate': 15.9.0
-      '@putout/operator-declare': 18.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/operate': 15.10.0
+      '@putout/operator-declare': 18.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-json': 3.10.0
       '@putout/operator-watermark': 1.0.1
-      '@putout/plugin-filesystem': 13.6.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/plugin-filesystem': 13.6.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       fullstore: 4.0.3
       obug: 3.0.0
       once: 1.4.0
@@ -4273,158 +4175,158 @@ snapshots:
     transitivePeerDependencies:
       - putout
 
-  '@putout/eslint@6.1.0(eslint@10.14.0(supports-color@10.2.2))':
+  '@putout/eslint@6.1.1(eslint@10.14.0(supports-color@7.2.0))':
     dependencies:
-      eslint: 10.14.0(supports-color@10.2.2)
+      eslint: 10.14.0(supports-color@7.2.0)
       once: 1.4.0
       try-catch: 4.1.1
       try-to-catch: 4.1.0
 
-  '@putout/formatter-codeframe@10.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-codeframe@10.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/formatter-json': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/formatter-json': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       table: 6.10.1
 
-  '@putout/formatter-dump@7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-dump@7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/formatter-json': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/formatter-json': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       table: 6.10.1
 
-  '@putout/formatter-frame@9.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-frame@9.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/formatter-codeframe': 10.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/formatter-codeframe': 10.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/formatter-json-lines@4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-json-lines@4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/formatter-json@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-json@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/formatter-memory@6.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-memory@6.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/formatter-dump': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/formatter-dump': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       chalk: 6.0.1
       cli-progress: 3.12.0
       format-io: 2.0.0
       montag: 2.0.3
       once: 1.4.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/formatter-progress-bar@6.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-progress-bar@6.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/formatter-dump': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/formatter-dump': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       chalk: 6.0.1
       cli-progress: 3.12.0
       once: 1.4.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/formatter-progress@7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-progress@7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/formatter-dump': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/formatter-dump': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/formatter-stream@7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-stream@7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       table: 6.10.1
 
-  '@putout/formatter-time@5.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/formatter-time@5.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/formatter-dump': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/formatter-dump': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       chalk: 6.0.1
       cli-progress: 3.12.0
       format-io: 2.0.0
       montag: 2.0.3
       once: 1.4.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       timer-node: 5.0.9
 
   '@putout/git-status-porcelain@3.0.0': {}
 
-  '@putout/operate@15.9.0':
+  '@putout/operate@15.10.0':
     dependencies:
       '@putout/babel': 5.10.1
 
-  '@putout/operator-add-args@15.3.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-add-args@15.3.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/compare': 19.7.0
+      '@putout/compare': 19.8.2
       '@putout/engine-parser': 15.6.0
-      '@putout/types': 1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/types': 1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
   '@putout/operator-css@1.0.1':
     dependencies:
       happy-style: 1.0.9
 
-  '@putout/operator-declare@18.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-declare@18.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/compare': 19.7.0
+      '@putout/compare': 19.8.2
       '@putout/engine-parser': 15.6.0
-      '@putout/operate': 15.9.0
-      '@putout/types': 1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/operate': 15.10.0
+      '@putout/types': 1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/operator-filesystem@11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-filesystem@11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/operate': 15.9.0
+      '@putout/operate': 15.10.0
       '@putout/operator-json': 3.10.0
       '@putout/traverse': 16.2.0
-      '@putout/types': 1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/types': 1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       fullstore: 4.0.3
       try-catch: 4.1.1
     transitivePeerDependencies:
       - putout
 
-  '@putout/operator-find-file-up@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-find-file-up@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/operator-ignore@6.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-ignore@6.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/operate': 15.9.0
+      '@putout/operate': 15.10.0
       '@putout/operator-json': 3.10.0
-      '@putout/types': 1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/types': 1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       picomatch: 4.0.7
     transitivePeerDependencies:
       - putout
 
   '@putout/operator-json@3.10.0': {}
 
-  '@putout/operator-jsx@3.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-jsx@3.1.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/operate': 15.9.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/operate': 15.10.0
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
   '@putout/operator-keyword@5.2.0': {}
 
-  '@putout/operator-markdown@1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-markdown@1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/operator-match-files@12.12.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))(supports-color@10.2.2)':
+  '@putout/operator-match-files@12.12.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))(supports-color@7.2.0)':
     dependencies:
       '@putout/babel': 5.10.1
       '@putout/engine-parser': 15.6.0
       '@putout/operator-css': 1.0.1
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-json': 3.10.0
       '@putout/processor-json': 10.3.0
-      '@putout/processor-markdown': 14.2.1(supports-color@10.2.2)
+      '@putout/processor-markdown': 14.2.1(supports-color@7.2.0)
       '@putout/processor-toml': 1.3.2
       '@putout/processor-yaml': 10.0.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
     transitivePeerDependencies:
       - supports-color
@@ -4433,45 +4335,45 @@ snapshots:
     dependencies:
       '@putout/babel': 5.10.1
 
-  '@putout/operator-regexp@5.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-regexp@5.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       jsesc: 3.1.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       regexp-tree: 0.1.27
 
-  '@putout/operator-remove-files@1.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-remove-files@1.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/types': 1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/types': 1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/operator-rename-files@6.2.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-rename-files@6.2.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
   '@putout/operator-rename-properties@1.0.1':
     dependencies:
-      '@putout/operate': 15.9.0
+      '@putout/operate': 15.10.0
       '@putout/operator-json': 3.10.0
 
-  '@putout/operator-sort-ignore@2.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-sort-ignore@2.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/operate': 15.9.0
+      '@putout/operate': 15.10.0
       '@putout/operator-json': 3.10.0
-      '@putout/types': 1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@putout/types': 1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/operator-sort-properties@1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/operator-sort-properties@1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      '@putout/operate': 15.9.0
+      '@putout/operate': 15.10.0
       '@putout/operator-json': 3.10.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/operator-type-checker@1.2.1(@putout/printer@18.49.0)':
+  '@putout/operator-type-checker@1.2.1(@putout/printer@18.49.2)':
     dependencies:
-      '@putout/printer': 18.49.0
+      '@putout/printer': 18.49.2
 
   '@putout/operator-wasm@1.0.0':
     dependencies:
@@ -4482,403 +4384,403 @@ snapshots:
       '@putout/babel': 5.10.1
       wraptile: 3.0.0
 
-  '@putout/plugin-apply-arrow@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-arrow@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-at@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-at@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-cause@1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-cause@1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-dot-notation@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-dot-notation@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-flat-map@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-flat-map@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-global-this@2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-global-this@2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-overrides@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-overrides@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-push@1.2.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-push@1.2.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-shorthand-properties@7.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-shorthand-properties@7.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-starts-with@2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-starts-with@2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-template-literals@5.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-template-literals@5.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-apply-to-sorted@1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-apply-to-sorted@1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-arguments@2.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-arguments@2.1.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-assignment@3.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-assignment@3.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-browserlist@2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-browserlist@2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-conditions@9.2.4(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-conditions@9.2.4(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-concat-to-flat@2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-concat-to-flat@2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-index-of-to-includes@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-index-of-to-includes@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-object-entries-to-array-entries@4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-object-entries-to-array-entries@4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-object-entries-to-object-keys@1.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-object-entries-to-object-keys@1.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-object-keys-to-object-entries@1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-object-keys-to-object-entries@1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-optional-to-logical@4.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-optional-to-logical@4.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-quotes-to-backticks@5.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-quotes-to-backticks@5.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-template-to-string@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-template-to-string@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-convert-to-arrow-function@5.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-convert-to-arrow-function@5.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-coverage@3.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-coverage@3.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       just-camel-case: 6.2.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-declare-before-reference@10.5.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-declare-before-reference@10.5.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-declare@8.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-declare@8.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-destructuring@2.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-destructuring@2.1.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-docker@1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-docker@1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-eslint@15.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-eslint@15.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-esm@10.12.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-esm@10.12.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       parse-import-specifiers: 1.0.3
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
 
-  '@putout/plugin-extract-sequence-expressions@4.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-extract-sequence-expressions@4.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-filesystem@13.6.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-filesystem@13.6.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/operate': 15.9.0
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/operate': 15.10.0
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-json': 3.10.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-for-of@12.6.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-for-of@12.6.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-generators@2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-generators@2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       fullstore: 3.0.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-github@21.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-github@21.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-gitignore@7.0.4(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-gitignore@7.0.4(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-labels@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-labels@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       fullstore: 4.0.3
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-logical-expressions@8.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-logical-expressions@8.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-logical-expressions@9.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-logical-expressions@9.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-madrun@24.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-madrun@24.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-markdown@1.5.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-markdown@1.5.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
 
-  '@putout/plugin-math@5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-math@5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-maybe@5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-maybe@5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-merge-duplicate-functions@4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-merge-duplicate-functions@4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-montag@5.2.5(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-montag@5.2.5(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-new@5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-new@5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-nodejs@21.14.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-nodejs@21.14.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       just-camel-case: 6.2.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
 
-  '@putout/plugin-npmignore@8.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-npmignore@8.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-optional-chaining@3.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-optional-chaining@3.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-package-json@11.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-package-json@11.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-parens@6.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-parens@6.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-promises@20.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-promises@20.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-putout-config@12.3.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-putout-config@12.3.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-putout@29.36.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-putout@29.36.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       just-camel-case: 6.2.0
       just-kebab-case: 4.2.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       regexp.escape: 2.0.1
       try-catch: 4.1.1
 
-  '@putout/plugin-regexp@14.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-regexp@14.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       regexp-tree: 0.1.27
       try-catch: 4.1.1
 
-  '@putout/plugin-remove-console@7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-console@7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-debugger@9.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-debugger@9.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-duplicate-case@5.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-duplicate-case@5.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-duplicate-elements@1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-duplicate-elements@1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-duplicate-keys@9.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-duplicate-keys@9.1.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-empty@15.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-empty@15.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-iife@5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-iife@5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-nested-blocks@9.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-nested-blocks@9.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-unreachable-code@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-unreachable-code@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-unused-expressions@12.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-unused-expressions@12.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-unused-private-fields@4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-unused-private-fields@4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-array-constructor@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-array-constructor@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-array-entries@2.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-array-entries@2.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-array@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-array@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-assign@2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-assign@2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-computed@1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-computed@1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-constructor@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-constructor@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-continue@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-continue@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-delete@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-delete@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-escape@10.2.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-escape@10.2.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       emoji-regex: 11.0.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-functions@6.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-functions@6.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-map@3.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-map@3.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-object-from-entries@1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-object-from-entries@1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-operand@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-operand@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-push@3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-push@3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-replace@2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-replace@2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-remove-useless-template-expressions@3.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-remove-useless-template-expressions@3.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-return@4.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-return@4.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-simplify-ternary@9.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-simplify-ternary@9.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-spread@3.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-spread@3.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-tape@21.20.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-tape@21.20.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
 
-  '@putout/plugin-try-catch@8.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-try-catch@8.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-types@10.6.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-types@10.6.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-typescript@13.2.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-typescript@13.2.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-variables@2.7.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-variables@2.7.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/plugin-webpack@4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/plugin-webpack@4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
-  '@putout/printer@18.49.0':
+  '@putout/printer@18.49.2':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/compare': 19.7.0
-      '@putout/operate': 15.9.0
+      '@putout/compare': 19.8.2
+      '@putout/operate': 15.10.0
       '@putout/operator-json': 3.10.0
       fullstore: 4.0.3
       jessy: 5.0.1
@@ -4886,20 +4788,17 @@ snapshots:
       parse-import-specifiers: 1.0.3
       rendy: 5.0.2
 
-  '@putout/processor-css@13.3.1(@typescript/typescript6@6.0.2)(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))(supports-color@10.2.2)':
+  '@putout/processor-css@13.3.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/operator-css': 1.0.1
       '@putout/operator-json': 3.10.0
-      '@stylistic/stylelint-plugin': 5.3.1(stylelint@17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@stylistic/stylelint-plugin': 6.0.1(stylelint@18.0.0)
       align-spaces: 3.0.0
       cosmiconfig: 10.0.1
       deepmerge: 4.3.1
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
-      stylelint: 17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
-      stylelint-config-standard: 40.0.0(stylelint@17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
+      stylelint: 18.0.0
+      stylelint-config-standard: 41.0.0(stylelint@18.0.0)
 
   '@putout/processor-docker@1.2.2':
     dependencies:
@@ -4907,10 +4806,10 @@ snapshots:
       dockerfile-ast: 0.7.1
       try-catch: 4.1.1
 
-  '@putout/processor-filesystem@8.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/processor-filesystem@8.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/cli-filesystem': 3.0.0
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-json': 3.10.0
     transitivePeerDependencies:
       - putout
@@ -4919,24 +4818,24 @@ snapshots:
     dependencies:
       '@putout/operator-json': 3.10.0
 
-  '@putout/processor-javascript@5.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/processor-javascript@5.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
   '@putout/processor-json@10.3.0':
     dependencies:
       '@putout/operator-json': 3.10.0
       remove-blank-lines: 1.4.2
 
-  '@putout/processor-markdown@14.2.1(supports-color@10.2.2)':
+  '@putout/processor-markdown@14.2.1(supports-color@7.2.0)':
     dependencies:
       '@putout/operator-json': 3.10.0
-      happy-mark: 1.9.1(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      happy-mark: 1.9.1(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
       once: 1.4.0
-      remark-frontmatter: 5.0.0(supports-color@10.2.2)
-      remark-parse: 11.0.0(supports-color@10.2.2)
-      remark-preset-lint-consistent: 6.0.1(supports-color@10.2.2)
+      remark-frontmatter: 5.0.0(supports-color@7.2.0)
+      remark-parse: 11.0.0(supports-color@7.2.0)
+      remark-preset-lint-consistent: 6.0.1(supports-color@7.2.0)
       remark-stringify: 11.0.0
       unified: 11.0.5
       unified-lint-rule: 3.0.1
@@ -4965,12 +4864,12 @@ snapshots:
   '@putout/traverse@16.2.0':
     dependencies:
       '@putout/babel': 5.10.1
-      '@putout/compare': 19.7.0
+      '@putout/compare': 19.8.2
 
-  '@putout/types@1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@putout/types@1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))':
     dependencies:
       '@putout/babel': 5.10.1
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
 
   '@rollup/pluginutils@5.5.1':
     dependencies:
@@ -5010,26 +4909,26 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stylistic/eslint-plugin@5.10.0(eslint@10.14.0(supports-color@10.2.2))':
+  '@stylistic/eslint-plugin@5.10.0(eslint@10.14.0(supports-color@7.2.0))':
     dependencies:
-      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@10.2.2))
+      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@7.2.0))
       '@typescript-eslint/types': 8.72.1
-      eslint: 10.14.0(supports-color@10.2.2)
+      eslint: 10.14.0(supports-color@7.2.0)
       eslint-visitor-keys: 4.2.1
       espree: 10.4.0
       estraverse: 5.3.0
       picomatch: 4.0.7
 
-  '@stylistic/stylelint-plugin@5.3.1(stylelint@17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2))':
+  '@stylistic/stylelint-plugin@6.0.1(stylelint@18.0.0)':
     dependencies:
       '@csstools/css-parser-algorithms': 4.0.2(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-tokenizer': 4.0.2
       '@csstools/media-query-list-parser': 5.0.2(@csstools/css-parser-algorithms@4.0.2(@csstools/css-tokenizer@4.0.2))(@csstools/css-tokenizer@4.0.2)
       postcss: 8.5.32
-      postcss-selector-parser: 7.1.7
+      postcss-selector-parser: 7.1.8
       postcss-value-parser: 4.2.0
       style-search: 0.1.0
-      stylelint: 17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      stylelint: 18.0.0
 
   '@types/debug@4.1.13':
     dependencies:
@@ -5065,11 +4964,39 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@typescript-eslint/project-service@8.72.1(@typescript/typescript6@6.0.2)(supports-color@10.2.2)':
+  '@typescript-eslint/eslint-plugin@8.72.1(@typescript-eslint/parser@8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)':
+    dependencies:
+      '@eslint-community/regexpp': 4.12.3
+      '@typescript-eslint/parser': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@typescript-eslint/scope-manager': 8.72.1
+      '@typescript-eslint/type-utils': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@typescript-eslint/utils': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@typescript-eslint/visitor-keys': 8.72.1
+      eslint: 10.14.0(supports-color@7.2.0)
+      ignore: 7.0.14
+      natural-compare: 1.4.0
+      ts-api-utils: 2.5.0(@typescript/typescript6@6.0.2)
+      typescript: '@typescript/typescript6@6.0.2'
+    transitivePeerDependencies:
+      - supports-color
+
+  '@typescript-eslint/parser@8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)':
+    dependencies:
+      '@typescript-eslint/scope-manager': 8.72.1
+      '@typescript-eslint/types': 8.72.1
+      '@typescript-eslint/typescript-estree': 8.72.1(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+      '@typescript-eslint/visitor-keys': 8.72.1
+      debug: 4.4.3(supports-color@7.2.0)
+      eslint: 10.14.0(supports-color@7.2.0)
+      typescript: '@typescript/typescript6@6.0.2'
+    transitivePeerDependencies:
+      - supports-color
+
+  '@typescript-eslint/project-service@8.72.1(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.72.1(@typescript/typescript6@6.0.2)
       '@typescript-eslint/types': 8.72.1
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
       typescript: '@typescript/typescript6@6.0.2'
     transitivePeerDependencies:
       - supports-color
@@ -5083,15 +5010,27 @@ snapshots:
     dependencies:
       typescript: '@typescript/typescript6@6.0.2'
 
+  '@typescript-eslint/type-utils@8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)':
+    dependencies:
+      '@typescript-eslint/types': 8.72.1
+      '@typescript-eslint/typescript-estree': 8.72.1(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+      '@typescript-eslint/utils': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
+      debug: 4.4.3(supports-color@7.2.0)
+      eslint: 10.14.0(supports-color@7.2.0)
+      ts-api-utils: 2.5.0(@typescript/typescript6@6.0.2)
+      typescript: '@typescript/typescript6@6.0.2'
+    transitivePeerDependencies:
+      - supports-color
+
   '@typescript-eslint/types@8.72.1': {}
 
-  '@typescript-eslint/typescript-estree@8.72.1(@typescript/typescript6@6.0.2)(supports-color@10.2.2)':
+  '@typescript-eslint/typescript-estree@8.72.1(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
     dependencies:
-      '@typescript-eslint/project-service': 8.72.1(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@typescript-eslint/project-service': 8.72.1(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript-eslint/tsconfig-utils': 8.72.1(@typescript/typescript6@6.0.2)
       '@typescript-eslint/types': 8.72.1
       '@typescript-eslint/visitor-keys': 8.72.1
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
       minimatch: 11.0.5
       semver: 7.8.6
       tinyglobby: 0.2.17
@@ -5100,13 +5039,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2))(supports-color@10.2.2)':
+  '@typescript-eslint/utils@8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@10.2.2))
+      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@7.2.0))
       '@typescript-eslint/scope-manager': 8.72.1
       '@typescript-eslint/types': 8.72.1
-      '@typescript-eslint/typescript-estree': 8.72.1(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
-      eslint: 10.14.0(supports-color@10.2.2)
+      '@typescript-eslint/typescript-estree': 8.72.1(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+      eslint: 10.14.0(supports-color@7.2.0)
       typescript: '@typescript/typescript6@6.0.2'
     transitivePeerDependencies:
       - supports-color
@@ -5180,9 +5119,9 @@ snapshots:
     dependencies:
       '@typescript/old': typescript@6.0.3
 
-  '@vercel/nft@1.11.1(supports-color@10.2.2)':
+  '@vercel/nft@1.11.1(supports-color@7.2.0)':
     dependencies:
-      '@mapbox/node-pre-gyp': 2.0.3(supports-color@10.2.2)
+      '@mapbox/node-pre-gyp': 2.0.3(supports-color@7.2.0)
       '@rollup/pluginutils': 5.5.1
       acorn: 8.19.0
       acorn-import-attributes: 1.9.5(acorn@8.19.0)
@@ -5247,7 +5186,7 @@ snapshots:
 
   ansi-regex@6.4.0: {}
 
-  ansi-regex@6.5.0: {}
+  ansi-regex@6.6.0: {}
 
   ansi-styles@4.3.0:
     dependencies:
@@ -5294,9 +5233,9 @@ snapshots:
 
   async-sema@3.1.1: {}
 
-  ava@8.3.0(supports-color@10.2.2):
+  ava@8.4.0(supports-color@7.2.0):
     dependencies:
-      '@vercel/nft': 1.11.1(supports-color@10.2.2)
+      '@vercel/nft': 1.11.1(supports-color@7.2.0)
       acorn: 8.19.0
       acorn-walk: 8.3.5
       ansi-styles: 7.0.0
@@ -5313,7 +5252,7 @@ snapshots:
       common-path-prefix: 3.0.0
       concordance: 5.0.4
       currently-unhandled: 0.4.1
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
       emittery: 2.2.0
       figures: 6.1.0
       globby: 16.2.4
@@ -5388,8 +5327,6 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.3.0
 
-  callsites@3.1.0: {}
-
   callsites@4.2.0: {}
 
   cbor2@2.4.1:
@@ -5443,7 +5380,7 @@ snapshots:
 
   commander@15.0.0: {}
 
-  comment-parser@1.4.1: {}
+  commander@15.1.0: {}
 
   comment-parser@1.4.9: {}
 
@@ -5471,29 +5408,16 @@ snapshots:
       env-paths: 2.2.1
       js-yaml: 5.5.0
 
-  cosmiconfig@9.0.2(@typescript/typescript6@6.0.2):
-    dependencies:
-      env-paths: 2.2.1
-      import-fresh: 3.3.1
-      js-yaml: 4.3.2
-      parse-json: 5.2.0
-    optionalDependencies:
-      typescript: '@typescript/typescript6@6.0.2'
-
   cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
 
-  css-functions-list@3.3.3: {}
-
   css-tree@3.2.1:
     dependencies:
       mdn-data: 2.27.1
       source-map-js: 1.2.2
-
-  cssesc@3.0.0: {}
 
   currently-unhandled@0.4.1:
     dependencies:
@@ -5523,11 +5447,11 @@ snapshots:
     dependencies:
       time-zone: 1.0.0
 
-  debug@4.4.3(supports-color@10.2.2):
+  debug@4.4.3(supports-color@7.2.0):
     dependencies:
       ms: 2.1.3
     optionalDependencies:
-      supports-color: 10.2.2
+      supports-color: 7.2.0
 
   decode-named-character-reference@1.3.0:
     dependencies:
@@ -5589,10 +5513,6 @@ snapshots:
   entities@4.5.0: {}
 
   env-paths@2.2.1: {}
-
-  error-ex@1.3.4:
-    dependencies:
-      is-arrayish: 0.2.1
 
   es-abstract-get@1.0.0:
     dependencies:
@@ -5690,29 +5610,29 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-compat-utils@0.5.1(eslint@10.14.0(supports-color@10.2.2)):
+  eslint-compat-utils@0.5.1(eslint@10.14.0(supports-color@7.2.0)):
     dependencies:
-      eslint: 10.14.0(supports-color@10.2.2)
+      eslint: 10.14.0(supports-color@7.2.0)
       semver: 7.8.6
 
-  eslint-plugin-es-x@7.8.0(eslint@10.14.0(supports-color@10.2.2)):
+  eslint-plugin-es-x@7.8.0(eslint@10.14.0(supports-color@7.2.0)):
     dependencies:
-      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@10.2.2))
-      '@eslint-community/regexpp': 4.12.2
-      eslint: 10.14.0(supports-color@10.2.2)
-      eslint-compat-utils: 0.5.1(eslint@10.14.0(supports-color@10.2.2))
+      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@7.2.0))
+      '@eslint-community/regexpp': 4.12.3
+      eslint: 10.14.0(supports-color@7.2.0)
+      eslint-compat-utils: 0.5.1(eslint@10.14.0(supports-color@7.2.0))
 
-  eslint-plugin-jsdoc@65.4.4(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2))(supports-color@10.2.2):
+  eslint-plugin-jsdoc@65.4.5(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0):
     dependencies:
-      '@es-joy/escodegen': 4.2.0
+      '@es-joy/escodegen': 5.0.1
       '@es-joy/jsdoccomment': 1.1.0
       '@es-joy/resolve.exports': 1.2.0
-      '@typescript-eslint/utils': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2))(supports-color@10.2.2)
+      '@typescript-eslint/utils': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
       are-docs-informative: 0.1.1
       comment-parser: 1.4.9
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
       escape-string-regexp: 5.0.0
-      eslint: 10.14.0(supports-color@10.2.2)
+      eslint: 10.14.0(supports-color@7.2.0)
       espree: 11.2.0
       esquery: 1.7.0
       html-entities: 2.6.0
@@ -5726,12 +5646,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-n@18.5.0(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@10.2.2)):
+  eslint-plugin-n@18.5.0(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0)):
     dependencies:
-      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@10.2.2))
+      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@7.2.0))
       enhanced-resolve: 5.26.1
-      eslint: 10.14.0(supports-color@10.2.2)
-      eslint-plugin-es-x: 7.8.0(eslint@10.14.0(supports-color@10.2.2))
+      eslint: 10.14.0(supports-color@7.2.0)
+      eslint-plugin-es-x: 7.8.0(eslint@10.14.0(supports-color@7.2.0))
       get-tsconfig: 4.14.3
       globals: 15.15.0
       globrex: 0.1.2
@@ -5741,9 +5661,9 @@ snapshots:
     optionalDependencies:
       typescript: '@typescript/typescript6@6.0.2'
 
-  eslint-plugin-redos@4.5.0(eslint@10.14.0(supports-color@10.2.2)):
+  eslint-plugin-redos@4.5.0(eslint@10.14.0(supports-color@7.2.0)):
     dependencies:
-      eslint: 10.14.0(supports-color@10.2.2)
+      eslint: 10.14.0(supports-color@7.2.0)
       recheck: 4.5.0
 
   eslint-scope@9.1.2:
@@ -5759,11 +5679,11 @@ snapshots:
 
   eslint-visitor-keys@5.0.1: {}
 
-  eslint@10.14.0(supports-color@10.2.2):
+  eslint@10.14.0(supports-color@7.2.0):
     dependencies:
-      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@10.2.2))
-      '@eslint-community/regexpp': 4.12.2
-      '@eslint/config-array': 0.23.5(supports-color@10.2.2)
+      '@eslint-community/eslint-utils': 4.10.1(eslint@10.14.0(supports-color@7.2.0))
+      '@eslint-community/regexpp': 4.12.3
+      '@eslint/config-array': 0.23.5(supports-color@7.2.0)
       '@eslint/config-helpers': 0.7.0
       '@eslint/core': 1.2.1
       '@eslint/plugin-kit': 0.7.3
@@ -5773,7 +5693,7 @@ snapshots:
       '@types/estree': 1.0.10
       ajv: 6.15.0
       cross-spawn: 7.0.6
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
       escape-string-regexp: 4.0.0
       eslint-scope: 9.1.2
       eslint-visitor-keys: 5.0.1
@@ -5925,9 +5845,9 @@ snapshots:
       flatted: 3.4.4
       hookified: 1.15.1
 
-  flatlint@5.10.3(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)):
+  flatlint@5.10.3(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)):
     dependencies:
-      '@putout/engine-loader': 17.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/engine-loader': 17.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-keyword': 5.2.0
       js-tokens: 10.0.0
       montag: 2.0.3
@@ -6020,16 +5940,6 @@ snapshots:
       minipass: 7.1.3
       path-scurry: 3.0.0
 
-  global-modules@2.0.0:
-    dependencies:
-      global-prefix: 3.0.0
-
-  global-prefix@3.0.0:
-    dependencies:
-      ini: 1.3.8
-      kind-of: 6.0.3
-      which: 1.3.1
-
   globals@15.15.0: {}
 
   globals@17.13.0: {}
@@ -6049,40 +5959,37 @@ snapshots:
       slash: 5.1.0
       unicorn-magic: 0.4.1
 
-  globjoin@0.1.4: {}
-
   globrex@0.1.2: {}
 
-  goldstein@7.4.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2):
+  goldstein@7.4.0(supports-color@7.2.0):
     dependencies:
-      '@putout/plugin-declare': 8.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-logical-expressions': 8.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-try-catch': 8.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/printer': 18.49.0
+      '@putout/plugin-declare': 8.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-logical-expressions': 8.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-try-catch': 8.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/printer': 18.49.2
       acorn: 8.19.0
       acorn-loose: 8.5.2
       acorn-typescript: 1.4.13(acorn@8.19.0)
       estree-to-babel: 12.0.1
       estree-util-attach-comments: 3.0.0
-      putout: 42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      putout: 42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)
       try-catch: 4.1.1
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   gopd@1.2.0: {}
 
   graceful-fs@4.2.11: {}
 
-  happy-mark@1.9.1(supports-color@10.2.2):
+  happy-mark@1.9.1(supports-color@7.2.0):
     dependencies:
       '@putout/babel': 5.10.1
       '@putout/operator-json': 3.10.0
-      '@putout/printer': 18.49.0
+      '@putout/printer': 18.49.2
       redstd: 1.0.2
-      remark-frontmatter: 5.0.0(supports-color@10.2.2)
-      remark-gfm: 4.0.1(supports-color@10.2.2)
-      remark-parse: 11.0.0(supports-color@10.2.2)
+      remark-frontmatter: 5.0.0(supports-color@7.2.0)
+      remark-gfm: 4.0.1(supports-color@7.2.0)
+      remark-parse: 11.0.0(supports-color@7.2.0)
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
@@ -6091,15 +5998,13 @@ snapshots:
     dependencies:
       '@putout/babel': 5.10.1
       '@putout/operator-json': 3.10.0
-      '@putout/printer': 18.49.0
+      '@putout/printer': 18.49.2
       css-tree: 3.2.1
       redstd: 1.0.2
 
   has-bigints@1.1.0: {}
 
   has-flag@4.0.0: {}
-
-  has-flag@5.0.1: {}
 
   has-property-descriptors@1.0.2:
     dependencies:
@@ -6131,12 +6036,10 @@ snapshots:
 
   html-escaper@2.0.2: {}
 
-  html-tags@5.1.0: {}
-
-  https-proxy-agent@7.0.6(supports-color@10.2.2):
+  https-proxy-agent@7.0.6(supports-color@7.2.0):
     dependencies:
       agent-base: 7.1.4
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -6148,18 +6051,11 @@ snapshots:
 
   ignore@7.0.14: {}
 
-  import-fresh@3.3.1:
-    dependencies:
-      parent-module: 1.0.1
-      resolve-from: 4.0.0
-
   import-meta-resolve@4.2.0: {}
 
   imurmurhash@0.1.4: {}
 
   indent-string@5.0.0: {}
-
-  ini@1.3.8: {}
 
   internal-slot@1.1.0:
     dependencies:
@@ -6174,8 +6070,6 @@ snapshots:
       call-bind: 1.0.9
       call-bound: 1.0.4
       get-intrinsic: 1.3.0
-
-  is-arrayish@0.2.1: {}
 
   is-async-function@2.1.1:
     dependencies:
@@ -6324,30 +6218,20 @@ snapshots:
 
   js-tokens@10.0.0: {}
 
-  js-tokens@4.0.0: {}
-
   js-yaml@3.15.2:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
 
-  js-yaml@4.3.2:
-    dependencies:
-      argparse: 2.0.1
-
   js-yaml@5.5.0:
     dependencies:
       argparse: 3.0.4
-
-  jsdoc-type-pratt-parser@5.9.2: {}
 
   jsdoc-type-pratt-parser@9.5.0:
     dependencies:
       '@types/estree': 1.0.10
 
   jsesc@3.1.0: {}
-
-  json-parse-even-better-errors@2.3.1: {}
 
   json-schema-traverse@0.4.1: {}
 
@@ -6365,14 +6249,10 @@ snapshots:
     dependencies:
       '@keyv/serialize': 1.1.1
 
-  kind-of@6.0.3: {}
-
   levn@0.4.1:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
-
-  lines-and-columns@1.2.4: {}
 
   linkify-it@5.0.2:
     dependencies:
@@ -6419,16 +6299,14 @@ snapshots:
 
   math-intrinsics@1.1.0: {}
 
-  mathml-tag-names@4.0.0: {}
-
   md5-hex@3.0.1:
     dependencies:
       blueimp-md5: 2.19.0
 
-  mdast-comment-marker@3.0.0(supports-color@10.2.2):
+  mdast-comment-marker@3.0.0(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-mdx-expression: 2.0.1(supports-color@10.2.2)
+      mdast-util-mdx-expression: 2.0.1(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -6439,14 +6317,14 @@ snapshots:
       unist-util-is: 6.0.1
       unist-util-visit-parents: 6.1.0
 
-  mdast-util-from-markdown@2.1.0(supports-color@10.2.2):
+  mdast-util-from-markdown@2.1.0(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
       decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       mdast-util-to-string: 4.0.0
-      micromark: 4.0.3(supports-color@10.2.2)
+      micromark: 4.0.3(supports-color@7.2.0)
       micromark-util-decode-numeric-character-reference: 2.0.2
       micromark-util-decode-string: 2.0.1
       micromark-util-normalize-identifier: 2.0.1
@@ -6456,18 +6334,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-frontmatter@2.0.1(supports-color@10.2.2):
+  mdast-util-frontmatter@2.0.1(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       escape-string-regexp: 5.0.0
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
       micromark-extension-frontmatter: 2.0.0
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-autolink-literal@2.0.1:
+  mdast-util-gfm-autolink-literal@2.1.0:
     dependencies:
       '@types/mdast': 4.0.4
       ccount: 2.0.1
@@ -6475,54 +6353,54 @@ snapshots:
       mdast-util-find-and-replace: 3.0.4
       micromark-util-character: 2.1.1
 
-  mdast-util-gfm-footnote@2.1.0(supports-color@10.2.2):
+  mdast-util-gfm-footnote@2.1.0(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
       micromark-util-normalize-identifier: 2.0.1
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-strikethrough@2.0.1(supports-color@10.2.2):
+  mdast-util-gfm-strikethrough@2.0.1(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-table@2.0.1(supports-color@10.2.2):
+  mdast-util-gfm-table@2.0.1(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       markdown-table: 3.1.0
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
       mdast-util-to-string: 4.0.0
       unist-util-visit: 5.2.0
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-task-list-item@2.0.0(supports-color@10.2.2):
+  mdast-util-gfm-task-list-item@2.0.1(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm@3.1.0(supports-color@10.2.2):
+  mdast-util-gfm@3.1.0(supports-color@7.2.0):
     dependencies:
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
-      mdast-util-gfm-autolink-literal: 2.0.1
-      mdast-util-gfm-footnote: 2.1.0(supports-color@10.2.2)
-      mdast-util-gfm-strikethrough: 2.0.1(supports-color@10.2.2)
-      mdast-util-gfm-table: 2.0.1(supports-color@10.2.2)
-      mdast-util-gfm-task-list-item: 2.0.0(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
+      mdast-util-gfm-autolink-literal: 2.1.0
+      mdast-util-gfm-footnote: 2.1.0(supports-color@7.2.0)
+      mdast-util-gfm-strikethrough: 2.0.1(supports-color@7.2.0)
+      mdast-util-gfm-table: 2.0.1(supports-color@7.2.0)
+      mdast-util-gfm-task-list-item: 2.0.1(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6530,14 +6408,14 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdast-util-mdx-expression@2.0.1(supports-color@10.2.2):
+  mdast-util-mdx-expression@2.0.1(supports-color@7.2.0):
     dependencies:
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.5
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
+      mdast-util-to-markdown: 2.2.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6546,7 +6424,7 @@ snapshots:
       '@types/mdast': 4.0.4
       unist-util-is: 6.0.1
 
-  mdast-util-to-markdown@2.2.2:
+  mdast-util-to-markdown@2.2.3:
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
@@ -6571,8 +6449,6 @@ snapshots:
   memoize@11.0.0:
     dependencies:
       mimic-function: 5.0.1
-
-  meow@14.1.0: {}
 
   merge2@1.4.1: {}
 
@@ -6757,10 +6633,10 @@ snapshots:
 
   micromark-util-types@2.0.3: {}
 
-  micromark@4.0.3(supports-color@10.2.2):
+  micromark@4.0.3(supports-color@7.2.0):
     dependencies:
       '@types/debug': 4.1.13
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
       decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.4
@@ -6819,8 +6695,6 @@ snapshots:
   nopt@8.1.0:
     dependencies:
       abbrev: 3.0.1
-
-  normalize-path@3.0.0: {}
 
   npm-run-path@6.0.0:
     dependencies:
@@ -6887,22 +6761,11 @@ snapshots:
       find-up-simple: 1.0.1
       load-json-file: 7.0.1
 
-  parent-module@1.0.1:
-    dependencies:
-      callsites: 3.1.0
-
   parse-import-specifiers@1.0.3: {}
 
   parse-imports-exports@0.2.4:
     dependencies:
       parse-statements: 1.0.11
-
-  parse-json@5.2.0:
-    dependencies:
-      '@babel/code-frame': 7.29.7
-      error-ex: 1.3.4
-      json-parse-even-better-errors: 2.3.1
-      lines-and-columns: 1.2.4
 
   parse-ms@4.0.0: {}
 
@@ -6949,9 +6812,8 @@ snapshots:
     dependencies:
       postcss: 8.5.32
 
-  postcss-selector-parser@7.1.7:
+  postcss-selector-parser@7.1.8:
     dependencies:
-      cssesc: 3.0.0
       util-deprecate: 1.0.2
 
   postcss-value-parser@4.2.0: {}
@@ -6974,156 +6836,156 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2):
+  putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0):
     dependencies:
       '@putout/babel': 5.10.1
       '@putout/cli-cache': 6.0.2
-      '@putout/cli-choose-formatter': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/cli-choose-formatter': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/cli-keypress': 4.0.0
       '@putout/cli-match': 3.0.1
-      '@putout/cli-process-file': 7.1.0(eslint@10.14.0(supports-color@10.2.2))(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/cli-process-file': 7.1.0(eslint@10.14.0(supports-color@7.2.0))(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/cli-ruler': 5.0.0
       '@putout/cli-staged': 3.0.0
       '@putout/cli-validate-args': 2.0.0
-      '@putout/compare': 19.7.0
-      '@putout/engine-loader': 17.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/compare': 19.8.2
+      '@putout/engine-loader': 17.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/engine-parser': 15.6.0
-      '@putout/engine-processor': 16.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/engine-reporter': 8.0.8(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/engine-runner': 28.7.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-codeframe': 10.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-dump': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-frame': 9.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-json': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-json-lines': 4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-memory': 6.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-progress': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-progress-bar': 6.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-stream': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/formatter-time': 5.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operate': 15.9.0
-      '@putout/operator-add-args': 15.3.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/engine-processor': 16.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/engine-reporter': 8.0.8(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/engine-runner': 28.7.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-codeframe': 10.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-dump': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-frame': 9.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-json': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-json-lines': 4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-memory': 6.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-progress': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-progress-bar': 6.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-stream': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/formatter-time': 5.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operate': 15.10.0
+      '@putout/operator-add-args': 15.3.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-css': 1.0.1
-      '@putout/operator-declare': 18.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-filesystem': 11.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-find-file-up': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-ignore': 6.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/operator-declare': 18.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-filesystem': 11.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-find-file-up': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-ignore': 6.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-json': 3.10.0
-      '@putout/operator-jsx': 3.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/operator-jsx': 3.1.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-keyword': 5.2.0
-      '@putout/operator-markdown': 1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-match-files': 12.12.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))(supports-color@10.2.2)
+      '@putout/operator-markdown': 1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-match-files': 12.12.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))(supports-color@7.2.0)
       '@putout/operator-parens': 4.1.0
-      '@putout/operator-regexp': 5.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-remove-files': 1.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-rename-files': 6.2.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/operator-regexp': 5.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-remove-files': 1.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-rename-files': 6.2.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/operator-rename-properties': 1.0.1
-      '@putout/operator-sort-ignore': 2.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-sort-properties': 1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/operator-type-checker': 1.2.1(@putout/printer@18.49.0)
+      '@putout/operator-sort-ignore': 2.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-sort-properties': 1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/operator-type-checker': 1.2.1(@putout/printer@18.49.2)
       '@putout/operator-wasm': 1.0.0
-      '@putout/plugin-apply-arrow': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-at': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-cause': 1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-dot-notation': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-flat-map': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-global-this': 2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-overrides': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-push': 1.2.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-shorthand-properties': 7.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-starts-with': 2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-template-literals': 5.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-apply-to-sorted': 1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-arguments': 2.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-assignment': 3.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-browserlist': 2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-conditions': 9.2.4(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-concat-to-flat': 2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-index-of-to-includes': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-object-entries-to-array-entries': 4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-object-entries-to-object-keys': 1.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-object-keys-to-object-entries': 1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-quotes-to-backticks': 5.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-template-to-string': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-convert-to-arrow-function': 5.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-coverage': 3.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-declare': 8.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-declare-before-reference': 10.5.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-destructuring': 2.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-docker': 1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-eslint': 15.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-esm': 10.12.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-extract-sequence-expressions': 4.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-filesystem': 13.6.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-for-of': 12.6.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-generators': 2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-github': 21.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-gitignore': 7.0.4(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-labels': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-logical-expressions': 9.4.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-madrun': 24.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-markdown': 1.5.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-math': 5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-maybe': 5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-merge-duplicate-functions': 4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-montag': 5.2.5(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-new': 5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-nodejs': 21.14.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-npmignore': 8.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-optional-chaining': 3.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-package-json': 11.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-parens': 6.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-promises': 20.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-putout': 29.36.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-putout-config': 12.3.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-regexp': 14.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-console': 7.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-debugger': 9.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-duplicate-case': 5.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-duplicate-elements': 1.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-duplicate-keys': 9.1.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-empty': 15.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-iife': 5.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-nested-blocks': 9.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-unreachable-code': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-unused-expressions': 12.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-unused-private-fields': 4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-array': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-array-constructor': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-array-entries': 2.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-assign': 2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-computed': 1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-constructor': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-continue': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-delete': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-escape': 10.2.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-functions': 6.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-map': 3.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-object-from-entries': 1.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-operand': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-push': 3.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-replace': 2.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-remove-useless-template-expressions': 3.0.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-return': 4.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-simplify-ternary': 9.1.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-spread': 3.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-tape': 21.20.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-try-catch': 8.2.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-types': 10.6.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-typescript': 13.2.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-variables': 2.7.2(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/plugin-webpack': 4.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      '@putout/processor-css': 13.3.1(@typescript/typescript6@6.0.2)(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))(supports-color@10.2.2)
+      '@putout/plugin-apply-arrow': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-at': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-cause': 1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-dot-notation': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-flat-map': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-global-this': 2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-overrides': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-push': 1.2.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-shorthand-properties': 7.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-starts-with': 2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-template-literals': 5.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-apply-to-sorted': 1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-arguments': 2.1.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-assignment': 3.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-browserlist': 2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-conditions': 9.2.4(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-concat-to-flat': 2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-index-of-to-includes': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-object-entries-to-array-entries': 4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-object-entries-to-object-keys': 1.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-object-keys-to-object-entries': 1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-quotes-to-backticks': 5.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-template-to-string': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-convert-to-arrow-function': 5.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-coverage': 3.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-declare': 8.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-declare-before-reference': 10.5.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-destructuring': 2.1.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-docker': 1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-eslint': 15.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-esm': 10.12.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-extract-sequence-expressions': 4.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-filesystem': 13.6.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-for-of': 12.6.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-generators': 2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-github': 21.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-gitignore': 7.0.4(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-labels': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-logical-expressions': 9.4.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-madrun': 24.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-markdown': 1.5.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-math': 5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-maybe': 5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-merge-duplicate-functions': 4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-montag': 5.2.5(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-new': 5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-nodejs': 21.14.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-npmignore': 8.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-optional-chaining': 3.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-package-json': 11.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-parens': 6.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-promises': 20.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-putout': 29.36.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-putout-config': 12.3.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-regexp': 14.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-console': 7.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-debugger': 9.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-duplicate-case': 5.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-duplicate-elements': 1.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-duplicate-keys': 9.1.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-empty': 15.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-iife': 5.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-nested-blocks': 9.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-unreachable-code': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-unused-expressions': 12.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-unused-private-fields': 4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-array': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-array-constructor': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-array-entries': 2.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-assign': 2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-computed': 1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-constructor': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-continue': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-delete': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-escape': 10.2.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-functions': 6.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-map': 3.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-object-from-entries': 1.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-operand': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-push': 3.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-replace': 2.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-remove-useless-template-expressions': 3.0.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-return': 4.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-simplify-ternary': 9.1.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-spread': 3.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-tape': 21.20.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-try-catch': 8.2.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-types': 10.6.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-typescript': 13.2.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-variables': 2.7.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/plugin-webpack': 4.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      '@putout/processor-css': 13.3.2(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/processor-docker': 1.2.2
-      '@putout/processor-filesystem': 8.0.1(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/processor-filesystem': 8.0.1(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/processor-ignore': 7.0.0
-      '@putout/processor-javascript': 5.0.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/processor-javascript': 5.0.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       '@putout/processor-json': 10.3.0
-      '@putout/processor-markdown': 14.2.1(supports-color@10.2.2)
+      '@putout/processor-markdown': 14.2.1(supports-color@7.2.0)
       '@putout/processor-toml': 1.3.2
       '@putout/processor-yaml': 10.0.0
       '@putout/traverse': 16.2.0
-      '@putout/types': 1.3.0(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      '@putout/types': 1.3.0(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
       ajv: 8.20.0
       ci-info: 4.4.0
       deepmerge: 4.3.1
@@ -7143,7 +7005,6 @@ snapshots:
     transitivePeerDependencies:
       - '@putout/printer'
       - supports-color
-      - typescript
 
   qified@0.10.1:
     dependencies:
@@ -7209,21 +7070,21 @@ snapshots:
       gopd: 1.2.0
       set-function-name: 2.0.2
 
-  remark-frontmatter@5.0.0(supports-color@10.2.2):
+  remark-frontmatter@5.0.0(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-frontmatter: 2.0.1(supports-color@10.2.2)
+      mdast-util-frontmatter: 2.0.1(supports-color@7.2.0)
       micromark-extension-frontmatter: 2.0.0
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
-  remark-gfm@4.0.1(supports-color@10.2.2):
+  remark-gfm@4.0.1(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-gfm: 3.1.0(supports-color@10.2.2)
+      mdast-util-gfm: 3.1.0(supports-color@7.2.0)
       micromark-extension-gfm: 3.0.0
-      remark-parse: 11.0.0(supports-color@10.2.2)
+      remark-parse: 11.0.0(supports-color@7.2.0)
       remark-stringify: 11.0.0
       unified: 11.0.5
     transitivePeerDependencies:
@@ -7245,7 +7106,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-code-block-style@4.0.1:
     dependencies:
@@ -7254,7 +7115,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-emphasis-marker@4.0.1:
     dependencies:
@@ -7262,7 +7123,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-fenced-code-marker@4.0.1:
     dependencies:
@@ -7271,7 +7132,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-heading-style@4.0.1:
     dependencies:
@@ -7281,7 +7142,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-link-title-style@4.0.1:
     dependencies:
@@ -7289,7 +7150,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-list-item-content-indent@4.0.1:
     dependencies:
@@ -7299,7 +7160,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-ordered-list-marker-style@4.0.1:
     dependencies:
@@ -7309,7 +7170,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-ordered-list-marker-value@4.0.1:
     dependencies:
@@ -7320,7 +7181,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-rule-style@4.0.1:
     dependencies:
@@ -7329,7 +7190,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-strong-marker@4.0.1:
     dependencies:
@@ -7337,7 +7198,7 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   remark-lint-table-cell-padding@5.1.1:
     dependencies:
@@ -7349,37 +7210,37 @@ snapshots:
       unified-lint-rule: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit-parents: 6.1.0
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
-  remark-lint@10.0.1(supports-color@10.2.2):
+  remark-lint@10.0.1(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
-      remark-message-control: 8.0.0(supports-color@10.2.2)
+      remark-message-control: 8.0.0(supports-color@7.2.0)
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
-  remark-message-control@8.0.0(supports-color@10.2.2):
+  remark-message-control@8.0.0(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-comment-marker: 3.0.0(supports-color@10.2.2)
+      mdast-comment-marker: 3.0.0(supports-color@7.2.0)
       unified-message-control: 5.0.0
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
 
-  remark-parse@11.0.0(supports-color@10.2.2):
+  remark-parse@11.0.0(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.1.0(supports-color@10.2.2)
+      mdast-util-from-markdown: 2.1.0(supports-color@7.2.0)
       micromark-util-types: 2.0.3
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
-  remark-preset-lint-consistent@6.0.1(supports-color@10.2.2):
+  remark-preset-lint-consistent@6.0.1(supports-color@7.2.0):
     dependencies:
-      remark-lint: 10.0.1(supports-color@10.2.2)
+      remark-lint: 10.0.1(supports-color@7.2.0)
       remark-lint-blockquote-indentation: 4.0.1
       remark-lint-checkbox-character-style: 5.0.1
       remark-lint-code-block-style: 4.0.1
@@ -7400,7 +7261,7 @@ snapshots:
   remark-stringify@11.0.0:
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-to-markdown: 2.2.2
+      mdast-util-to-markdown: 2.2.3
       unified: 11.0.5
 
   remove-blank-lines@1.4.2: {}
@@ -7414,8 +7275,6 @@ snapshots:
   resolve-cwd@3.0.0:
     dependencies:
       resolve-from: 5.0.0
-
-  resolve-from@4.0.0: {}
 
   resolve-from@5.0.0: {}
 
@@ -7446,11 +7305,11 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
-  samadhi@4.0.4(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)):
+  samadhi@4.0.4(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0)):
     dependencies:
       '@putout/quick-lint': 2.1.0
-      flatlint: 5.10.3(putout@42.24.2(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
-      goldstein: 7.4.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      flatlint: 5.10.3(putout@42.25.0(@putout/printer@18.49.2)(supports-color@7.2.0))
+      goldstein: 7.4.0(supports-color@7.2.0)
       try-catch: 4.1.1
     transitivePeerDependencies:
       - putout
@@ -7519,13 +7378,13 @@ snapshots:
 
   signal-exit@4.1.0: {}
 
-  simple-git@4.0.2(supports-color@10.2.2):
+  simple-git@4.0.2(supports-color@7.2.0):
     dependencies:
-      '@kwsites/file-exists': 1.1.1(supports-color@10.2.2)
+      '@kwsites/file-exists': 1.1.1(supports-color@7.2.0)
       '@kwsites/promise-deferred': 1.1.1
       '@simple-git/args-pathspec': 1.0.4
       '@simple-git/argv-parser': 2.0.1
-      debug: 4.4.3(supports-color@10.2.2)
+      debug: 4.4.3(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -7546,7 +7405,7 @@ snapshots:
 
   source-map-js@1.2.2: {}
 
-  source-map@0.7.6:
+  source-map@0.8.0:
     optional: true
 
   space-separated-tokens@2.0.2: {}
@@ -7618,67 +7477,48 @@ snapshots:
 
   strip-ansi@7.2.0:
     dependencies:
-      ansi-regex: 6.5.0
+      ansi-regex: 6.6.0
 
   strip-final-newline@4.0.0: {}
 
   style-search@0.1.0: {}
 
-  stylelint-config-recommended@18.0.0(stylelint@17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2)):
+  stylelint-config-recommended@19.0.0(stylelint@18.0.0):
     dependencies:
-      stylelint: 17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      stylelint: 18.0.0
 
-  stylelint-config-standard@40.0.0(stylelint@17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2)):
+  stylelint-config-standard@41.0.0(stylelint@18.0.0):
     dependencies:
-      stylelint: 17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
-      stylelint-config-recommended: 18.0.0(stylelint@17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2))
+      stylelint: 18.0.0
+      stylelint-config-recommended: 19.0.0(stylelint@18.0.0)
 
-  stylelint@17.16.0(@typescript/typescript6@6.0.2)(supports-color@10.2.2):
+  stylelint@18.0.0:
     dependencies:
       '@csstools/css-calc': 3.4.3(@csstools/css-parser-algorithms@4.0.2(@csstools/css-tokenizer@4.0.2))(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-parser-algorithms': 4.0.2(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-syntax-patches-for-csstree': 1.1.16(css-tree@3.2.1)
       '@csstools/css-tokenizer': 4.0.2
       '@csstools/media-query-list-parser': 5.0.2(@csstools/css-parser-algorithms@4.0.2(@csstools/css-tokenizer@4.0.2))(@csstools/css-tokenizer@4.0.2)
-      '@csstools/selector-resolve-nested': 4.0.2(postcss-selector-parser@7.1.7)
-      '@csstools/selector-specificity': 6.0.1(postcss-selector-parser@7.1.7)
+      '@csstools/selector-resolve-nested': 4.0.2(postcss-selector-parser@7.1.8)
+      '@csstools/selector-specificity': 6.0.1(postcss-selector-parser@7.1.8)
       colord: 2.10.0
-      cosmiconfig: 9.0.2(@typescript/typescript6@6.0.2)
-      css-functions-list: 3.3.3
+      cosmiconfig: 10.0.1
       css-tree: 3.2.1
-      debug: 4.4.3(supports-color@10.2.2)
-      fast-glob: 3.3.3
-      fastest-levenshtein: 1.0.16
-      file-entry-cache: 11.1.5
-      global-modules: 2.0.0
-      globby: 16.2.4
-      globjoin: 0.1.4
-      html-tags: 5.1.0
       ignore: 7.0.14
       import-meta-resolve: 4.2.0
-      mathml-tag-names: 4.0.0
-      meow: 14.1.0
-      micromatch: 4.0.8
-      normalize-path: 3.0.0
-      picocolors: 1.1.1
+      picomatch: 4.0.7
       postcss: 8.5.32
       postcss-safe-parser: 7.1.0(postcss@8.5.32)
-      postcss-selector-parser: 7.1.7
+      postcss-selector-parser: 7.1.8
       postcss-value-parser: 4.2.0
-      string-width: 8.3.0
-      supports-hyperlinks: 4.6.0
-      svg-tags: 1.0.0
-      table: 6.10.1
-      write-file-atomic: 7.0.1
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
+      tinyglobby: 0.2.17
+      write-file-atomic: 8.0.0
 
-  superc8@12.7.0(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2):
+  superc8@12.7.0(@putout/printer@18.49.2)(supports-color@7.2.0):
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
-      '@escover/converter-istanbul': 1.0.3(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
-      '@escover/formatter-responsive': 1.0.7(@putout/printer@18.49.0)(@typescript/typescript6@6.0.2)(supports-color@10.2.2)
+      '@escover/converter-istanbul': 1.0.3(@putout/printer@18.49.2)(supports-color@7.2.0)
+      '@escover/formatter-responsive': 1.0.7(@putout/printer@18.49.2)(supports-color@7.2.0)
       '@istanbuljs/schema': 0.1.6
       execa: 9.6.1
       find-up: 8.0.0
@@ -7694,7 +7534,6 @@ snapshots:
     transitivePeerDependencies:
       - '@putout/printer'
       - supports-color
-      - typescript
 
   supertap@3.0.1:
     dependencies:
@@ -7703,18 +7542,9 @@ snapshots:
       serialize-error: 7.0.1
       strip-ansi: 7.2.0
 
-  supports-color@10.2.2: {}
-
   supports-color@7.2.0:
     dependencies:
       has-flag: 4.0.0
-
-  supports-hyperlinks@4.6.0:
-    dependencies:
-      has-flag: 5.0.1
-      supports-color: 10.2.2
-
-  svg-tags@1.0.0: {}
 
   synckit@0.9.2:
     dependencies:
@@ -7825,6 +7655,17 @@ snapshots:
       typescript: '@typescript/typescript6@6.0.2'
       yaml: 2.9.1
 
+  typescript-eslint@8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0):
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 8.72.1(@typescript-eslint/parser@8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@typescript-eslint/parser': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@typescript-eslint/typescript-estree': 8.72.1(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+      '@typescript-eslint/utils': 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
+      eslint: 10.14.0(supports-color@7.2.0)
+      typescript: '@typescript/typescript6@6.0.2'
+    transitivePeerDependencies:
+      - supports-color
+
   typescript@6.0.3: {}
 
   typescript@7.0.2:
@@ -7882,8 +7723,8 @@ snapshots:
       unist-util-is: 6.0.1
       unist-util-visit: 5.2.0
       vfile: 6.0.3
-      vfile-location: 5.0.3
-      vfile-message: 4.0.3
+      vfile-location: 5.0.4
+      vfile-message: 4.0.4
 
   unified@11.0.5:
     dependencies:
@@ -7930,12 +7771,12 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
 
-  vfile-location@5.0.3:
+  vfile-location@5.0.4:
     dependencies:
       '@types/unist': 3.0.3
       vfile: 6.0.3
 
-  vfile-message@4.0.3:
+  vfile-message@4.0.4:
     dependencies:
       '@types/unist': 3.0.3
       unist-util-stringify-position: 4.0.0
@@ -7943,7 +7784,7 @@ snapshots:
   vfile@6.0.3:
     dependencies:
       '@types/unist': 3.0.3
-      vfile-message: 4.0.3
+      vfile-message: 4.0.4
 
   vscode-languageserver-textdocument@1.0.16: {}
 
@@ -7999,10 +7840,6 @@ snapshots:
       gopd: 1.2.0
       has-tostringtag: 1.0.2
 
-  which@1.3.1:
-    dependencies:
-      isexe: 2.0.0
-
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
@@ -8020,6 +7857,10 @@ snapshots:
   wraptile@3.0.0: {}
 
   write-file-atomic@7.0.1:
+    dependencies:
+      signal-exit: 4.1.0
+
+  write-file-atomic@8.0.0:
     dependencies:
       signal-exit: 4.1.0
 

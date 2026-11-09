@@ -92,6 +92,7 @@ test('Document', t => {
   const doc = new dom.Document();
   t.deepEqual(doc.get('/'), [doc]);
   t.deepEqual(doc.first('/'), doc);
+  t.deepEqual(doc.first('/', doc), doc);
 });
 
 test('Attribute', t => {
@@ -197,6 +198,14 @@ test('compare ns', t => {
   t.is(dom.Namespace.compare(foo, foo, col), 0);
   t.is(dom.Namespace.compare(foo, baz, col), 1);
   t.is(dom.Namespace.compare(baz, foo, col), -1);
+});
+
+test('toString compressed', t => {
+  const d = new dom.Document();
+  const foo = d.add(new dom.Element('foo'));
+  foo.text('\n\na\n\n');
+  const str = d.toString({compressed: true, colors: false});
+  t.is(str, '<foo>a</foo>');
 });
 
 test.skip('pretty', t => {
