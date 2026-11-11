@@ -7,6 +7,7 @@ auditConfig:
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
   - expat-wasm@5.0.0
+  - '@cto.af/ncurc@0.0.3'
 overrides:
   minimatch: ~11.0.5
   glob: ~14.0.4

@@ -208,12 +208,13 @@ test('toString compressed', t => {
   t.is(str, '<foo>a</foo>');
 });
 
-test.skip('pretty', t => {
+test('pretty', t => {
   const d = new dom.Document();
   d.add(new dom.Element('foo', {
     a0123456789001234567890012345678900123456789001234567890: '1',
     b0123456789001234567890012345678900123456789001234567890: '2',
   }));
-  const s = d.toString({pretty: true});
-  t.is(s, '');
+
+  t.throws(() => d.toString({pretty: true}));
+  t.throws(() => d.root.toString({pretty: true}));
 });

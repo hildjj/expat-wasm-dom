@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/max-params */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import {
-  ATTRIBUTE, CLASS, DEFAULT_COLLATOR,
+  ATTRIBUTE, CLASS,
   type MaybeStylized, type MaybeStylizedSeparated,
   NAME, PUNCTUATION, TEXT, TOSTRING_OPTS, color, xmlEscape,
 } from './colors.js';
@@ -77,7 +77,7 @@ export const XML_CQUANT_OPT = XML_CQUANT++;
 export const XML_CQUANT_REP = XML_CQUANT++;
 export const XML_CQUANT_PLUS = XML_CQUANT++;
 
-interface Pieces {
+export interface Pieces {
   /** The namespace URI. */
   ns?: string;
 
@@ -155,7 +155,9 @@ export abstract class Node {
       });
     }
     if (options.pretty) {
-      options.compressed = false;
+      throw new Error('Pretty printing not supported yet.');
+      //
+      // options.compressed = false;
     }
     return '';
   }
@@ -629,21 +631,23 @@ export class Element extends ParentNode {
       ret += color(':', PUNCTUATION, options);
     }
 
-    if (options.pretty) {
-      const col = options.collator ?? DEFAULT_COLLATOR;
-      const ns = [...this.ns].sort((a, b) => Namespace.compare(a, b, col));
-      const att = [...this.att].sort((a, b) => Attribute.compare(a, b, col));
-      // Not implemented yet.
-      // if (options.compressed) {
-      ret += ns.map(n => n.toString(options)).join('');
-      ret += att.map(a => a.toString(options)).join('');
-      // } else {
+    // TODO(@hildjj): Add pretty printing.
+    //
+    // if (options.pretty) {
+    // const col = options.collator ?? DEFAULT_COLLATOR;
+    // const ns = [...this.ns].sort((a, b) => Namespace.compare(a, b, col));
+    // const att = [...this.att].sort((a, b) => Attribute.compare(a, b, col));
+    // // Not implemented yet.
+    // // if (options.compressed) {
+    // ret += ns.map(n => n.toString(options)).join('');
+    // ret += att.map(a => a.toString(options)).join('');
+    // // } else {
 
-      // }
-      if (this.hasSignificantText()) {
-        // We're in text-only or mixed mode.
-      }
-    }
+    // // }
+    // if (this.hasSignificantText()) {
+    //   // We're in text-only or mixed mode.
+    // }
+    // }
 
     ret += color(this.name.local, NAME, options);
     ret += this.ns.map(n => n.toString(options)).join('');

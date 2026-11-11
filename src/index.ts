@@ -1,5 +1,5 @@
 export type {EntityInfo, ParserOptions, ReadEntity, XML_Encoding} from './domParser.js';
-export type {XPathResult} from './xpath.js';
+export type {Functor, OpFunction, XPathResult, XPathResultItem} from './xpath.js';
 export type {MaybeStylized, MaybeStylizedSeparated, Separated} from './colors.js';
 
 export * as dom from './dom.js';

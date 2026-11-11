@@ -183,6 +183,9 @@ importers:
       '@cto.af/monopub':
         specifier: 2.0.2
         version: 2.0.2(supports-color@7.2.0)
+      '@cto.af/ncurc':
+        specifier: ^0.0.3
+        version: 0.0.3
       '@types/node':
         specifier: ^26.6.6
         version: 26.6.6
@@ -190,13 +193,13 @@ importers:
         specifier: npm:typescript@^7.0.2
         version: typescript@7.0.2
       ava:
-        specifier: ^8.2.0
+        specifier: ^8.3.0
         version: 8.4.0(supports-color@7.2.0)
       eslint:
         specifier: ^10.14.0
         version: 10.14.0(supports-color@7.2.0)
       eslint-plugin-jsdoc:
-        specifier: ^65.4.2
+        specifier: ^65.4.3
         version: 65.4.5(@typescript/typescript6@6.0.2)(eslint@10.14.0(supports-color@7.2.0))(supports-color@7.2.0)
       peggy:
         specifier: ^5.1.1
@@ -332,6 +335,10 @@ packages:
     resolution: {integrity: sha512-WO0DGZsowWER6I8VjXunkqGMjwYPK54n6DlYVqE49hIZ4E4VDt0JK1+TfQ5QcgwVFFLOQfYRp0w9cG5+/k9BAA==}
     engines: {node: '>=22'}
     hasBin: true
+
+  '@cto.af/ncurc@0.0.3':
+    resolution: {integrity: sha512-b+QROEHt/5Y3MhG8abgjIDw++7mWvPdVmijCFkA/B+L4l1tVICZEAoyCIRocGA1pRel7RTN8v7mPFtlqlDxv5g==}
+    engines: {node: '>=22'}
 
   '@cto.af/string-width@6.0.0':
     resolution: {integrity: sha512-uk0M14Ziiz+WrbDX6Za/YUAWjM043raDXG5vBtSUp5q1I5MaksoJSsOVrFYCfspxVn9gBZhFGB8lhDunOdYv1A==}
@@ -3831,6 +3838,8 @@ snapshots:
       yaml: 2.9.1
     transitivePeerDependencies:
       - supports-color
+
+  '@cto.af/ncurc@0.0.3': {}
 
   '@cto.af/string-width@6.0.0':
     dependencies:

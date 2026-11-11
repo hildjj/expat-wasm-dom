@@ -5,12 +5,12 @@ import {
 import assert from 'node:assert/strict';
 import util from 'node:util';
 
-type OpFunction = (
+export type OpFunction = (
   i: number,
   context: Node | Node[], ...others: unknown[]
 ) => XPathResult;
 
-type Functor = [OpFunction, ...unknown[]];
+export type Functor = [OpFunction, ...unknown[]];
 
 /**
  * Error parsing an XPath expression, with prettier output.
