@@ -88,11 +88,14 @@ test('ParentNode', t => {
   t.is(e.children.length, 1);
 });
 
-test('Document', t => {
+test.only('Document', t => {
   const doc = new dom.Document();
+  doc.add(new dom.Element('foo'));
+
   t.deepEqual(doc.get('/'), [doc]);
   t.deepEqual(doc.first('/'), doc);
   t.deepEqual(doc.first('/', doc), doc);
+  t.deepEqual(doc.first('/', doc.root), doc);
 });
 
 test('Attribute', t => {

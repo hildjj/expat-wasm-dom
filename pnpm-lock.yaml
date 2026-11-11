@@ -204,6 +204,9 @@ importers:
       peggy:
         specifier: ^5.1.1
         version: 5.1.1
+      rimraf:
+        specifier: ^6.1.4
+        version: 6.1.4
       superc8:
         specifier: ^12.7.0
         version: 12.7.0(@putout/printer@18.49.2)(supports-color@7.2.0)
@@ -3007,6 +3010,9 @@ packages:
     resolution: {integrity: sha512-GYTTew2slBcYdvRHqjhwaaydVMvn/qrGC323+nKclYioNSLTDUM/lGgtGTgyHVtYcozb+XkE8CNhwcraOmZ9Mg==}
     engines: {node: '>=18'}
 
+  package-json-from-dist@1.0.1:
+    resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
+
   parse-import-specifiers@1.0.3:
     resolution: {integrity: sha512-jNtWL2DinOHUGnFEzeAyCJhacxwFkLzPnR3Foy3t2mOTIEgzZ3aaOakPw0PvoLaPZUy64CWYuhVFa/QkEMLJhA==}
     engines: {node: '>=16'}
@@ -3258,6 +3264,11 @@ packages:
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+
+  rimraf@6.1.4:
+    resolution: {integrity: sha512-Fk3reQDVPZUMbEm7Zwxz03BWQMW3V5buSk9aU8OckTrO8A1nQtbqvYsAantGNermwsIsXcuOBqcoJ3HuMELctw==}
+    engines: {node: 20 || >=22}
+    hasBin: true
 
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -6770,6 +6781,8 @@ snapshots:
       find-up-simple: 1.0.1
       load-json-file: 7.0.1
 
+  package-json-from-dist@1.0.1: {}
+
   parse-import-specifiers@1.0.3: {}
 
   parse-imports-exports@0.2.4:
@@ -7290,6 +7303,11 @@ snapshots:
   resolve-pkg-maps@1.0.0: {}
 
   reusify@1.1.0: {}
+
+  rimraf@6.1.4:
+    dependencies:
+      glob: 14.0.4
+      package-json-from-dist: 1.0.1
 
   run-parallel@1.2.0:
     dependencies:

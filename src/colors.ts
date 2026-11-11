@@ -116,8 +116,9 @@ export function xmlEscape(str: string, attrib = false): string {
       case '&': return '&amp;';
       case '"': return '&quot;';
       case "'": return '&apos;';
+
+      /* c8 ignore next 2 */
       default:
-        /* c8 ignore next */
         return c; // Not reachable
     }
   });

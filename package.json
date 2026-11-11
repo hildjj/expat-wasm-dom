@@ -8,17 +8,17 @@
     "lib/"
   ],
   "scripts": {
-    "pretest": "npm run ts -- --inlineSourceMap",
+    "clean": "rimraf docs lib coverage test/xmlconf",
+    "pretest": "npm run grammar && npm run ts -- --inlineSourceMap",
     "test": "c8 ava test",
     "posttest": "npm run ts",
     "grammar": "peggy -c .peggy.config.js",
     "lint": "eslint",
     "docs": "typedoc",
-    "prets": "npm run grammar",
     "ts": "tsc",
     "conformance": "cd test && tar zxf xmlts20130923.tar.gz",
     "version": "monopub version && pnpm i -r && git add pnpm-lock.yaml",
-    "build": "npm run conformance && npm run grammar && npm run ts && npm test && npm run docs && npm run lint"
+    "build": "npm run conformance && npm test && npm run docs && npm run lint"
   },
   "workspaces": [
     ".",
@@ -51,6 +51,7 @@
     "eslint": "^10.14.0",
     "eslint-plugin-jsdoc": "^65.4.3",
     "peggy": "^5.1.1",
+    "rimraf": "^6.1.4",
     "superc8": "^12.7.0",
     "typedoc": "^0.28.20",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
