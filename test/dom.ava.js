@@ -88,7 +88,7 @@ test('ParentNode', t => {
   t.is(e.children.length, 1);
 });
 
-test.only('Document', t => {
+test('Document', t => {
   const doc = new dom.Document();
   doc.add(new dom.Element('foo'));
 
@@ -218,6 +218,6 @@ test('pretty', t => {
     b0123456789001234567890012345678900123456789001234567890: '2',
   }));
 
-  t.throws(() => d.toString({pretty: true}));
-  t.throws(() => d.root.toString({pretty: true}));
+  t.throws(() => d.toString({pretty: true}), {message: 'Pretty printing not supported yet.'});
+  t.throws(() => d.root.toString({pretty: true}), {message: 'Pretty printing not supported yet.'});
 });
