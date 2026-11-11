@@ -1,3 +1,6 @@
+import type {InspectContext} from 'node:util';
+import type {LineWrap} from '@cto.af/linewrap';
+
 export const ATTRIBUTE = Symbol('ATTRIBUTE');
 export const NAME = Symbol('NAME');
 export const PUNCTUATION = Symbol('PUNCTUATION');
@@ -10,7 +13,8 @@ export const CLASS = Symbol('CLASS');
 
 const defaultFG = 39;
 const defaultBG = 49;
-const colors = {
+
+const colors: {[name: string]: [number, number]} = {
   reset: [0, 0],
   bold: [1, 22],
   dim: [2, 22], // Alias: faint
@@ -58,10 +62,7 @@ const colors = {
   bgWhiteBright: [107, defaultBG],
 };
 
-/**
- * @type {Record<string|symbol, keyof colors>}
- */
-const styles = {
+const styles: {[name: string | symbol]: keyof typeof colors} = {
   special: 'cyan',
   number: 'yellow',
   bigint: 'yellow',
@@ -83,12 +84,12 @@ const styles = {
 /**
  * Wrap a string with ANSI escapes to colorize it.
  *
- * @param {string} str String to colorize.
- * @param {symbol|string} styleType What color to use?
- * @returns {string} Colorized string.
+ * @param str String to colorize.
+ * @param styleType What color to use?
+ * @returns Colorized string.
  * @private
  */
-function colorizeANSI(str, styleType) {
+function colorizeANSI(str: string, styleType: symbol | string): string {
   const style = styles[styleType];
   if (style) {
     const col = colors[style];
@@ -102,12 +103,12 @@ function colorizeANSI(str, styleType) {
 /**
  * XML escape a string.
  *
- * @param {string} str The string to escape.
- * @param {boolean} [attrib=false] Is the string an attribute value?
+ * @param str The string to escape.
+ * @param attrib Is the string an attribute value?
  *   (if so, double-quotes are escaped).
- * @returns {string} The escaped string.
+ * @returns The escaped string.
  */
-export function xmlEscape(str, attrib = false) {
+export function xmlEscape(str: string, attrib = false): string {
   const re = attrib ? /[<&"']/g : /[<&]/g;
   const ret = str.replace(re, c => {
     switch (c) {
@@ -115,8 +116,9 @@ export function xmlEscape(str, attrib = false) {
       case '&': return '&amp;';
       case '"': return '&quot;';
       case "'": return '&apos;';
+
+      /* c8 ignore next 2 */
       default:
-        /* c8 ignore next */
         return c; // Not reachable
     }
   });
@@ -127,12 +129,12 @@ export function xmlEscape(str, attrib = false) {
 /**
  * Stylize using HTML markup.
  *
- * @param {string} str String to colorize.
- * @param {symbol|string} styleType What color to use?
- * @returns {string} Colorized string.
+ * @param str String to colorize.
+ * @param styleType What color to use?
+ * @returns Colorized string.
  * @private
  */
-function colorizeHTML(str, styleType) {
+function colorizeHTML(str: string, styleType: symbol | string): string {
   const style = styles[styleType];
   if (style) {
     const st = style === 'bold' ? 'font-weight:bold' : `color:${style}`;
@@ -141,36 +143,83 @@ function colorizeHTML(str, styleType) {
   return str;
 }
 
-/**
- * @typedef {Partial<import('node:util').InspectOptionsStylized>} MaybeStylized
- */
+export type MaybeStylized = Partial<InspectContext>;
 
-/**
- * @typedef {object} Separated
- * @property {Intl.Collator} [collator] How to sort?
- * @property {boolean} [compressed=false] Reduce whitespace if true.
- * @property {number} [indent=0] Indent by how many spaces?
- * @property {string} [indentText] Indent by text.  Ignores indent.
- * @property {string} [newline] Text for newlines.
- * @property {boolean} [pretty=false] Pretty print.  Sets other options.
- * @property {string} [quote="'"] Character to use for quoting attributes.
- * @property {boolean} [removeComments=false] Remove comments?
- * @property {string} [separator=''] TBD.
- * @property {number} [width=80] Where to break lines.
- * @property {import('@cto.af/linewrap').LineWrap} [wrap] How to wrap lines.
- * @property {boolean} [html] Output HTML instead of ANSI colors.
- */
+export interface Separated {
+  /** How to sort? */
+  collator?: Intl.Collator;
 
-/**
- * @typedef {MaybeStylized & Separated} MaybeStylizedSeparated
- */
+  /**
+   * Reduce whitespace if true.
+   * @default false
+   */
+  compressed?: boolean;
 
-const DEFAULT_COLLATOR = new Intl.Collator();
+  /**
+   * Indent by how many spaces?
+   * @default 0
+   */
+  indent?: number;
 
-/**
- * @type {MaybeStylizedSeparated}
- */
-export const TOSTRING_OPTS = {
+  /**
+   * Indent by text.  Ignores indent.
+   * @default "  "
+   */
+  indentText?: string;
+
+  /**
+   * Text for newlines.
+   * @default "\n"
+   */
+  newline?: string;
+
+  /**
+   * Pretty print.  Sets other options.
+   * @default false
+   */
+  pretty?: boolean;
+
+  /**
+   * Character to use for quoting attributes.
+   * @default "'"
+   */
+  quote?: string;
+
+  /**
+   * Remove comments?
+   * @default false
+   */
+  removeComments?: boolean;
+
+  /**
+   * TBD.
+   * @default ''
+   */
+  separator?: string;
+
+  /**
+   * Where to break lines.
+   * @default 80
+   */
+  width?: number;
+
+  /**
+   * How to wrap lines.
+   */
+  wrap?: LineWrap;
+
+  /**
+   * Output HTML instead of ANSI colors.
+   * @default false
+   */
+  html?: boolean;
+}
+
+export type MaybeStylizedSeparated = MaybeStylized & Separated;
+
+export const DEFAULT_COLLATOR = new Intl.Collator();
+
+export const TOSTRING_OPTS: MaybeStylizedSeparated = {
   // Default options for toString()
 
   collator: DEFAULT_COLLATOR,
@@ -191,13 +240,17 @@ export const TOSTRING_OPTS = {
 /**
  * Colorize a string, if options.colors is true.
  *
- * @param {string} str String to colorize.
- * @param {symbol|string} type Color.
- * @param {MaybeStylizedSeparated} options Look at color option.
- * @returns {string} Colorized string.
+ * @param str String to colorize.
+ * @param type Color.
+ * @param options Look at color option.
+ * @returns Colorized string.
  * @private
  */
-export function color(str, type, options = TOSTRING_OPTS) {
+export function color(
+  str: string,
+  type: symbol | string,
+  options: MaybeStylizedSeparated = TOSTRING_OPTS
+): string {
   if (options.colors) {
     const st = options.html ? colorizeHTML : colorizeANSI;
     return st(str, type);

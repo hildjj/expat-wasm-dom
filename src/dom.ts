@@ -1,16 +1,14 @@
-/* eslint-disable max-params */
-/* eslint-disable no-use-before-define */
+/* eslint-disable @typescript-eslint/max-params */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import {
-  ATTRIBUTE, CLASS, NAME, PUNCTUATION, TEXT, TOSTRING_OPTS, color, xmlEscape,
+  ATTRIBUTE, CLASS,
+  type MaybeStylized, type MaybeStylizedSeparated,
+  NAME, PUNCTUATION, TEXT, TOSTRING_OPTS, color, xmlEscape,
 } from './colors.js';
+import {XPath, type XPathResult, type XPathResultItem} from './xpath.js';
+import type {InspectContext} from 'node:util';
 import {LineWrap} from '@cto.af/linewrap';
-import {XPath} from './xpath.js';
-
-/** @import {XPathResult} from './xpath.js' */
-
-/**
- * @import {MaybeStylized, MaybeStylizedSeparated} from './colors.js'
- */
+import type {Model} from 'expat-wasm';
 
 // See:
 // https://html.spec.whatwg.org/multipage/syntax.html#elements-2
@@ -65,70 +63,88 @@ const BOOLEAN_ATTRIBUTES = new Set([
   'typemustmatch',
 ]);
 
-/**
- * @typedef {object} Pieces
- * @property {string} [ns] The namespace URI.
- * @property {string} local The local name.
- * @property {string} [prefix] The prefix used for the current name.
- */
+let XML_CTYPE = 1;
+export const XML_CTYPE_EMPTY = XML_CTYPE++;
+export const XML_CTYPE_ANY = XML_CTYPE++;
+export const XML_CTYPE_MIXED = XML_CTYPE++;
+export const XML_CTYPE_NAME = XML_CTYPE++;
+export const XML_CTYPE_CHOICE = XML_CTYPE++;
+export const XML_CTYPE_SEQ = XML_CTYPE++;
 
-/**
- * @typedef {[Pieces, string]} AttributePair
- */
+let XML_CQUANT = 0;
+export const XML_CQUANT_NONE = XML_CQUANT++;
+export const XML_CQUANT_OPT = XML_CQUANT++;
+export const XML_CQUANT_REP = XML_CQUANT++;
+export const XML_CQUANT_PLUS = XML_CQUANT++;
 
-/**
- * @typedef {object} Model
- * @property {string} [name] Name of the model.
- * @property {number} [type] Empty=1, Any, Mixed, Name, Choice, Seq.
- * @property {number} [quant] None=0, Optional, Star, Plus.
- * @property {Array<Model>} [children] Children.
- */
+export interface Pieces {
+  /** The namespace URI. */
+  ns?: string;
+
+  /** The local name. */
+  local: string;
+
+  /** The prefix used for the current name. */
+  prefix?: string;
+}
+
+export type AttributePair = [Pieces, string];
+export interface AttributeObject {
+  [key: string]: string;
+}
 
 /**
  * The base class for all node types.
- * @abstract
  */
-export class Node {
-  /**
-   * @type {Document|null}
-   */
-  #document = null;
-
-  /**
-   * @type {Node|null}
-   */
-  parent = null;
+export abstract class Node {
+  public parent: Node | null = null;
+  #document: Document | null = null;
 
   /**
    * Create a node instance.
-   * @param {Document|null} [doc] Document this node is in.  May be empty for
-   *   fragments.
+   * @param doc Document this node is in.  May be empty for fragments.
    */
-  constructor(doc) {
+  public constructor(doc?: Document | null) {
     this.#document = doc ?? null;
   }
 
-  get document() {
+  public get document(): Document | null {
     return this.#document;
   }
 
-  set document(val) {
+  public set document(val: Document | null) {
     this.#document = val;
   }
 
-  get html() {
+  public get html(): boolean {
     return Boolean(this.#document?.html);
   }
 
+  public static isNode(n: unknown): n is Node {
+    return n instanceof Node;
+  }
+
   /**
-   * Convert to string.  Overridden by all subclasses.
+   * XML escape a string.
+   *
+   * @param str The string to escape.
+   * @param attrib Is the string an attribute value?
+   *   (if so, double-quotes are escaped).
+   * @returns The escaped string.
+   */
+  public static escape(str: string, attrib = false): string {
+    return xmlEscape(str, attrib);
+  }
+
+  /**
+   * Convert to string.  Overridden by all subclasses, but called with super.
    *
    * @abstract
-   * @param {MaybeStylizedSeparated} [options] How to convert to string?
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string?
+   * @returns The node, converted to a string.
    */
-  // eslint-disable-next-line class-methods-use-this
-  toString(options = TOSTRING_OPTS) {
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
+  public toString(options = TOSTRING_OPTS): string {
     if (!options.collator) {
       options.collator = TOSTRING_OPTS.collator;
     }
@@ -139,7 +155,9 @@ export class Node {
       });
     }
     if (options.pretty) {
-      options.compressed = false;
+      throw new Error('Pretty printing not supported yet.');
+      //
+      // options.compressed = false;
     }
     return '';
   }
@@ -147,14 +165,12 @@ export class Node {
   /**
    * Custom inspection for node.
    *
-   * @param {number} [depth=2] Depth of children to inspect.
-   * @param {import('node:util').InspectOptionsStylized} [options] Other
-   *   inspection options.
-   * @returns {string} The formatted string.
+   * @param depth Depth of children to inspect.
+   * @param options Other inspection options.
+   * @returns The formatted string.
    */
-  [Symbol.for('nodejs.util.inspect.custom')](depth, options) {
-    /** @type {MaybeStylized} */
-    const opts = {...options, depth};
+  public [Symbol.for('nodejs.util.inspect.custom')](depth?: number, options?: InspectContext): string {
+    const opts: MaybeStylized = {...options, depth};
     return `{${color(this.constructor.name, CLASS, opts)} ${this.toString(opts)}}`;
   }
 
@@ -162,13 +178,13 @@ export class Node {
    * Get all of the nodes that match the given XPath pattern, with the given
    * context for XPath execution.
    *
-   * @param {string|XPath} pattern The pattern to match.
-   * @param {Node} [context=this] The context node.  Uses this node as context
+   * @param pattern The pattern to match.
+   * @param context The context node.  Uses this node as context
    *   if none is provided.
-   * @returns {XPathResult} The matching nodes.
-   * @throws {TypeError} If not a string or pattern.
+   * @returns The matching nodes.
+   * @throws Pattern must be string or XPath.
    */
-  get(pattern, context) {
+  public get(pattern: string | XPath, context: Node = this): XPathResult {
     if (typeof pattern === 'string') {
       return new XPath(pattern).execute(context || this);
     } else if (pattern instanceof XPath) {
@@ -180,12 +196,15 @@ export class Node {
   /**
    * Get the first matching node for a given pattern, or null if none exist.
    *
-   * @param {string|XPath} pattern The pattern to match.
-   * @param {Node} [context=this] The context node.  Uses this node as context
+   * @param pattern The pattern to match.
+   * @param context The context node.  Uses this node as context
    *   if none is provided.
-   * @returns {string|Node|number|null} The first match if one exists.
+   * @returns The first match if one exists.
    */
-  first(pattern, context) {
+  public first(
+    pattern: string | XPath,
+    context: Node = this
+  ): XPathResultItem | null {
     const res = this.get(pattern, context);
     if (res.length === 0) {
       return null;
@@ -194,26 +213,14 @@ export class Node {
   }
 
   /**
-   * XML escape a string.
-   *
-   * @param {string} str The string to escape.
-   * @param {boolean} [attrib=false] Is the string an attribute value?
-   *   (if so, double-quotes are escaped).
-   * @returns {string} The escaped string.
-   */
-  static escape(str, attrib = false) {
-    return xmlEscape(str, attrib);
-  }
-
-  /**
    * Default implementation of text returns empty string.
    *
    * @abstract
-   * @param {string} [_newText] New text to insert. (Ignored in abstract).
-   * @returns {string|Node} The concatenated text.
+   * @param _newText New text to insert. (Ignored in abstract).
+   * @returns The concatenated text.
    */
-  // eslint-disable-next-line class-methods-use-this -- Abstract
-  text(_newText) {
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Abstract
+  public text(_newText?: string): string | Node {
     return '';
   }
 }
@@ -222,27 +229,24 @@ export class Node {
  * Many Node subclasses are potentially parents of other Nodes.  Those
  * classes will derive from this instead of directly from Node, to get
  * the ability to hold children.
- * @abstract
  */
-export class ParentNode extends Node {
+export abstract class ParentNode extends Node {
+  public children: Node[];
+
   /**
    * Creates an instance of ParentNode.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param doc The document this node belongs to.
    */
-  constructor(doc = null) {
+  public constructor(doc?: Document | null) {
     super(doc);
-
-    /**
-     * @type {Node[]}
-     */
     this.children = [];
   }
 
-  get document() {
+  public override get document(): Document | null {
     return super.document;
   }
 
-  set document(val) {
+  public override set document(val: Document | null) {
     super.document = val;
     this.children.forEach(c => (c.document = val));
   }
@@ -250,19 +254,16 @@ export class ParentNode extends Node {
   /**
    * Add a child node.  Side effect: sets the parent of the added node.
    *
-   * @param {Node} node The node to add.
-   * @returns {Node} The added node.
+   * @param node The node to add.
+   * @returns The added node.
    */
-  add(node) {
-    if (
-      (node instanceof Text) &&
-      (this.children.length > 0) &&
-      (this.children[this.children.length - 1].constructor === node.constructor)
-    ) {
+  public add(node: Node): Node {
+    if (Text.isText(node) && (this.children.length > 0)) {
       const prev = this.children[this.children.length - 1];
-      // @ts-ignore
-      prev.txt += node.txt;
-      return prev;
+      if (Text.isText(prev)) {
+        prev.txt += node.txt;
+        return prev;
+      }
     }
 
     node.parent = this;
@@ -276,19 +277,19 @@ export class ParentNode extends Node {
    * together. This sometimes has surprising results, because of included
    * whitespace.
    *
-   * @param {string} [newText] New text to insert.  Invalid on ParentNode
+   * @param newText New text to insert.  Invalid on ParentNode
    *   but used for subclasses.
-   * @returns {string|Node} The concatenated text.
-   * @throws {Error} If newText is specified.  This is half-abstract.
+   * @returns The concatenated text.
+   * @throws Can't set text in the abstract implementation.
    */
-  text(newText) {
+  public override text(newText?: string): string | Node {
     if (newText != null) {
       throw new Error('Invalid set text operation');
     }
     return this.children.reduce((p, v) => p + v.text(), '');
   }
 
-  hasSignificantText() {
+  public hasSignificantText(): boolean {
     for (const c of this.children) {
       if ((c instanceof Text) && !c.isEmpty()) {
         return true;
@@ -297,16 +298,15 @@ export class ParentNode extends Node {
     return false;
   }
 
-  hasElement() {
+  public hasElement(): boolean {
     return this.children.some(c => c instanceof Element);
   }
 
   /**
    * Allow easy iteration over all of the children of this node.
-   *
-   * @returns {Iterator<Node>} The iterator.
+   * @returns Iterator overall children.
    */
-  [Symbol.iterator]() {
+  public [Symbol.iterator](): Iterator<Node> {
     return this.children[Symbol.iterator]();
   }
 
@@ -314,10 +314,10 @@ export class ParentNode extends Node {
    * Iterate over all of the descendants of this node, to infinite depth, in
    * prefix order.  That is, parents are yielded before their children.
    *
-   * @returns {Generator<Node>} All descendants.
-   * @yields {Node} Descendant nodes.
+   * @returns All descendants.
+   * @yields Descendent nodes.
    */
-  *descendants() {
+  public *descendants(): Generator<Node> {
     for (const c of this.children) {
       yield c;
       if (c instanceof ParentNode) {
@@ -331,10 +331,10 @@ export class ParentNode extends Node {
    * to infinite depth, in prefix order.  That is, parents are yielded before
    * their children.
    *
-   * @returns {Generator<Element>} All element descendants.
-   * @yields {Element} Once for each descendant.
+   * @returns All element descendants.
+   * @yields Descendent elements.
    */
-  *descendantElements() {
+  public *descendantElements(): Generator<Element> {
     for (const c of this.children) {
       if (c instanceof Element) {
         yield c;
@@ -347,14 +347,14 @@ export class ParentNode extends Node {
    * Iterate over all of the children of this Node which are Elements and
    * match the given local name and namespace (if specified).
    *
-   * @param {string} [local] The localname.  If not given, match elements with
+   * @param local The localname.  If not given, match elements with
    *   any name.
-   * @param {string} [ns] The namespace URI to match.  If not given, match
+   * @param ns The namespace URI to match.  If not given, match
    *   elements with any namespace.
-   * @returns {Generator<Element>} Direct element children.
-   * @yields {Element} Direct child elements.
+   * @returns Direct element children.
+   * @yields Element children.
    */
-  *elements(local, ns) {
+  public *elements(local?: string, ns?: string): Generator<Element> {
     for (const c of this.children) {
       if ((c instanceof Element) &&
           (!ns || (ns === c.name.ns)) &&
@@ -368,10 +368,10 @@ export class ParentNode extends Node {
    * Convert the node to a string containing representations of all of the
    * children of this node.  Override this and call super as needed.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     // Don't call super here because Element calls this too late.
     // Ensure all subclasses that might contain an element call Node.toString()
     // on their options.
@@ -390,8 +390,6 @@ export class ParentNode extends Node {
 
 /**
  * An entire XML document.
- *
- * @extends {ParentNode}
  */
 export class Document extends ParentNode {
   #html = false;
@@ -399,78 +397,78 @@ export class Document extends ParentNode {
   /**
    * Creates an instance of Document.
    */
-  constructor() {
+  public constructor() {
     super();
     this.document = this;
   }
 
-  get html() {
+  public override get html(): boolean {
     return this.#html;
   }
 
-  set html(val) {
+  public override set html(val: boolean) {
     this.#html = val;
   }
 
   /**
    * The root element of the document.
    *
-   * @readonly
-   * @returns {Element|null} The root element if it exists.
+   * @returns The root element if it exists.
    */
-  get root() {
-    return /** @type {Element|null} */ (
-      this.children.find(c => c instanceof Element)
-    );
+  public get root(): Element | undefined {
+    return this.children.find(c => c instanceof Element);
+  }
+
+  /**
+   * Create an empty HTML 5 document with doctype and root element.
+   *
+   * @returns Empty document.
+   */
+  public static html(): Document {
+    const doc = new Document();
+    doc.html = true;
+    doc.add(new DoctypeDecl('html'));
+    doc.add(new Element('html'));
+    return doc;
   }
 
   /**
    * Get all of the nodes that match the given XPath pattern, with the given
    * context for XPath execution.
    *
-   * @param {string|XPath} pattern The pattern to match.
-   * @param {Node} [context=this.root] The context node.  Uses the root element
-   *   as context if none is provided.
-   * @returns {XPathResult} The matching nodes.
+   * @param pattern The pattern to match.
+   * @param context The context node.  Uses the root element as context if
+   *   none is provided.
+   * @returns The matching nodes.
    */
-  get(pattern, context) {
+  public override get(pattern: string | XPath, context?: Node): XPathResult {
     return super.get(pattern, context || this.root || undefined);
   }
 
   /**
    * Get the first matching node for a given pattern, or null if none exist.
    *
-   * @param {string|XPath} pattern The pattern to match.
-   * @param {Node} [context=this.root] The context node.  Uses the root element
-   *   as context if none is provided.
-   * @returns {string|number|Node|null} The first match if one exists.
+   * @param pattern The pattern to match.
+   * @param context The context node.  Uses the root element as context if
+   *   none is provided.
+   * @returns The first match if one exists.
    */
-  first(pattern, context) {
+  public override first(
+    pattern: string | XPath,
+    context: Node
+  ): XPathResultItem | null {
     return super.first(pattern, context || this.root || undefined);
   }
 
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     Node.prototype.toString.call(this, options);
     return super.toString({...options, separator: ''});
-  }
-
-  /**
-   * Create an empty HTML 5 document with doctype and root element.
-   *
-   * @returns {Document} Empty document.
-   */
-  static html() {
-    const doc = new Document();
-    doc.html = true;
-    doc.add(new DoctypeDecl('html'));
-    doc.add(new Element('html'));
-    return doc;
   }
 }
 
@@ -480,80 +478,72 @@ export class Document extends ParentNode {
  * @extends {ParentNode}
  */
 export class Element extends ParentNode {
+  public name: Pieces;
+  public att: Attribute[];
+  public ns: Namespace[];
+
   /**
    * Creates an instance of Element.
    *
-   * @param {string|Pieces} name If a string, the local name.
-   * @param {AttributePair[]|Record<string,string>} [attribs=[]]
-   *   List of name/value pairs for attributes, or options object.
-   * @param {string[][]} [ns=[]] List of prefix/URI pairs
-   *   for namespaces that are declared in this element.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param name If a string, the local name.
+   * @param attribs List of name/value pairs for attributes, or options
+   *   object.
+   * @param ns List of prefix/URI pairs for namespaces that are declared in
+   *   this element.
+   * @param doc The document this node belongs to.
    */
-  constructor(name, attribs = [], ns = [], doc = null) {
+  public constructor(
+    name: string | Pieces,
+    attribs: AttributePair[] | AttributeObject = [],
+    ns: string[][] = [],
+    doc: Document | null = null
+  ) {
     super(doc);
 
-    /** @type {Pieces} */
     this.name = (typeof name === 'string') ? {local: name} : name;
 
-    /** @type {Attribute[]} */
     this.att = Array.isArray(attribs) ?
       attribs.map(([n, v]) => new Attribute(n, v, this.document)) :
       this.att = Object.entries(attribs)
         .map(([k, v]) => new Attribute({local: k}, v, this.document));
 
-    /** @type {Namespace[]} */
     this.ns = ns.map(
       ([prefix, uri]) => new Namespace(prefix, uri, this.document)
     );
   }
 
-  get document() {
+  public override get document(): Document | null {
     return super.document;
   }
 
-  set document(val) {
+  public override set document(val: Document | null) {
     super.document = val;
     this.att.forEach(a => (a.document = val));
     this.ns.forEach(a => (a.document = val));
   }
 
   /**
-   * Find an attribute that matches the given local name and namespace.
-   *
-   * @param {string} local The local name to search for.
-   * @param {string} [ns] The namespace to search for.  If not given, match
-   *   attributes in any namespace.
-   * @returns {Attribute|undefined} Attribute, if one that matches is found.
-   */
-  #attribute(local, ns) {
-    return this.att.find(a => (
-      (!ns || (ns === a.name.ns)) && (local === a.name.local)
-    ));
-  }
-
-  /**
    * Find the value of an attribute that matches the given local name and
    * namespace.
    *
-   * @param {string} local The local name to search for.
-   * @param {string} [ns] The namespace to search for.  If not given, match
+   * @param local The local name to search for.
+   * @param ns The namespace to search for.  If not given, match
    *   attributes in any namespace.
-   * @returns {string|undefined} Attribute, if one that matches is found.
+   * @returns Attribute, if one that matches is found.
    */
-  attr(local, ns) {
+  public attr(local: string, ns: string): string | undefined {
     return this.#attribute(local, ns)?.value;
   }
 
   /**
    * Set an attribute value for an attribute that might or might not exist yet.
    *
-   * @param {string|Pieces} name The attribute name to set.  If a string, use
+   * @param name The attribute name to set.  If a string, use
    *   it as a local name in the global namespace.
-   * @param {string} value The value to set.
-   * @returns {Attribute} The new/modified Attribute.
+   * @param value The value to set.
+   * @returns The new/modified Attribute.
    */
-  setAttribute(name, value) {
+  public setAttribute(name: string | Pieces, value: string): Attribute {
     if (typeof name === 'string') {
       name = {local: name};
     }
@@ -571,10 +561,10 @@ export class Element extends ParentNode {
   /**
    * Remove an attribute.
    *
-   * @param {string|Pieces} name The name of the attribute to return.
-   * @returns {Attribute|null} The removed attribute, if one was found.
+   * @param name The name of the attribute to return.
+   * @returns The removed attribute, if one was found.
    */
-  removeAttribute(name) {
+  public removeAttribute(name: string | Pieces): Attribute | null {
     const nm = (typeof name === 'string') ? {local: name} : name;
     let a = null;
     this.att = this.att.filter(att => {
@@ -594,28 +584,26 @@ export class Element extends ParentNode {
   /**
    * Find a direct child element of the given local name and namespace.
    *
-   * @param {string} local The local name to search for.
-   * @param {string} [ns] The namespace URI.  If none given, match elements
+   * @param local The local name to search for.
+   * @param ns The namespace URI.  If none given, match elements
    *   in any namespace.
-   * @returns {Element|undefined} The first matching element, if one is found.
+   * @returns The first matching element, if one is found.
    */
-  element(local, ns) {
-    return /** @type {Element|undefined} */ (
-      this.children.find(e => (e instanceof Element) &&
+  public element(local: string, ns?: string): Element | undefined {
+    return this.children.find(e => (e instanceof Element) &&
         (!ns || (ns === e.name.ns)) &&
-        (local === e.name.local))
-    );
+        (local === e.name.local)) as Element | undefined;
   }
 
   /**
    * Get or set the text contained in this element.  If setting, replaces
    * all other existing children.
    *
-   * @param {string} [newText] If given, set the text of the element.
+   * @param newText If given, set the text of the element.
    *   Otherwise, gets all descendant text, concatenated together.
-   * @returns {string|Node} Text on set, string on get.
+   * @returns Text on set, string on get.
    */
-  text(newText) {
+  public override text(newText?: string): string | Node {
     if (newText == null) {
       return super.text();
     }
@@ -630,11 +618,11 @@ export class Element extends ParentNode {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
-   * @throws {Error} On HTML void elements with children.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
+   * @throws Void element with children.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     Node.prototype.toString.call(this, options);
 
     let ret = color('<', PUNCTUATION, options);
@@ -643,21 +631,23 @@ export class Element extends ParentNode {
       ret += color(':', PUNCTUATION, options);
     }
 
-    if (options.pretty) {
-      const col = /** @type {Intl.Collator} */ (options.collator);
-      const ns = [...this.ns].sort((a, b) => Namespace.compare(a, b, col));
-      const att = [...this.att].sort((a, b) => Attribute.compare(a, b, col));
-      // Not implemented yet.
-      // if (options.compressed) {
-      ret += ns.map(n => n.toString(options)).join('');
-      ret += att.map(a => a.toString(options)).join('');
-      // } else {
+    // TODO(@hildjj): Add pretty printing.
+    //
+    // if (options.pretty) {
+    // const col = options.collator ?? DEFAULT_COLLATOR;
+    // const ns = [...this.ns].sort((a, b) => Namespace.compare(a, b, col));
+    // const att = [...this.att].sort((a, b) => Attribute.compare(a, b, col));
+    // // Not implemented yet.
+    // // if (options.compressed) {
+    // ret += ns.map(n => n.toString(options)).join('');
+    // ret += att.map(a => a.toString(options)).join('');
+    // // } else {
 
-      // }
-      if (this.hasSignificantText()) {
-        // We're in text-only or mixed mode.
-      }
-    }
+    // // }
+    // if (this.hasSignificantText()) {
+    //   // We're in text-only or mixed mode.
+    // }
+    // }
 
     ret += color(this.name.local, NAME, options);
     ret += this.ns.map(n => n.toString(options)).join('');
@@ -682,6 +672,20 @@ export class Element extends ParentNode {
     }
     return ret;
   }
+
+  /**
+   * Find an attribute that matches the given local name and namespace.
+   *
+   * @param local The local name to search for.
+   * @param ns The namespace to search for.  If not given, match
+   *   attributes in any namespace.
+   * @returns Attribute, if one that matches is found.
+   */
+  #attribute(local: string, ns?: string): Attribute | undefined {
+    return this.att.find(a => (
+      (!ns || (ns === a.name.ns)) && (local === a.name.local)
+    ));
+  }
 }
 
 /**
@@ -691,14 +695,17 @@ export class Element extends ParentNode {
  * @extends {Node}
  */
 export class Namespace extends Node {
+  public prefix: string;
+  public uri: string;
+
   /**
    * Creates an instance of Namespace.
    *
-   * @param {string} prefix The prefix.
-   * @param {string} uri The URI.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param prefix The prefix.
+   * @param uri The URI.
+   * @param doc The document this node belongs to.
    */
-  constructor(prefix, uri, doc = null) {
+  public constructor(prefix: string, uri: string, doc: Document | null = null) {
     super(doc);
     this.prefix = prefix;
     this.uri = uri;
@@ -707,12 +714,16 @@ export class Namespace extends Node {
   /**
    * Compare two namespaces for ordering, by prefix.
    *
-   * @param {Namespace} a First namespace.
-   * @param {Namespace} b Second namespace.
-   * @param {Intl.Collator} collator How to compare?
-   * @returns {number} -1 if a < b, 1 if a > b, 0 if equan.
+   * @param a First namespace.
+   * @param b Second namespace.
+   * @param collator How to compare?
+   * @returns -1 if a < b, 1 if a > b, 0 if equan.
    */
-  static compare(a, b, collator) {
+  public static compare(
+    a: Namespace,
+    b: Namespace,
+    collator: Intl.Collator
+  ): number {
     // Only one namespace doesn't have a prefix
     if (!a.prefix) {
       return -1;
@@ -726,10 +737,10 @@ export class Namespace extends Node {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     super.toString(options);
     let ret = ` ${color('xmlns', ATTRIBUTE, options)}`;
     if (this.prefix) {
@@ -745,36 +756,42 @@ export class Namespace extends Node {
 
 /**
  * An attribute of an Element.
- *
- * @extends {Node}
  */
 export class Attribute extends Node {
+  public name: Pieces;
+  public value: string;
+
   /**
    * Creates an instance of Attribute.
    *
-   * @param {string|Pieces} name If a string, the local name.
-   * @param {string} value The value.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param name If a string, the local name.
+   * @param value The value.
+   * @param doc The document this node belongs to.
    */
-  constructor(name, value, doc = null) {
+  public constructor(
+    name: string | Pieces,
+    value: string,
+    doc: Document | null = null
+  ) {
     super(doc);
 
-    /** @type {Pieces} */
     this.name = (typeof name === 'string') ? {local: name} : name;
-
-    /** @type {string} */
     this.value = value;
   }
 
   /**
    * Compare two attributes for ordering.
    *
-   * @param {Attribute} a First attribute.
-   * @param {Attribute} b Second attribute.
-   * @param {Intl.Collator} collator How to compare?
-   * @returns {number} -1 if a < b.
+   * @param a First attribute.
+   * @param b Second attribute.
+   * @param collator How to compare?
+   * @returns -1 if a < b.
    */
-  static compare(a, b, collator) {
+  public static compare(
+    a: Attribute,
+    b: Attribute,
+    collator: Intl.Collator
+  ): number {
     if (a.name.prefix && b.name.prefix) {
       // Sort by prefix then local
       return collator.compare(a.name.prefix, b.name.prefix) ||
@@ -793,11 +810,10 @@ export class Attribute extends Node {
   /**
    * Get or set the attribute value.
    *
-   * @param {string} [newText] If specified, replace.
-   * @returns {string|Node} This if newText is provided, otherwise the
-   *   existing text.
+   * @param newText If specified, replace.
+   * @returns This if newText is provided, otherwise the existing text.
    */
-  text(newText) {
+  public override text(newText?: string): string | Node {
     if (newText != null) {
       this.value = newText;
       return this;
@@ -808,10 +824,10 @@ export class Attribute extends Node {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = ' ';
     if (this.name.prefix) {
       ret += color(this.name.prefix, ATTRIBUTE, options);
@@ -830,29 +846,33 @@ export class Attribute extends Node {
 
 /**
  * Plain text in an element.
- *
- * @extends {Node}
  */
 export class Text extends Node {
+  public txt: string;
+
   /**
    * Creates an instance of Text.
    *
-   * @param {string} txt The unescaped text.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param txt The unescaped text.
+   * @param doc The document this node belongs to.
    */
-  constructor(txt, doc = null) {
+  public constructor(txt: string, doc: Document | null = null) {
     super(doc);
     this.txt = txt;
+  }
+
+  public static isText(n: Node): n is Text {
+    return n instanceof Text;
   }
 
   /**
    * Get or set the text contained in this node.
    *
-   * @param {string} [newText] If given, set the text of the node.
+   * @param newText If given, set the text of the node.
    *   Otherwise, gets the contained text.
-   * @returns {string|Node} Returns this on set, string on get.
+   * @returns Returns this on set, string on get.
    */
-  text(newText) {
+  public override text(newText?: string): string | Node {
     if (newText == null) {
       return this.txt;
     }
@@ -860,17 +880,21 @@ export class Text extends Node {
     return this;
   }
 
-  isEmpty() {
+  /**
+   * Empty or whitespace-only.
+   * @returns True if empty-ish.
+   */
+  public isEmpty(): boolean {
     return /^\s*$/.test(this.txt);
   }
 
   /**
    * Convert to string.  If not in a CDataSection, escape text.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     if (this.parent instanceof CdataSection) {
       // TODO: escape "]]>" ?
       // replace ]]> by ]]]><![CDATA[]>
@@ -890,34 +914,32 @@ export class Text extends Node {
 /**
  * Like a Text node, but no escaping is done.  Intended for text like "&foo;"
  * when it's really an entity reference and we're not expanding the reference.
- *
- * @extends {Text}
  */
 export class EntityRef extends Text {
   /**
    * Convert to string.  No escaping is performed.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     return color(this.txt, TEXT, options);
   }
 }
 
 /**
  * An XML comment that contains text.
- *
- * @extends {Node}
  */
 export class Comment extends Node {
+  public txt: string;
+
   /**
    * Creates an instance of Comment.
    *
-   * @param {string} txt The text of the comment.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param txt The text of the comment.
+   * @param doc The document this node belongs to.
    */
-  constructor(txt, doc = null) {
+  public constructor(txt: string, doc: Document | null = null) {
     super(doc);
     this.txt = txt;
   }
@@ -925,10 +947,10 @@ export class Comment extends Node {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     if (options.removeComments) {
       return '';
     }
@@ -941,26 +963,24 @@ export class Comment extends Node {
 
 /**
  * A CDATA section, like <code>&lt;![CDATA[&lt;foo/&gt;]]&gt;</code>.
- *
- * @extends {ParentNode}
  */
 export class CdataSection extends ParentNode {
   /**
    * Create a CDATA.
    *
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param doc The document this node belongs to.
    */
-  constructor(doc) {
+  public constructor(doc: Document | null = null) {
     super(doc);
   }
 
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color('<![CDATA[', PUNCTUATION, options);
     ret += super.toString(options);
     ret += color(']]>', PUNCTUATION, options);
@@ -974,15 +994,24 @@ export class CdataSection extends ParentNode {
  * @see https://www.w3.org/TR/xml/#NT-XMLDecl
  */
 export class XmlDeclaration extends Node {
+  public version: string;
+  public encoding: string;
+  public standalone: boolean;
+
   /**
    * Creates an instance of XmlDeclaration.
    *
-   * @param {string} [version='1.0'] The XML version of the document.
-   * @param {string} [encoding] Encoding name.
-   * @param {boolean} [standalone] Is standalone?
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param version The XML version of the document.
+   * @param encoding Encoding name.
+   * @param standalone Is standalone?
+   * @param doc The document this node belongs to.
    */
-  constructor(version = '1.0', encoding = undefined, standalone = false, doc = null) {
+  public constructor(
+    version = '1.0',
+    encoding = '',
+    standalone = false,
+    doc: Document | null = null
+  ) {
     super(doc);
     this.version = version;
     this.encoding = encoding;
@@ -992,10 +1021,10 @@ export class XmlDeclaration extends Node {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color('<?', PUNCTUATION, options);
     ret += color('xml version', NAME, options);
     ret += color('="', PUNCTUATION, options);
@@ -1027,14 +1056,21 @@ export class XmlDeclaration extends Node {
  * @see https://www.w3.org/TR/xml/#sec-pi
  */
 export class ProcessingInstruction extends Node {
+  public target: string;
+  public data: string | undefined;
+
   /**
    * Creates an instance of ProcessingInstruction.
    *
-   * @param {string} target The target.
-   * @param {string} [data] Any remaining data.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param target The target.
+   * @param data Any remaining data.
+   * @param doc The document this node belongs to.
    */
-  constructor(target, data, doc) {
+  public constructor(
+    target: string,
+    data?: string,
+    doc: Document | null = null
+  ) {
     super(doc);
     this.target = target;
     this.data = data;
@@ -1043,10 +1079,10 @@ export class ProcessingInstruction extends Node {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color('<?', PUNCTUATION, options);
     ret += color(this.target, NAME, options);
     if (this.data) {
@@ -1058,7 +1094,7 @@ export class ProcessingInstruction extends Node {
   }
 }
 
-// --------- DTD ----------
+// #region DTD
 
 /**
  * XML DocType, like <code><!DOCTYPE foo []></code>.
@@ -1066,16 +1102,27 @@ export class ProcessingInstruction extends Node {
  * @see https://www.w3.org/TR/xml/#NT-doctypedecl
  */
 export class DoctypeDecl extends ParentNode {
+  public doctypeName: string;
+  public sysid: string | undefined;
+  public pubid: string | undefined;
+  public hasInternalSubset: boolean | undefined;
+
   /**
    * Creates an instance of DoctypeDecl.
    *
-   * @param {string} doctypeName Name.
-   * @param {string} [sysid] System ID.
-   * @param {string} [pubid] Public ID.
-   * @param {boolean} [hasInternalSubset] Internal subset?
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param doctypeName Name.
+   * @param sysid System ID.
+   * @param pubid Public ID.
+   * @param hasInternalSubset Internal subset?
+   * @param doc The document this node belongs to.
    */
-  constructor(doctypeName, sysid, pubid, hasInternalSubset, doc = null) {
+  public constructor(
+    doctypeName: string,
+    sysid?: string,
+    pubid?: string,
+    hasInternalSubset?: boolean,
+    doc: Document | null = null
+  ) {
     super(doc);
     this.doctypeName = doctypeName;
     this.sysid = sysid;
@@ -1086,10 +1133,10 @@ export class DoctypeDecl extends ParentNode {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color('<!', PUNCTUATION, options);
     ret += color('DOCTYPE ', NAME, options);
     ret += color(this.doctypeName, TEXT, options);
@@ -1125,59 +1172,54 @@ export class DoctypeDecl extends ParentNode {
  * @see https://www.w3.org/TR/xml/#sec-entity-decl
  */
 export class EntityDecl extends Node {
+  public entityName: string;
+  public isParameterEntity: boolean;
+  public value: string | undefined;
+  public base: string | undefined;
+  public systemId: string | undefined;
+  public publicId: string | undefined;
+  public notationName: string | undefined;
+
   /**
    * Creates an instance of EntityDecl.
    *
-   * @param {string} entityName Name.
-   * @param {boolean} [isParameterEntity=false] Parameter?
-   * @param {string} [value] Value.
-   * @param {string} [base] Base URL.
-   * @param {string} [systemId] System ID?
-   * @param {string} [publicId] Public ID?
-   * @param {string} [notationName] Notation.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param entityName Name.
+   * @param isParameterEntity Parameter?
+   * @param value Value.
+   * @param base Base URL.
+   * @param systemId System ID?
+   * @param publicId Public ID?
+   * @param notationName Notation.
+   * @param doc The document this node belongs to.
    */
-  constructor(
-    entityName,
-    isParameterEntity,
-    value,
-    base,
-    systemId,
-    publicId,
-    notationName,
-    doc
+  public constructor(
+    entityName: string,
+    isParameterEntity = false,
+    value?: string,
+    base?: string,
+    systemId?: string,
+    publicId?: string,
+    notationName?: string,
+    doc: Document | null = null
   ) {
     super(doc);
 
-    /** @type {string} */
     this.entityName = entityName;
-
-    /** @type {boolean} */
-    this.isParameterEntity = Boolean(isParameterEntity);
-
-    /** @type {string|undefined} */
+    this.isParameterEntity = isParameterEntity;
     this.value = value;
-
-    /** @type {string|undefined} */
     this.base = base;
-
-    /** @type {string|undefined} */
     this.systemId = systemId;
-
-    /** @type {string|undefined} */
     this.publicId = publicId;
-
-    /** @type {string|undefined} */
     this.notationName = notationName;
   }
 
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color('<!', PUNCTUATION, options);
     ret += color('ENTITY ', NAME, options);
 
@@ -1217,38 +1259,42 @@ export class EntityDecl extends Node {
  * @see https://www.w3.org/TR/xml/#Notations
  */
 export class NotationDecl extends Node {
+  public notationName: string;
+  public base: string | undefined;
+  public systemId: string | undefined;
+  public publicId: string | undefined;
+
   /**
    * Creates an instance of NotationDecl.
    *
-   * @param {string} notationName Notation.
-   * @param {string} [base] Base URI for resolving.
-   * @param {string} [systemId] System ID.
-   * @param {string} [publicId] Public ID.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param notationName Notation.
+   * @param base Base URI for resolving.
+   * @param systemId System ID.
+   * @param publicId Public ID.
+   * @param doc The document this node belongs to.
    */
-  constructor(notationName, base, systemId, publicId, doc = null) {
+  public constructor(
+    notationName: string,
+    base?: string,
+    systemId?: string,
+    publicId?: string,
+    doc: Document | null = null
+  ) {
     super(doc);
 
-    /** @type {string} */
     this.notationName = notationName;
-
-    /** @type {string|undefined} */
     this.base = base;
-
-    /** @type {string|undefined} */
     this.systemId = systemId;
-
-    /** @type {string|undefined} */
     this.publicId = publicId;
   }
 
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color('<!', PUNCTUATION, options);
     ret += color('NOTATION ', NAME, options);
     ret += color(this.notationName, ATTRIBUTE, options);
@@ -1269,48 +1315,55 @@ export class NotationDecl extends Node {
   }
 }
 
-let XML_CTYPE = 1;
-export const XML_CTYPE_EMPTY = XML_CTYPE++;
-export const XML_CTYPE_ANY = XML_CTYPE++;
-export const XML_CTYPE_MIXED = XML_CTYPE++;
-export const XML_CTYPE_NAME = XML_CTYPE++;
-export const XML_CTYPE_CHOICE = XML_CTYPE++;
-export const XML_CTYPE_SEQ = XML_CTYPE++;
-
-let XML_CQUANT = 0;
-export const XML_CQUANT_NONE = XML_CQUANT++;
-export const XML_CQUANT_OPT = XML_CQUANT++;
-export const XML_CQUANT_REP = XML_CQUANT++;
-export const XML_CQUANT_PLUS = XML_CQUANT++;
-
 /**
  * Element Declaration.
  *
  * @see https://www.w3.org/TR/xml/#NT-elementdecl
  */
 export class ElementDecl extends Node {
+  public name: string;
+  public model: Model | undefined;
+
   /**
    * Creates an instance of ElementDecl.
    *
-   * @param {string} name Element name.
-   * @param {Model} [model] All of the child declarations.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param name Element name.
+   * @param model All of the child declarations.
+   * @param doc The document this node belongs to.
    */
-  constructor(name, model, doc) {
+  public constructor(name: string, model?: Model, doc: Document | null = null) {
     super(doc);
     this.name = name;
     this.model = model;
   }
 
   /**
+   * Convert to string.
+   *
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
+   */
+  public override toString(options = TOSTRING_OPTS): string {
+    let ret = color('<!', PUNCTUATION, options);
+    ret += color('ELEMENT ', NAME, options);
+    ret += color(this.name, ATTRIBUTE, options);
+    if (this.model) {
+      ret += ' ';
+      ret += this.#modelString(this.model, options);
+    }
+    ret += color('>', PUNCTUATION, options);
+    return ret;
+  }
+
+  /**
    * Convert the model to a string.
    *
-   * @param {Model} model Model.
-   * @param {MaybeStylizedSeparated} options Options.
-   * @returns {string} Converted model.
-   * @throws {Error} Unknown types.
+   * @param model Model.
+   * @param options Options.
+   * @returns Converted model.
+   * @throws Invalid model.
    */
-  #modelString(model, options) {
+  #modelString(model: Model, options: MaybeStylizedSeparated): string {
     let ret = '';
     switch (model.type) {
       case XML_CTYPE_EMPTY:
@@ -1368,24 +1421,6 @@ export class ElementDecl extends Node {
     }
     return ret;
   }
-
-  /**
-   * Convert to string.
-   *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
-   */
-  toString(options = TOSTRING_OPTS) {
-    let ret = color('<!', PUNCTUATION, options);
-    ret += color('ELEMENT ', NAME, options);
-    ret += color(this.name, ATTRIBUTE, options);
-    if (this.model) {
-      ret += ' ';
-      ret += this.#modelString(this.model, options);
-    }
-    ret += color('>', PUNCTUATION, options);
-    return ret;
-  }
 }
 
 /**
@@ -1394,13 +1429,15 @@ export class ElementDecl extends Node {
  * @see https://www.w3.org/TR/xml/#attdecls
  */
 export class AttlistDecl extends ParentNode {
+  public elname: string;
+
   /**
    * Create an attribute list declaration.
    *
-   * @param {string} elname Element name.
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param elname Element name.
+   * @param doc The document this node belongs to.
    */
-  constructor(elname, doc = null) {
+  public constructor(elname: string, doc: Document | null = null) {
     super(doc);
     this.elname = elname;
   }
@@ -1411,23 +1448,23 @@ export class AttlistDecl extends ParentNode {
    * really meant for the enclusing DTD.  This includes Comments and default
    * (usually whitespace) Text items.
    *
-   * @param {Node} node The node to add.
-   * @returns {Node} The added node.
+   * @param node The node to add.
+   * @returns The added node.
    */
-  add(node) {
+  public override add(node: Node): Node {
     if (node instanceof AttributeDecl || !this.parent) {
       return super.add(node);
     }
-    return /** @type {ParentNode} */ (this.parent).add(node);
+    return (this.parent as ParentNode).add(node);
   }
 
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color('<!', PUNCTUATION, options);
     ret += color('ATTLIST ', NAME, options);
     ret += color(this.elname, TEXT, options);
@@ -1451,15 +1488,26 @@ export class AttlistDecl extends ParentNode {
  * @see https://www.w3.org/TR/xml/#NT-AttDef
  */
 export class AttributeDecl extends Node {
+  public attname: string;
+  public attType: string;
+  public dflt: string;
+  public isrequired: boolean;
+
   /**
    * Creates an instance of AttributeDecl.
-   * @param {string} attname Attribute name.
-   * @param {string} attType Attribute type.
-   * @param {string} dflt Default.
-   * @param {boolean} isrequired Required?
-   * @param {Document|null} [doc] The document this node belongs to.
+   * @param attname Attribute name.
+   * @param attType Attribute type.
+   * @param dflt Default.
+   * @param isrequired Required?
+   * @param doc The document this node belongs to.
    */
-  constructor(attname, attType, dflt, isrequired, doc = null) {
+  public constructor(
+    attname: string,
+    attType: string,
+    dflt: string,
+    isrequired: boolean,
+    doc: Document | null = null
+  ) {
     super(doc);
     this.attname = attname;
     this.attType = attType;
@@ -1470,10 +1518,10 @@ export class AttributeDecl extends Node {
   /**
    * Convert to string.
    *
-   * @param {MaybeStylizedSeparated} [options] How to convert to string.
-   * @returns {string} The node, converted to a string.
+   * @param options How to convert to string.
+   * @returns The node, converted to a string.
    */
-  toString(options = TOSTRING_OPTS) {
+  public override toString(options = TOSTRING_OPTS): string {
     let ret = color(this.attname, ATTRIBUTE, options);
     ret += ' ';
     // This is not really ideal, but NOTATION-type attlists aren't handled

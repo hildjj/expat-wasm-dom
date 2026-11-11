@@ -4,21 +4,21 @@
   "description": "Document Object Model for expat-wasm",
   "main": "lib/index.js",
   "type": "module",
-  "types": "types/index.d.ts",
   "files": [
-    "lib/",
-    "types"
+    "lib/"
   ],
   "scripts": {
-    "pretest": "npm run grammar",
+    "clean": "rimraf docs lib coverage test/xmlconf",
+    "pretest": "npm run grammar && npm run ts -- --inlineSourceMap",
     "test": "c8 ava test",
-    "grammar": "peggy --format es lib/xpathPattern3.pegjs",
+    "posttest": "npm run ts",
+    "grammar": "peggy -c .peggy.config.js",
     "lint": "eslint",
     "docs": "typedoc",
-    "types": "tsc",
+    "ts": "tsc",
     "conformance": "cd test && tar zxf xmlts20130923.tar.gz",
     "version": "monopub version && pnpm i -r && git add pnpm-lock.yaml",
-    "build": "npm run conformance && npm run grammar && npm run types && npm test && npm run docs && npm run lint"
+    "build": "npm run conformance && npm test && npm run docs && npm run lint"
   },
   "workspaces": [
     ".",
@@ -38,23 +38,27 @@
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
   "dependencies": {
-    "@cto.af/linewrap": "4.0.1",
-    "expat-wasm": "4.0.5"
+    "@cto.af/linewrap": "5.0.0",
+    "expat-wasm": "5.0.0"
   },
   "devDependencies": {
-    "@cto.af/eslint-config": "6.2.5",
-    "@cto.af/monopub": "1.2.4",
-    "@types/node": "^25.5.0",
-    "ava": "^7.0.0",
-    "eslint": "^10.1.0",
-    "eslint-plugin-jsdoc": "^62.8.0",
-    "peggy": "^5.1.0",
-    "superc8": "^12.3.1",
-    "typedoc": "^0.28.18",
-    "typescript": "^5.9.3"
+    "@cto.af/eslint-config": "7.0.4",
+    "@cto.af/monopub": "2.0.2",
+    "@cto.af/ncurc": "^0.0.3",
+    "@types/node": "^26.6.6",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "ava": "^8.3.0",
+    "eslint": "^10.14.0",
+    "eslint-plugin-jsdoc": "^65.4.3",
+    "peggy": "^5.1.1",
+    "rimraf": "^6.1.4",
+    "superc8": "^12.7.0",
+    "typedoc": "^0.28.20",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.72.1"
   },
+  "packageManager": "pnpm@12.17.0",
   "engines": {
-    "node": ">=20"
-  },
-  "packageManager": "pnpm@10.32.1"
+    "node": ">=22"
+  }
 }

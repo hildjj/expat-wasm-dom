@@ -1,6 +1,12 @@
 {
   "name": "Node.js",
   "image": "mcr.microsoft.com/devcontainers/javascript-node",
+  "features": {
+    "ghcr.io/devcontainers/features/node": {
+        "version": "26",
+        "pnpmVersion": "latest"
+    }
+  },
   "customizations": {
     "vscode": {
       "extensions": [

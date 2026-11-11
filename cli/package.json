@@ -27,10 +27,10 @@
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^14.0.3",
+    "commander": "^15.0.0",
     "expat-wasm-dom": "2.0.3"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

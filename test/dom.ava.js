@@ -90,8 +90,12 @@ test('ParentNode', t => {
 
 test('Document', t => {
   const doc = new dom.Document();
+  doc.add(new dom.Element('foo'));
+
   t.deepEqual(doc.get('/'), [doc]);
   t.deepEqual(doc.first('/'), doc);
+  t.deepEqual(doc.first('/', doc), doc);
+  t.deepEqual(doc.first('/', doc.root), doc);
 });
 
 test('Attribute', t => {
@@ -199,12 +203,21 @@ test('compare ns', t => {
   t.is(dom.Namespace.compare(baz, foo, col), -1);
 });
 
-test.skip('pretty', t => {
+test('toString compressed', t => {
+  const d = new dom.Document();
+  const foo = d.add(new dom.Element('foo'));
+  foo.text('\n\na\n\n');
+  const str = d.toString({compressed: true, colors: false});
+  t.is(str, '<foo>a</foo>');
+});
+
+test('pretty', t => {
   const d = new dom.Document();
   d.add(new dom.Element('foo', {
     a0123456789001234567890012345678900123456789001234567890: '1',
     b0123456789001234567890012345678900123456789001234567890: '2',
   }));
-  const s = d.toString({pretty: true});
-  t.is(s, '');
+
+  t.throws(() => d.toString({pretty: true}), {message: 'Pretty printing not supported yet.'});
+  t.throws(() => d.root.toString({pretty: true}), {message: 'Pretty printing not supported yet.'});
 });

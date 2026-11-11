@@ -4,7 +4,7 @@
 /** @type {typedoc.TypeDocOptions} */
 module.exports = {
   entryPoints: [
-    'lib/index.js',
+    'src/index.ts',
   ],
   out: 'docs',
   cleanOutputDir: true,

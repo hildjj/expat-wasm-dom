@@ -1,42 +1,48 @@
 import * as dom from './dom.js';
+import type {Buffer} from 'node:buffer';
 import {NS} from './ns.js';
 import {XmlParser} from 'expat-wasm';
+import assert from 'node:assert/strict';
 
-/**
- * Encodings that expat supports.
- *
- * @typedef { undefined|null|"US-ASCII"|"UTF-8"|"UTF-16"|"ISO-8859-1"
- * } XML_Encoding
- */
+/** Encodings that expat supports. */
+export type XML_Encoding = undefined | null | 'US-ASCII' | 'UTF-8' | 'UTF-16' | 'ISO-8859-1';
 
-/**
- * @typedef {object} EntityInfo
- * @property {string} base Base URL.
- * @property {string|Buffer|Uint8Array|Uint8ClampedArray} data Resolved Data.
- */
+export interface EntityInfo {
+  /** Base URL. */
+  base: string;
 
-/**
- * @callback ReadEntity
- * @param {string} base
- * @param {string} systemId
- * @param {string} [publicId]
- * @returns {EntityInfo}
- */
+  /** Resolved Data. */
+  data: string | Buffer | Uint8Array | Uint8ClampedArray;
+}
 
-/**
- * @typedef {object} ParserOptions
- * @property {XML_Encoding} [encoding] If null will do content sniffing.
- * @property {string|XmlParser.NO_NAMESPACES} [separator='|'] The separator
- *   for namespace URI and element/attribute name.  Use
- *   XmlParser.NO_NAMESPACES to get Expat's old, broken namespace
- *   non-implementation via XmlParserCreate instead of XmlParserCreateNS.
- * @property {boolean} [expandInternalEntities] Expand internal entities.
- * @property {ReadEntity|null} [systemEntity] Expand external entities using
- *   this callback.
- * @property {string|null} [base] Base URI for inclusions.
- * @property {boolean} xmlBase Add xml:base attributes when parsing external
- *   entitites.
- */
+export type ReadEntity = (
+  base: string, systemID: string, publicId?: string
+) => EntityInfo;
+
+export interface ParserOptions {
+  /** If null will do content sniffing. */
+  encoding?: XML_Encoding;
+
+  /**
+   * The separator for namespace URI and element/attribute name.  Use
+   * XmlParser.NO_NAMESPACES to get Expat's old, broken namespace
+   * non-implementation via XmlParserCreate instead of XmlParserCreateNS.
+   * @default '|'
+   */
+  separator?: string | typeof XmlParser.NO_NAMESPACES;
+
+  /** Expand internal entities. */
+  expandInternalEntities?: boolean;
+
+  /** Expand external entities using this callback. */
+  systemEntity?: ReadEntity | null;
+
+  /** Base URI for inclusions. */
+  base?: string | null;
+
+  /** Add xml:base attributes when parsing external entitites. */
+  xmlBase?: boolean;
+}
 
 /**
  * Parse XML text to a Document Object Model.
@@ -46,35 +52,22 @@ import {XmlParser} from 'expat-wasm';
  */
 export class DomParser {
   #document = new dom.Document();
-
-  /** @type {string?} */
-  #lastElName = null;
-
-  /** @type {Error?} */
-  #lastError = null;
-
-  /** @type {string[][]} */
-  #pendingNS = [];
-
-  /** @type {dom.ParentNode} */
-  #cur = this.#document;
-
-  /** @type {XmlParser|undefined} */
-  #parser = undefined;
-
-  /** @type {string[]} */
-  #base = [];
-
-  /** @type {dom.ParentNode[]} */
-  #baseParent = [];
+  #lastElName: string | null = null;
+  #lastError: Error | null = null;
+  #pendingNS: string[][] = [];
+  #cur: dom.ParentNode = this.#document;
+  #parser: XmlParser | null = null;
+  #base: string[] = [];
+  #baseParent: dom.ParentNode[] = [];
 
   /**
    * Create a DOM Parser.
    *
-   * @param {ParserOptions} [options]
-   *   Encoding to expect from Buffers/etc that are passed to parse().
+   * @param options Encoding to expect from Buffers/etc that are passed to
+   *   parse().
+   * @throws Base is required.
    */
-  constructor(options) {
+  public constructor(options?: ParserOptions) {
     this.#parser = new XmlParser(options);
 
     if (options?.xmlBase) {
@@ -106,11 +99,13 @@ export class DomParser {
       this.#pendingNS.push([prefix, uri]);
     });
     this.#parser.on('startElement', (nm, at) => {
+      assert(this.#parser);
+      const par = this.#parser;
+      const pairs: dom.AttributePair[] =
+        Object.entries(at).map(([k, v]) => [par.triple(k), v]);
       const el = new dom.Element(
-        // @ts-ignore
-        this.#parser.triple(nm),
-        // @ts-ignore
-        Object.entries(at).map(([k, v]) => [this.#parser.triple(k), v]),
+        par.triple(nm),
+        pairs,
         this.#pendingNS
       );
       this.#pendingNS = [];
@@ -130,7 +125,7 @@ export class DomParser {
       this.#cur = el;
     });
     this.#parser.on('endElement', () => {
-      this.#cur = /** @type {dom.ParentNode} */ (this.#cur.parent);
+      this.#cur = this.#cur.parent as dom.ParentNode;
     });
     this.#parser.on('characterData', txt => {
       const last = this.#cur.children[this.#cur.children.length - 1];
@@ -149,7 +144,7 @@ export class DomParser {
       this.#cur = cdata;
     });
     this.#parser.on('endCdataSection', () => {
-      this.#cur = /** @type {dom.ParentNode} */ (this.#cur.parent);
+      this.#cur = this.#cur.parent as dom.ParentNode;
     });
     this.#parser.on('xmlDecl', (version, en_coding, standalone) => {
       // XML Declaration not valid in external entities, silently ignore?
@@ -173,7 +168,7 @@ export class DomParser {
     });
     this.#parser.on('endDoctypeDecl', () => {
       this._clearAttlist();
-      this.#cur = /** @type {dom.ParentNode} */ (this.#cur.parent);
+      this.#cur = this.#cur.parent as dom.ParentNode;
     });
     this.#parser.on('entityDecl', (
       entityName,
@@ -183,7 +178,7 @@ export class DomParser {
       systemId,
       publicId,
       notationName
-    // eslint-disable-next-line max-params
+    // eslint-disable-next-line @typescript-eslint/max-params
     ) => {
       this._clearAttlist();
       this.#cur.add(new dom.EntityDecl(
@@ -207,7 +202,7 @@ export class DomParser {
       this.#cur.add(new dom.ElementDecl(name, model));
     });
 
-    // eslint-disable-next-line max-params
+    // eslint-disable-next-line @typescript-eslint/max-params
     this.#parser.on('attlistDecl', (elname, attname, attType, dflt, isrequired) => {
       if (this.#lastElName !== elname) {
         this._clearAttlist();
@@ -237,7 +232,7 @@ export class DomParser {
     });
     this.#parser.on('error', e => {
       if (!this.#lastError) {
-        this.#lastError = /** @type {Error} */(e);
+        this.#lastError = e as Error;
       }
     });
   }
@@ -245,16 +240,19 @@ export class DomParser {
   /**
    * Parse a full document.
    *
-   * @param {string|Buffer|Uint8Array|Uint8ClampedArray} txt The text to parse.
-   * @param {ParserOptions} opts Options.
-   * @returns {dom.Document} The created document.
+   * @param txt The text to parse.
+   * @param opts Options.
+   * @returns The created document.
    */
-  static parseFull(txt, opts) {
+  public static parseFull(
+    txt: string | Buffer | Uint8Array | Uint8ClampedArray,
+    opts: ParserOptions
+  ): dom.Document {
     const p = new DomParser(opts);
     // Useful for debug:
     // p.parser.on('*', console.log)
     try {
-      return /** @type {dom.Document} */ (p.parse(txt, 1));
+      return p.parse(txt, 1) as dom.Document;
     } finally {
       p.destroy();
     }
@@ -264,22 +262,25 @@ export class DomParser {
    * Process a tagged template literal containing XML. Streams data into the
    * parser per-chunk.
    *
-   * @param {string[]} template Template pieces.
-   * @param {...string} sub Substitutions.
-   * @returns {Document|undefined} Parsed document, or undefined if not
+   * @param template Template pieces.
+   * @param sub Substitutions.
+   * @returns Parsed document, or undefined if not
    *   complete.
-   * @throws {Error} XML parse error.
+   * @throws XML parse error.
    */
-  static fromString(template, ...sub) {
+  public static fromString(
+    template: string[],
+    ...sub: {toString(): string}[]
+  ): Document | undefined {
     const p = new DomParser();
     let last = undefined;
     try {
       last = p.parse(template[0], sub.length > 0 ? 0 : 1);
       for (let i = 0; i < sub.length; i++) {
-        p.parse(sub[i].toString(), 0);
+        p.parse(String(sub[i]), 0);
         last = p.parse(template[i + 1], (i === sub.length - 1) ? 1 : 0);
       }
-      return /** @type {Document|undefined} */ (last);
+      return last as Document | undefined;
     } finally {
       p.destroy();
     }
@@ -289,9 +290,9 @@ export class DomParser {
    * Pop the stack.
    * @private
    */
-  _clearAttlist() {
+  public _clearAttlist(): void {
     if (this.#cur instanceof dom.AttlistDecl) {
-      this.#cur = /** @type {dom.ParentNode} */ (this.#cur.parent);
+      this.#cur = this.#cur.parent as dom.ParentNode;
       this.#lastElName = null;
     }
   }
@@ -300,21 +301,24 @@ export class DomParser {
    * Parse a chunk of an XML document.  You can call this multiple times with
    * final=0, then with final=1 when you're done.
    *
-   * @param {string|Buffer|Uint8Array|Uint8ClampedArray} str String to parse.
-   * @param {number} [final=1] If the last chunk of a document, 1.  Otherwise
+   * @param str String to parse.
+   * @param final If the last chunk of a document, 1.  Otherwise
    *   use 0.
-   * @returns {dom.Document|undefined} The parsed document, if successful and
-   *   this was the final chunk.  Otherwise undefined.
-   * @throws {Error} On XML parse error.
+   * @returns The parsed document, if successful and this was the final chunk.
+   *   Otherwise undefined.
+   * @throws Invalid state.
    */
-  parse(str, final = 1) {
+  public parse(
+    str: string | Buffer | Uint8Array | Uint8ClampedArray,
+    final: number | boolean = 1
+  ): dom.Document | undefined {
     if (!this.#parser) {
       throw new Error('Invalid state, parser destroyed');
     }
 
     try {
-      const res = this.#parser.parse(str, final);
-      if ((final === 1) && (res === 1)) {
+      const res = this.#parser.parse(str, Number(final));
+      if (final && (res === 1)) {
         return this.#document;
       }
       return undefined;
@@ -328,8 +332,12 @@ export class DomParser {
   /**
    * Destroy this instance, cleaning up parser resources.
    */
-  destroy() {
+  public destroy(): void {
     this.#parser?.destroy();
-    this.#parser = undefined;
+    this.#parser = null;
+  }
+
+  public [Symbol.dispose](): void {
+    return this.destroy();
   }
 }
